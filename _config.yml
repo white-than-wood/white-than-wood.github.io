@@ -118,3 +118,10 @@ auto_excerpt:
   enable: true
   length: 200
 
+#hrm热加载
+browsersync:
+  logLevel: "warn"
+  ghostMode:
+    scroll: true
+  instanceName: "uniqueString"
+
