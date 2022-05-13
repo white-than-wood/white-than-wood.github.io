@@ -4,10 +4,10 @@
 
 # Site
 title: WTW's Frontend
-subtitle: ''
-description: WTW's Frontend,前端领域内所不知道的为什么都探索于此!
-keywords: hexo,hexo-cli,hexo博客,hexo博客个人网站
-author: WTW:比木白
+subtitle: 道阻且长,行则将至
+description: 前端领域内所不知道的都探索于此!
+keywords: hexo,hexo-cli,hexo博客,hexo博客个人网站,hexo blog
+author: WTW(比木白)
 language: zh-CN
 timezone: ''
 
@@ -106,9 +106,6 @@ deploy:
   repo: git@github.com:White-Than-Wood/White-Than-Wood.github.io.git
   branch: master
 
-# Avatar
-avatar: https://avatars.githubusercontent.com/u/11425476?v=4
-
 #Search
 search:
   path: search.xml
@@ -121,7 +118,3 @@ auto_excerpt:
   enable: true
   length: 200
 
-social:
-  GitHub: https://github.com/White-Than-Wood || github
-  E-Mail: https://dreamthen.00@gmail.com || envelope
-  Google: https://plus.google.com/u/0/103833130011211353424 || google
