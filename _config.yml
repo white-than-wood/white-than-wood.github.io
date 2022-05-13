@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: WTW's Frontend
 subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
+description: WTW's Frontend,前端领域内所不知道的为什么都探索于此!
+keywords: hexo,hexo-cli,hexo博客,hexo博客个人网站
+author: WTW:比木白
+language: zh-CN
 timezone: ''
 
 # URL
@@ -31,7 +31,7 @@ i18n_dir: :lang
 skip_render:
 
 # Writing
-new_post_name: :title.md # File name of new posts
+new_post_name: :year-:month-:day-:title.md # File name of new posts
 default_layout: post
 titlecase: false # Transform title into titlecase
 external_link:
@@ -97,9 +97,31 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repo: git@github.com:White-Than-Wood/White-Than-Wood.github.io.git
+  branch: master
+
+# Avatar
+avatar: https://avatars.githubusercontent.com/u/11425476?v=4
+
+#Search
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+
+#Auto_excerpt
+auto_excerpt:
+  enable: true
+  length: 200
+
+social:
+  GitHub: https://github.com/White-Than-Wood || github
+  E-Mail: https://dreamthen.00@gmail.com || envelope
+  Google: https://plus.google.com/u/0/103833130011211353424 || google
