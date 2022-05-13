@@ -103,7 +103,7 @@ theme: next
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: git@github.com:White-Than-Wood/White-Than-Wood.github.io.git
+  repo: git@github.com:white-than-wood/white-than-wood.github.io.git
   branch: master
 
 #Search
