@@ -10,8 +10,7 @@ PS: 查看的领域分为两个版本:github、blog website,小伙伴们择喜�
 
 > github
 
-* [link]('https://github.com/white-than-wood/white-than-wood.github.io/blob/main/source/_posts/2022-05-14-hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2.md'){:target="_blank"}
-* <a href='https://github.com/white-than-wood/white-than-wood.github.io/blob/main/source/_posts/2022-05-14-hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2.md' target="_blank">hexo搭建next博客</a>
+* <a href='https://github.com/white-than-wood/white-than-wood.github.io/blob/main/source/_posts/2022-05-14-hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2.md' target='_blank'>hexo搭建next博客</a>
 
 > blog website
 
