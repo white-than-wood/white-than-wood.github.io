@@ -113,15 +113,19 @@ search:
   format: html
   limit: 10000
 
-#Auto_excerpt
-auto_excerpt:
-  enable: true
-  length: 200
-
 #hrm热加载
 browsersync:
   logLevel: "warn"
   ghostMode:
     scroll: true
   instanceName: "uniqueString"
+
+#Excerpt
+excerpt:
+  depth: 7  #按层来算，也就是按代码块来算
+  excerpt_excludes: []
+  more_excludes: []
+  hideWholePostExcerpts: true
+  excerpt_description: true
+  read_more_btn: true
 
