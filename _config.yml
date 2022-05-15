@@ -115,10 +115,8 @@ search:
 
 #hrm热加载
 browsersync:
+  watch: true
   logLevel: "warn"
-  ghostMode:
-    scroll: true
-  instanceName: "uniqueString"
 
 #Excerpt
 excerpt:
