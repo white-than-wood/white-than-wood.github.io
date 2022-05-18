@@ -254,9 +254,9 @@ browsersync:
     <title>think of git</title>
     <url>/2022/05/15/thinkofgit/</url>
     <content><![CDATA[<h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote>
-<p>git remote add origin <a href="mailto:&#x67;&#x69;&#x74;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#x62;&#x2e;&#x63;&#111;&#109;">&#x67;&#x69;&#x74;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#x62;&#x2e;&#x63;&#111;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
+<p>git remote add origin <a href="mailto:&#x67;&#x69;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#x62;&#x2e;&#x63;&#111;&#x6d;">&#x67;&#x69;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#x62;&#x2e;&#x63;&#111;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
 </blockquote>
-<p>   从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的git项目时,势必要与远程git库建立联系(远程git库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在远程<a href="mailto:&#x67;&#x69;&#116;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#x62;&#x2e;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#116;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#x62;&#x2e;&#99;&#x6f;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git链接上面建立一个新远程句柄简称并进行关联,之后推送、同步代码直接与此句柄简称关联就可以了,不需要再去copy使用github远程库上面的链接.</p>
+<p>   从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的git项目时,势必要与远程git库建立联系(远程git库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在远程<a href="mailto:&#103;&#x69;&#x74;&#64;&#x67;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#109;">&#103;&#x69;&#x74;&#64;&#x67;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git链接上面建立一个新远程句柄简称并进行关联,之后推送、同步代码直接与此句柄简称关联就可以了,不需要再去copy使用github远程库上面的链接.</p>
 <blockquote>
 <p>git push –set-upstream origin master</p>
 </blockquote>
@@ -283,7 +283,7 @@ ssh-keygen -t rsa -b 4096 -C &#39;15866369958@qq.com&#39;
    <img src="/images/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>
    <div style="clear: both;display: block;"></div>
 
-<p>   添加成功之后,我们测试一下,将远程github库(‘<a href="mailto:&#x67;&#105;&#x74;&#64;&#103;&#x69;&#x74;&#104;&#117;&#x62;&#x2e;&#x63;&#111;&#x6d;">&#x67;&#105;&#x74;&#64;&#103;&#x69;&#x74;&#104;&#117;&#x62;&#x2e;&#x63;&#111;&#x6d;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明ssh-keygen设置与github远程仓库ssh安全关联生效.</p>
+<p>   添加成功之后,我们测试一下,将远程github库(‘<a href="mailto:&#103;&#105;&#x74;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#98;&#46;&#99;&#111;&#109;">&#103;&#105;&#x74;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#98;&#46;&#99;&#111;&#109;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明ssh-keygen设置与github远程仓库ssh安全关联生效.</p>
 ]]></content>
       <categories>
         <category>git</category>
@@ -291,6 +291,46 @@ ssh-keygen -t rsa -b 4096 -C &#39;15866369958@qq.com&#39;
       <tags>
         <tag>git</tag>
         <tag>github</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>think of homebrew</title>
+    <url>/2022/05/18/thinkofhomebrew/</url>
+    <content><![CDATA[<h1 id="download-homebrew"><a href="#download-homebrew" class="headerlink" title="download homebrew"></a>download homebrew</h1><blockquote>
+<p>最近在下载homebrew时,发现其总是出现连接被拒绝的情况</p>
+</blockquote>
+<pre><code>curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
+</code></pre>
+<p>   后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的 DNS 解析被污染，导致 DNS 解析过程无法通过域名取得正确的IP地址.</p>
+<blockquote>
+<p>使用修改本机hosts文件,建立域名与IP的映射关系,当访问hosts文件列表中的域名时,依次尝试在其映射的IP进行请求,绕过DNS</p>
+</blockquote>
+<p>   使用<a href='https://www.ipaddress.com/'>https://www.ipaddress.com/</a>查找域名所对应的IP地址.</p>
+<p>   <img src="/images/ipaddress.png"></p>
+<p>   使用switchHosts修改mac的hosts文件.</p>
+<p>   <img src="/images/switchhosts.png"></p>
+<p>   PS: 使用switchHosts无法对原有的hosts文件进行修改,只能添加新的hosts文件对原有的hosts文件进行合并覆盖,添加好后,将其配置的switch开关打开,允许其合并覆盖.</p>
+<blockquote>
+<p>再次下载,被拒绝的情况不存在了,但是出现了新的异常情况</p>
+</blockquote>
+<pre><code>curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to raw.githubusercontent.com:443
+</code></pre>
+<p>   究其根本原因,在于国内网络环境对于境外服务器的种种限制,只用解决这一问题才能真正意义上解决 GitHub push&#x2F;pull 网络错误的问题.所以我查找到了一条可以彻底解决的路,使用国内镜像,就跟npm的淘宝镜像相同,homebrew在国内也有多条镜像途径.</p>
+<pre><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
+</code></pre>
+<p>   <img src="/images/homebrew_mirror.png"></p>
+<p>   选择任意一个镜像进行下载,最好是用’梯子’🐶.有时候用’梯子’也下载的非常慢,好在重新进行下载时,会在原来downloaded的基础之上进行下载.下载好之后,重启终端命令行工具,或者执行一下source .bash_profile,使得配置文件在修改了环境变等配置的情况下进行重置.</p>
+<blockquote>
+<p>brew install</p>
+</blockquote>
+<p>   <img src="/images/homebrew_install_git.png"></p>
+<p>   这样就可以愉快快捷的下载任意在homebrew上的资源了!PS: 每下载完一次资源,还是最好执行一下source ~&#x2F;.bash_profile,使得配置文件在修改了环境变量等配置的情况下进行重置.</p>
+]]></content>
+      <categories>
+        <category>homebrew</category>
+      </categories>
+      <tags>
+        <tag>homebrew</tag>
       </tags>
   </entry>
 </search>
