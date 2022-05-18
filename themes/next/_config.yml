@@ -154,9 +154,9 @@ site_state: true
 # Key is the link label showing to end users.
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
-  GitHub: https://github.com/white-than-wood || fa fa-github
-  E-Mail: https://dreamthen.00@gmail.com || fa fa-envelope
-  Google: https://plus.google.com/u/0/103833130011211353424 || fa fa-google
+  GitHub: https://github.com/white-than-wood || fab fa-github
+  E-Mail: https://dreamthen.00@gmail.com || fab fa-envelope
+  Google: https://plus.google.com/u/0/103833130011211353424 || fab fa-google
   #Weibo: https://weibo.com/yourname || fab fa-weibo
   #Twitter: https://twitter.com/yourname || fab fa-twitter
   #FB Page: https://www.facebook.com/yourname || fab fa-facebook
