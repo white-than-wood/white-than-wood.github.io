@@ -4,7 +4,7 @@
 
 👽请记住: 💪🏻道阻且长,行则将至.
 
-PS: 查看的领域分为两个版本:github、blog website,小伙伴们择喜而食. 
+PS: 查看的领域分为两个版本:github、blog website,小伙伴们择喜而食.
 
 # hexo
 
@@ -14,7 +14,7 @@ PS: 查看的领域分为两个版本:github、blog website,小伙伴们择喜�
 
 > blog website
 
-* <a href='https://white-than-wood.github.io/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/' target='_blank'>hexo搭建next博客</a> 
+* <a href='https://white-than-wood.github.io/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/' target="_blank">hexo搭建next博客</a>
 
 # git
 
@@ -24,4 +24,14 @@ PS: 查看的领域分为两个版本:github、blog website,小伙伴们择喜�
 
 > blog website
 
-* <a href='https://white-than-wood.github.io/2022/05/15/thinkofgit/' target='_blank'>think of git</a> 
+* <a href='https://white-than-wood.github.io/2022/05/15/thinkofgit/' target='_blank'>think of git</a>
+
+# homebrew
+
+> github
+
+* <a href='https://github.com/white-than-wood/white-than-wood.github.io/blob/main/source/_posts/2022-05-18-thinkofhomebrew.md' target='_blank'>think of homebrew</a>
+
+> blog website
+
+* <a href='https://white-than-wood.github.io/2022/05/18/thinkofhomebrew/' target='_blank'>think of homebrew</a> 
