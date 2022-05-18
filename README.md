@@ -25,3 +25,13 @@ PS: 查看的领域分为两个版本:github、blog website,小伙伴们择喜�
 > blog website
 
 * <a href='https://white-than-wood.github.io/2022/05/15/thinkofgit/' target='_blank'>think of git</a> 
+
+# homebrew
+
+> github
+
+* <a href='https://github.com/white-than-wood/white-than-wood.github.io/blob/main/source/_posts/2022-05-18-thinkofhomebrew.md' target='_blank'>think of homebrew</a>
+
+> blog website
+
+* <a href='https://white-than-wood.github.io/2022/05/18/thinkofhomebrew/' target='_blank'>think of homebrew</a> 
