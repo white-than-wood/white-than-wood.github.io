@@ -232,6 +232,9 @@ footer:
     # The icon for gongan beian. See: http://www.beian.gov.cn/portal/download
     gongan_icon_url:
 
+  #统计
+  counter: true
+
 
 # ---------------------------------------------------------------
 # Post Settings
@@ -718,13 +721,13 @@ firestore:
 # Show Views / Visitors of the website / page with busuanzi.
 # For more information: http://ibruce.info/2015/04/04/busuanzi/
 busuanzi_count:
-  enable: false
+  enable: true
   total_visitors: true
-  total_visitors_icon: fa fa-user
+  total_visitors_icon: user
   total_views: true
-  total_views_icon: fa fa-eye
+  total_views_icon: eye
   post_views: true
-  post_views_icon: far fa-eye
+  post_views_icon: eye
 
 
 # ---------------------------------------------------------------
