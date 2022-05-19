@@ -127,3 +127,11 @@ excerpt:
   excerpt_description: true
   read_more_btn: true
 
+#Sitemap
+sitemap:
+  path: sitemap.xml
+  template: ./sitemap_template.xml
+  rel: false
+  tag: true
+  category: false
+
