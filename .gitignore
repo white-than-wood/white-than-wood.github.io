@@ -9,3 +9,4 @@ public/
 _multiconfig.yml
 package-lock.json
 yarn.lock
+talk-auto-init.js
