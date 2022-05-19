@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    
+    <url>
+        <loc>http://example.com/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</loc>
+        
+        <lastmod>2022-05-18T17:43:06.012Z</lastmod>
+        
+        <date>1652473823000</date>
+        <title>hexo搭建next博客 | WTW's Frontend</title>
+        
+        <desc>hexo安装 首先要用npm外部依赖包管理工具安装全局命令hexo-cli npm install hexo-cli -g 然后使用hexo初始化博客目录,比如blog目录,目录名要与后续自己建立的github上hexo托管代码的repository同名 hexo init blog</desc>
+    </url>
+    
+    <url>
+        <loc>http://example.com/2022/05/18/thinkofhomebrew/</loc>
+        
+        <lastmod>2022-05-18T16:41:45.461Z</lastmod>
+        
+        <date>1652885650000</date>
+        <title>think of homebrew | WTW's Frontend</title>
+        
+        <desc>download homebrew 最近在下载homebrew时,发现其总是出现连接被拒绝的情况 curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused 后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的 DNS</desc>
+    </url>
+    
+    <url>
+        <loc>http://example.com/2022/05/15/thinkofgit/</loc>
+        
+        <lastmod>2022-05-15T01:38:17.677Z</lastmod>
+        
+        <date>1652564405000</date>
+        <title>think of git | WTW's Frontend</title>
+        
+        <desc>git命令 git remote add origin &#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#99;&#111;&#109;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句</desc>
+    </url>
+    
+    <url>
+        <loc>http://example.com/tags/index.html</loc>
+        
+        <lastmod>2022-05-14T22:48:48.828Z</lastmod>
+        
+        <date>1652472525000</date>
+        <title>tags | WTW's Frontend</title>
+        
+        <desc></desc>
+    </url>
+    
+    <url>
+        <loc>http://example.com/about/index.html</loc>
+        
+        <lastmod>2022-05-14T22:48:48.825Z</lastmod>
+        
+        <date>1652472544000</date>
+        <title>about | WTW's Frontend</title>
+        
+        <desc></desc>
+    </url>
+    
+    <url>
+        <loc>http://example.com/archives/index.html</loc>
+        
+        <lastmod>2022-05-14T22:48:48.825Z</lastmod>
+        
+        <date>1652472553000</date>
+        <title>archives | WTW's Frontend</title>
+        
+        <desc></desc>
+    </url>
+    
+    <url>
+        <loc>http://example.com/categories/index.html</loc>
+        
+        <lastmod>2022-05-14T22:48:48.825Z</lastmod>
+        
+        <date>1652472563000</date>
+        <title>categories | WTW's Frontend</title>
+        
+        <desc></desc>
+    </url>
+    
+</urlset>
