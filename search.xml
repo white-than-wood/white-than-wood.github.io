@@ -1,88 +1,349 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>think of homebrew</title>
-      <link href="/2022/05/18/thinkofhomebrew/"/>
-      <url>/2022/05/18/thinkofhomebrew/</url>
-      
-        <content type="html"><![CDATA[<h1 id="download-homebrew"><a href="#download-homebrew" class="headerlink" title="download homebrew"></a>download homebrew</h1><blockquote><p>最近在下载homebrew时,发现其总是出现连接被拒绝的情况</p></blockquote><pre><code>curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused</code></pre><p>   后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的 DNS 解析被污染，导致 DNS 解析过程无法通过域名取得正确的IP地址.</p><blockquote><p>使用修改本机hosts文件,建立域名与IP的映射关系,当访问hosts文件列表中的域名时,依次尝试在其映射的IP进行请求,绕过DNS</p></blockquote><p>   使用<a href='https://www.ipaddress.com/'>https://www.ipaddress.com/</a>查找域名所对应的IP地址.</p><p>   <img src="/images/ipaddress.png"></p><p>   使用switchHosts修改mac的hosts文件.</p><p>   <img src="/images/switchhosts.png"></p><p>   PS: 使用switchHosts无法对原有的hosts文件进行修改,只能添加新的hosts文件对原有的hosts文件进行合并覆盖,添加好后,将其配置的switch开关打开,允许其合并覆盖.</p><blockquote><p>再次下载,被拒绝的情况不存在了,但是出现了新的异常情况</p></blockquote><pre><code>curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to raw.githubusercontent.com:443</code></pre><p>   究其根本原因,在于国内网络环境对于境外服务器的种种限制,只用解决这一问题才能真正意义上解决 GitHub push&#x2F;pull 网络错误的问题.所以我查找到了一条可以彻底解决的路,使用国内镜像,就跟npm的淘宝镜像相同,homebrew在国内也有多条镜像途径.</p><pre><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;</code></pre><p>   <img src="/images/homebrew_mirror.png"></p><p>   选择任意一个镜像进行下载,最好是用’梯子’🐶.有时候用’梯子’也下载的非常慢,好在重新进行下载时,会在原来downloaded的基础之上进行下载.下载好之后,重启终端命令行工具,或者执行一下source .bash_profile,使得配置文件在修改了环境变等配置的情况下进行重置.</p><blockquote><p>brew install</p></blockquote><p>   <img src="/images/homebrew_install_git.png"></p><p>   这样就可以愉快快捷的下载任意在homebrew上的资源了!PS: 每下载完一次资源,还是最好执行一下source ~&#x2F;.bash_profile,使得配置文件在修改了环境变量等配置的情况下进行重置.</p>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>hexo搭建next博客</title>
+    <url>/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h1><blockquote>
+<p>首先要用npm外部依赖包管理工具安装全局命令hexo-cli</p>
+</blockquote>
+<pre><code>npm install hexo-cli -g
+</code></pre>
+<blockquote>
+<p>然后使用hexo初始化博客目录,比如blog目录,目录名要与后续自己建立的github上hexo托管代码的repository同名</p>
+</blockquote>
+<pre><code>hexo init blog
+</code></pre>
+<blockquote>
+<p>接着github建库</p>
+</blockquote>
+<p>   建立一个以white-than-wood(我的用户名).github.io结尾的repository,作为hexo托管代码的库,github默认.github.io结尾作为用户的网站二级域名,建立一个新的分支作为创作分支(因为主分支是用来发布呈现网站的).</p>
+<blockquote>
+<p>之后,进入生成的blog文件夹,与远程github repository建立关联,并同步远程最新资源</p>
+</blockquote>
+<pre><code>git remote add origin git@github.com:white-than-wood/white-than-wood.github.io.git
+git pull
+</code></pre>
+<blockquote>
+<p>再npm下载外部依赖包</p>
+</blockquote>
+<pre><code>npm i/npm install
+</code></pre>
+<blockquote>
+<p>使用yarn下载外部依赖包</p>
+</blockquote>
+<pre><code>yarn
+</code></pre>
+<blockquote>
+<p>最后启动hexo自身搭建的服务,生成本地的博客网站,默认端口在本地ip地址下的4000端口,假如你不想启动在4000端口,也可使用-p 其他端口号进行配置,比如-p 9977</p>
+</blockquote>
+<pre><code>hexo server
+hexo server -p 9977
+</code></pre>
+<p>   PS: 最好先将本地代码上传至远程之后,再执行hexo配置.</p>
+<pre><code>git add .
+git commit &#39;build:搭建hexo个人Github Page博客&#39;
+git push --set-upstream origin master
+</code></pre>
+<blockquote>
+<p>默认的主题风格theme是landscape,假如你想更换,可以通过<a href='https://hexo.io/themes/'>https://hexo.io/themes</a>进行筛选,筛选之后进行配置,主题配置见下文</p>
+</blockquote>
+<h1 id="hexo命令"><a href="#hexo命令" class="headerlink" title="hexo命令"></a>hexo命令</h1><blockquote>
+<p>首先建立一篇名为’hexo搭建next博客’的博客</p>
+</blockquote>
+<pre><code>hexo new hexo搭建next博客
+</code></pre>
+<blockquote>
+<p>在根目录 -&gt; source目录底下的_post目录下找到名为hexo配置的博客文件,在里面用markdown进行记录自己的博客,当然可以在hexo server自带的服务器运行监听的情况下,进行添加和修改自己的博客。之后，进行生成静态文件</p>
+</blockquote>
+<pre><code>hexo generate
+</code></pre>
+<blockquote>
+<p>生成静态文件之后,进行部署</p>
+</blockquote>
+<pre><code>hexo deploy
+</code></pre>
+<blockquote>
+<p>生成静态文件和部署可以使用一句命令执行</p>
+</blockquote>
+<pre><code>hexo generate -deploy
+hexo deploy -generate
+</code></pre>
+<blockquote>
+<p>为了防止存在静态文件和缓存,造成没有重新渲染页面的问题,在每一次部署之前,要运行一下清理静态文件和缓存的命令</p>
+</blockquote>
+<pre><code>hexo clean
+hexo generate
+hexo deploy
+</code></pre>
+<blockquote>
+<p>hexo deploy部署之后,根据项目根目录底下_config.yml配置文件的deploy配置,会提交到远程github repository库</p>
+</blockquote>
+<h1 id="hexo配置"><a href="#hexo配置" class="headerlink" title="hexo配置"></a>hexo配置</h1><p>   PS: 以下所说的”根目录”指的就是当前创作的repository目录,”主题目录”就是根目录下&#x2F;themes目录下的主题环境.</p>
+<h4 id="hexo-deploy发布配置"><a href="#hexo-deploy发布配置" class="headerlink" title="hexo deploy发布配置"></a>hexo deploy发布配置</h4><blockquote>
+<p>要想部署到自己搭建的Github Page个人网站,首先要下载hexo-git插件</p>
+</blockquote>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre>
+<blockquote>
+<p>然后就要在你自己的本地hexo博客的项目里面,更改根目录底下的_config.yml文件,全局搜索git,更改deploy发布配置,将source下面的内容进行构建发布到repo github地址的branch分支上</p>
+</blockquote>
+<pre><code>deploy:
+    type: git
+    #你的个人网站github库的链接地址,最好使用git:开头的,https:开头的会报错
+    repo: git@github.com:dreamthen/dreamthen.github.io.git
+    #分支名
+    branch: master
+</code></pre>
+<h4 id="hexo-theme主题配置"><a href="#hexo-theme主题配置" class="headerlink" title="hexo theme主题配置"></a>hexo theme主题配置</h4><blockquote>
+<p>筛选好自己选中的主题之后,就需要在项目里面进行配置更换。首先需要下载远程github库里面的主题目录到项目根目录里面的themes文件夹底下,比如本人用的是next主题的hexo</p>
+</blockquote>
+<pre><code>git clone https://github.com/iissnan/hexo-theme-next.git themes/next
+</code></pre>
+<blockquote>
+<p>随后更改根目录里面的_config.yml文件,全局搜索theme,更改theme配置</p>
+</blockquote>
+<pre><code>theme: next
+</code></pre>
+<blockquote>
+<p>接着选择主题展示的方式,需要在主题的项目目录下,更改_config.yml文件,全局搜索Scheme,更改Scheme配置,比如next主题底下的Scheme配置</p>
+</blockquote>
+<pre><code>scheme:
+    #scheme: Muse
+    #scheme: Mist
+    scheme: Pisces
+    #scheme: Gemini
+</code></pre>
+<h4 id="hexo-language语言配置"><a href="#hexo-language语言配置" class="headerlink" title="hexo language语言配置"></a>hexo language语言配置</h4><blockquote>
+<p>每个主题的语言都是根据作者的母语来配置的,要想配置开发者自己国家的语言,还是更改项目根目录底下的_config.yml文件,全局搜索language,更改language配置</p>
+</blockquote>
+<pre><code>language: zh-CN
+</code></pre>
+<blockquote>
+<p>再更改主题目录底下的_config.yml文件,全局搜索language,更改language配置</p>
+</blockquote>
+<pre><code>language: zh-CN    
+</code></pre>
+<h4 id="hexo-page页面配置"><a href="#hexo-page页面配置" class="headerlink" title="hexo page页面配置"></a>hexo page页面配置</h4><blockquote>
+<p>hexo提供了几个可供筛选的页面,常用的有这么几个：home(首页)、tags(标签)、about(关于我)、archives(档案)和categories(分类),首先要创建页面</p>
+</blockquote>
+<pre><code>hexo new page tags
+hexo new page about
+hexo new page archives
+hexo new page categories
+</code></pre>
+<blockquote>
+<p>接着在主题目录下,更改_config.yml文件,全局搜索menu,更改menu配置,当然每个主题的配置不尽相同</p>
+</blockquote>
+<pre><code>menu:
+    home: / || fa fa-home
+    about: /about/ || fa fa-user
+    tags: /tags/ || fa fa-tags
+    categories: /categories/ || fa fa-th
+    archives: /archives/ || fa fa-archive
+</code></pre>
+<blockquote>
+<p>随后更改source目录底下创建的页面配置,以tags为例</p>
+</blockquote>
+<pre><code>----------------------------
+    title: about
+    date: 2018-04-24 17:57:26
+    type: &quot;tags&quot;
+    comments: false
+----------------------------
+</code></pre>
+<h4 id="hexo-avatar-头像配置"><a href="#hexo-avatar-头像配置" class="headerlink" title="hexo avatar 头像配置"></a>hexo avatar 头像配置</h4><blockquote>
+<p>配置自己个人博客网站的头像,需要更改主题目录底下的_config.yml文件,添加avatar配置</p>
+</blockquote>
+<pre><code>#头像url链接
+avatar: https://avatars.githubusercontent.com/u/11425476?v=4
+</code></pre>
+<h4 id="hexo-search-全站搜索配置"><a href="#hexo-search-全站搜索配置" class="headerlink" title="hexo search 全站搜索配置"></a>hexo search 全站搜索配置</h4><blockquote>
+<p>假如想要配置自己hexo个人博客网站的全站搜索配置,首先要下载hexo search外部依赖包</p>
+</blockquote>
+<pre><code>npm install hexo-generator-search --save
+npm install hexo-generator-searchdb --save
+</code></pre>
+<blockquote>
+<p>更改根目录底下的_config.yml文件,添加search配置</p>
+</blockquote>
+<pre><code>search:
+    path: search.xml
+    field: post
+    format: html
+    limit: 10000
+</code></pre>
+<blockquote>
+<p>开启主题目录底下的_config.yml文件中的local_search配置</p>
+</blockquote>
+<pre><code>local_search:
+    enable: true        
+</code></pre>
+<h4 id="hexo-new-post-name配置"><a href="#hexo-new-post-name配置" class="headerlink" title="hexo new_post_name配置"></a>hexo new_post_name配置</h4><blockquote>
+<p>假如想要更改每一篇博客的文件名称,不再是默认的:title.md的文件名,需要更改根目录底下的_config.yml文件,更改new_post_name配置</p>
+</blockquote>
+<pre><code>new_post_name: :year-:month-:day-:title.md
+</code></pre>
+<h4 id="hexo-auto-excerpt阅读全文配置"><a href="#hexo-auto-excerpt阅读全文配置" class="headerlink" title="hexo auto_excerpt阅读全文配置"></a>hexo auto_excerpt阅读全文配置</h4><blockquote>
+<p>博客文章一般都会很长的,所以在首页要对博客进行超长省略,要想看所有的内容,点击阅读全文或者文章标题进入全文查看,在hexo-theme-next主题版本7.6之前需要更改主题目录底下的_config.yml文件,全局搜索auto_excerpt,更改auto_excerpt配置</p>
+</blockquote>
+<pre><code>auto_excerpt:
+    enable: true
+    length: 200
+</code></pre>
+<blockquote>
+<p>在hexo-theme-next主题版本7.6之后,由于auto_excerpt这种超长省略不应该是主题插件应该做的,作者将此配置移除,并给出新的专门针对此配置的插件<a href='https://github.com/chekun/hexo-excerpt'>hexo-excerpt</a></p>
+</blockquote>
+<p>   <img src="/images/remove_auto_excerpt.png"></p>
+<pre><code>excerpt:
+    #显示的markdown代码块层数
+    depth: 5
+    excerpt_excludes: []
+    more_excludes: []
+    #设置为true: 显示超长省略,只展示部分,隐藏全文
+    #设置为false: 展示全文
+    hideWholePostExcerpts: true
+    excerpt_description: true
+    #是否显示阅读全文按钮
+    read_more_btn: true
+</code></pre>
+<h4 id="hexo-browsersync开发环境创作自动更新配置"><a href="#hexo-browsersync开发环境创作自动更新配置" class="headerlink" title="hexo browsersync开发环境创作自动更新配置"></a>hexo browsersync开发环境创作自动更新配置</h4><blockquote>
+<p>在创作博客时,需要每次手动刷新页面才能看到修改后的结果,感觉非常没有效率,如果存在类hrm热加载这种插件就太爽了!hexo-browsersync可以直接解决这个问题</p>
+</blockquote>
+<p>此插件原理基于browser-sync,与hexo建立关联,当创作的文件内容发生改变时,browser-sync就会监听到并刷新浏览器整个页面的内容,做到不需手动刷新,大大提高了创作效率.</p>
+<pre><code>#更改根目录底下的_config.yml文件,添加browsersync属性
+#设置监听watch属性为true就可以了!
+browsersync:
+    watch: true
+    logLevel: &quot;warn&quot;
+</code></pre>
+<h4 id="hexo-busuanzi-count卜算子统计配置"><a href="#hexo-busuanzi-count卜算子统计配置" class="headerlink" title="hexo busuanzi_count卜算子统计配置"></a>hexo busuanzi_count卜算子统计配置</h4><blockquote>
+<p>上线之后,需要对个人博客进行管理,阅读人数以及次数对于创作者来说是很重要反馈点.更改主题目录底下的_config.yml文件,配置busuanzi_count卜算子统计</p>
+</blockquote>
+<pre><code>#可配置查看个人博客的阅读人数、次数以及每篇博客文章的次数
+busuanzi_count:
+    enable: true
+    total_visitors: true
+    total_visitors_icon: fa fa-user
+    total_views: true
+    total_views_icon: fa fa-eye
+    post_views: true
+    post_views_icon: fa fa-eye
+</code></pre>
+<h4 id="hexo-其他配置"><a href="#hexo-其他配置" class="headerlink" title="hexo 其他配置"></a>hexo 其他配置</h4><blockquote>
+<p>更改根目录底下的_config.yml文件,更改网站title(标题)、author(作者)、keywords(关键字)、description(描述)配置,比如本人的配置</p>
+</blockquote>
+<pre><code>title: WTW&#39;s Frontend
+author: WTW(比木白)
+keywords: hexo,hexo-cli,hexo博客,hexo博客个人网站,hexo blog
+subtitle: 道阻且长,行则将至
+description: 前端领域内所不知道的都探索于此!
+</code></pre>
+<blockquote>
+<p>更改主题目录底下的_config.yml文件,设置个人的github(github托管代码网址)、google(google个人资料网址)、gmail(gmail邮箱网址)、twitter(twitter个人微博网址)等等,比如本人的配置</p>
+</blockquote>
+<pre><code>social:
+  GitHub: https://github.com/white-than-wood || fab fa-github
+  E-Mail: https://dreamthen.00@gmail.com || fab fa-envelope
+  Google: https://plus.google.com/u/0/103833130011211353424 || fab fa-google
+</code></pre>
+<blockquote>
+<p>发布到GitHub Page上之后,你会发现README.md莫名的消失,主要是因为hexo构建发布到远程的目录只是source目录,所以只要将README.md copy一份放到source目录下,并且配置渲染时跳过的markdown类型文件就可以了</p>
+</blockquote>
+<pre><code>#hexo构建渲染时会将source目录下markdown类型文件转译为html,我们不需要将README.md转译,所以直接skip render
+#更改根目录底下的_config.yml文件,修改skip_render属性
+skip_render: README.md
+</code></pre>
+]]></content>
       <categories>
-          
-          <category> homebrew </category>
-          
+        <category>hexo</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> homebrew </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>think of git</title>
-      <link href="/2022/05/15/thinkofgit/"/>
-      <url>/2022/05/15/thinkofgit/</url>
-      
-        <content type="html"><![CDATA[<h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote><p>git remote add origin <a href="mailto:&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#99;&#111;&#109;">&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#99;&#111;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p></blockquote><p>   从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的git项目时,势必要与远程git库建立联系(远程git库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在远程<a href="mailto:&#103;&#x69;&#x74;&#64;&#103;&#105;&#x74;&#104;&#x75;&#98;&#46;&#x63;&#x6f;&#x6d;">&#103;&#x69;&#x74;&#64;&#103;&#105;&#x74;&#104;&#x75;&#98;&#46;&#x63;&#x6f;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git链接上面建立一个新远程句柄简称并进行关联,之后推送、同步代码直接与此句柄简称关联就可以了,不需要再去copy使用github远程库上面的链接.</p><blockquote><p>git push –set-upstream origin master</p></blockquote><p>   在建立了与远程代码库的新远程句柄简称之后,首次推送同步代码,需要设置推送、同步代码的上游远程分支,当首次设置之后,后续无需设置.<br>–set-upstream origin master就是设置推送、同步代码的上游origin远程句柄简称的分支为master.</p><blockquote><p>git merge master –allow-unrelated-histories</p></blockquote><p>   当同一个仓库存在多个独立的分支并没有公共的上游交集分支时,会出现无法合并的情况(多出现于本地git初始化时默认主分支为master,而远程github默认主分支为main).</p><pre><code>fatal: refusing to merge unrelated histories</code></pre><p>   故此我们需要在人为确认合并分支安全的情况下,将多个独立的分支进行允许强制合并,也就是–allow-unrelated-histories.</p><blockquote><p>本地设置与github远程仓库的ssh安全关联</p></blockquote><p>   只有持有账号私钥的情况下才可以推送、同步代码到拥有公钥的github远程仓库,使用ssh命令产生公私钥.我这里用的是rsa的加解密方式,小伙伴们也可以选择自己喜欢的加密方式.</p><pre><code>#使用自己的github账号来作为rsa加解密的注释#-t: type,选用rsa的密钥类型#-b: byte,公私钥的长度大小4096比特#-C: comments,添加公私钥生成的注释ssh-keygen -t rsa -b 4096 -C &#39;15866369958@qq.com&#39;</code></pre><p>   在mac下,生成之后,前往自己账号目录下查询.ssh&#x2F;id_rsa.pub,将id_rsa.pub文件里面的内容复制添加到github的账号settings设置下的SSH and GPG keys.</p>   <img src="/images/ssh_settings.png" style="width: 160px;float: left;"/>   <img src="/images/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>   <div style="clear: both;display: block;"></div><p>   添加成功之后,我们测试一下,将远程github库(‘<a href="mailto:&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#117;&#x62;&#46;&#x63;&#x6f;&#109;">&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#117;&#x62;&#46;&#x63;&#x6f;&#109;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明ssh-keygen设置与github远程仓库ssh安全关联生效.</p>]]></content>
-      
-      
+      <tags>
+        <tag>hexo</tag>
+        <tag>blog</tag>
+        <tag>next themes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>think of homebrew</title>
+    <url>/2022/05/18/thinkofhomebrew/</url>
+    <content><![CDATA[<h1 id="download-homebrew"><a href="#download-homebrew" class="headerlink" title="download homebrew"></a>download homebrew</h1><blockquote>
+<p>最近在下载homebrew时,发现其总是出现连接被拒绝的情况</p>
+</blockquote>
+<pre><code>curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
+</code></pre>
+<p>   后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的 DNS 解析被污染，导致 DNS 解析过程无法通过域名取得正确的IP地址.</p>
+<blockquote>
+<p>使用修改本机hosts文件,建立域名与IP的映射关系,当访问hosts文件列表中的域名时,依次尝试在其映射的IP进行请求,绕过DNS</p>
+</blockquote>
+<p>   使用<a href='https://www.ipaddress.com/'>https://www.ipaddress.com/</a>查找域名所对应的IP地址.</p>
+<p>   <img src="/images/ipaddress.png"></p>
+<p>   使用switchHosts修改mac的hosts文件.</p>
+<p>   <img src="/images/switchhosts.png"></p>
+<p>   PS: 使用switchHosts无法对原有的hosts文件进行修改,只能添加新的hosts文件对原有的hosts文件进行合并覆盖,添加好后,将其配置的switch开关打开,允许其合并覆盖.</p>
+<blockquote>
+<p>再次下载,被拒绝的情况不存在了,但是出现了新的异常情况</p>
+</blockquote>
+<pre><code>curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to raw.githubusercontent.com:443
+</code></pre>
+<p>   究其根本原因,在于国内网络环境对于境外服务器的种种限制,只用解决这一问题才能真正意义上解决 GitHub push&#x2F;pull 网络错误的问题.所以我查找到了一条可以彻底解决的路,使用国内镜像,就跟npm的淘宝镜像相同,homebrew在国内也有多条镜像途径.</p>
+<pre><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
+</code></pre>
+<p>   <img src="/images/homebrew_mirror.png"></p>
+<p>   选择任意一个镜像进行下载,最好是用’梯子’🐶.有时候用’梯子’也下载的非常慢,好在重新进行下载时,会在原来downloaded的基础之上进行下载.下载好之后,重启终端命令行工具,或者执行一下source .bash_profile,使得配置文件在修改了环境变等配置的情况下进行重置.</p>
+<blockquote>
+<p>brew install</p>
+</blockquote>
+<p>   <img src="/images/homebrew_install_git.png"></p>
+<p>   这样就可以愉快快捷的下载任意在homebrew上的资源了!PS: 每下载完一次资源,还是最好执行一下source ~&#x2F;.bash_profile,使得配置文件在修改了环境变量等配置的情况下进行重置.</p>
+]]></content>
       <categories>
-          
-          <category> git </category>
-          
+        <category>homebrew</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> git </tag>
-            
-            <tag> github </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>hexo搭建next博客</title>
-      <link href="/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/"/>
-      <url>/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</url>
-      
-        <content type="html"><![CDATA[<h1 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h1><blockquote><p>首先要用npm外部依赖包管理工具安装全局命令hexo-cli</p></blockquote><pre><code>npm install hexo-cli -g</code></pre><blockquote><p>然后使用hexo初始化博客目录,比如blog目录,目录名要与后续自己建立的github上hexo托管代码的repository同名</p></blockquote><pre><code>hexo init blog</code></pre><blockquote><p>接着github建库</p></blockquote><p>   建立一个以white-than-wood(我的用户名).github.io结尾的repository,作为hexo托管代码的库,github默认.github.io结尾作为用户的网站二级域名,建立一个新的分支作为创作分支(因为主分支是用来发布呈现网站的).</p><blockquote><p>之后,进入生成的blog文件夹,与远程github repository建立关联,并同步远程最新资源</p></blockquote><pre><code>git remote add origin git@github.com:white-than-wood/white-than-wood.github.io.gitgit pull</code></pre><blockquote><p>再npm下载外部依赖包</p></blockquote><pre><code>npm i/npm install</code></pre><blockquote><p>使用yarn下载外部依赖包</p></blockquote><pre><code>yarn</code></pre><blockquote><p>最后启动hexo自身搭建的服务,生成本地的博客网站,默认端口在本地ip地址下的4000端口,假如你不想启动在4000端口,也可使用-p 其他端口号进行配置,比如-p 9977</p></blockquote><pre><code>hexo serverhexo server -p 9977</code></pre><p>   PS: 最好先将本地代码上传至远程之后,再执行hexo配置.</p><pre><code>git add .git commit &#39;build:搭建hexo个人Github Page博客&#39;git push --set-upstream origin master</code></pre><blockquote><p>默认的主题风格theme是landscape,假如你想更换,可以通过<a href='https://hexo.io/themes/'>https://hexo.io/themes</a>进行筛选,筛选之后进行配置,主题配置见下文</p></blockquote><h1 id="hexo命令"><a href="#hexo命令" class="headerlink" title="hexo命令"></a>hexo命令</h1><blockquote><p>首先建立一篇名为’hexo搭建next博客’的博客</p></blockquote><pre><code>hexo new hexo搭建next博客</code></pre><blockquote><p>在根目录 -&gt; source目录底下的_post目录下找到名为hexo配置的博客文件,在里面用markdown进行记录自己的博客,当然可以在hexo server自带的服务器运行监听的情况下,进行添加和修改自己的博客。之后，进行生成静态文件</p></blockquote><pre><code>hexo generate</code></pre><blockquote><p>生成静态文件之后,进行部署</p></blockquote><pre><code>hexo deploy</code></pre><blockquote><p>生成静态文件和部署可以使用一句命令执行</p></blockquote><pre><code>hexo generate -deployhexo deploy -generate</code></pre><blockquote><p>为了防止存在静态文件和缓存,造成没有重新渲染页面的问题,在每一次部署之前,要运行一下清理静态文件和缓存的命令</p></blockquote><pre><code>hexo cleanhexo generatehexo deploy</code></pre><blockquote><p>hexo deploy部署之后,根据项目根目录底下_config.yml配置文件的deploy配置,会提交到远程github repository库</p></blockquote><h1 id="hexo配置"><a href="#hexo配置" class="headerlink" title="hexo配置"></a>hexo配置</h1><p>   PS: 以下所说的”根目录”指的就是当前创作的repository目录,”主题目录”就是根目录下&#x2F;themes目录下的主题环境.</p><h4 id="hexo-deploy发布配置"><a href="#hexo-deploy发布配置" class="headerlink" title="hexo deploy发布配置"></a>hexo deploy发布配置</h4><blockquote><p>要想部署到自己搭建的Github Page个人网站,首先要下载hexo-git插件</p></blockquote><pre><code>npm install hexo-deployer-git --save</code></pre><blockquote><p>然后就要在你自己的本地hexo博客的项目里面,更改根目录底下的_config.yml文件,全局搜索git,更改deploy发布配置,将source下面的内容进行构建发布到repo github地址的branch分支上</p></blockquote><pre><code>deploy:    type: git    #你的个人网站github库的链接地址,最好使用git:开头的,https:开头的会报错    repo: git@github.com:dreamthen/dreamthen.github.io.git    #分支名    branch: master</code></pre><h4 id="hexo-theme主题配置"><a href="#hexo-theme主题配置" class="headerlink" title="hexo theme主题配置"></a>hexo theme主题配置</h4><blockquote><p>筛选好自己选中的主题之后,就需要在项目里面进行配置更换。首先需要下载远程github库里面的主题目录到项目根目录里面的themes文件夹底下,比如本人用的是next主题的hexo</p></blockquote><pre><code>git clone https://github.com/iissnan/hexo-theme-next.git themes/next</code></pre><blockquote><p>随后更改根目录里面的_config.yml文件,全局搜索theme,更改theme配置</p></blockquote><pre><code>theme: next</code></pre><blockquote><p>接着选择主题展示的方式,需要在主题的项目目录下,更改_config.yml文件,全局搜索Scheme,更改Scheme配置,比如next主题底下的Scheme配置</p></blockquote><pre><code>scheme:    #scheme: Muse    #scheme: Mist    scheme: Pisces    #scheme: Gemini</code></pre><h4 id="hexo-language语言配置"><a href="#hexo-language语言配置" class="headerlink" title="hexo language语言配置"></a>hexo language语言配置</h4><blockquote><p>每个主题的语言都是根据作者的母语来配置的,要想配置开发者自己国家的语言,还是更改项目根目录底下的_config.yml文件,全局搜索language,更改language配置</p></blockquote><pre><code>language: zh-CN</code></pre><blockquote><p>再更改主题目录底下的_config.yml文件,全局搜索language,更改language配置</p></blockquote><pre><code>language: zh-CN    </code></pre><h4 id="hexo-page页面配置"><a href="#hexo-page页面配置" class="headerlink" title="hexo page页面配置"></a>hexo page页面配置</h4><blockquote><p>hexo提供了几个可供筛选的页面,常用的有这么几个：home(首页)、tags(标签)、about(关于我)、archives(档案)和categories(分类),首先要创建页面</p></blockquote><pre><code>hexo new page tagshexo new page abouthexo new page archiveshexo new page categories</code></pre><blockquote><p>接着在主题目录下,更改_config.yml文件,全局搜索menu,更改menu配置,当然每个主题的配置不尽相同</p></blockquote><pre><code>menu:    home: / || fa fa-home    about: /about/ || fa fa-user    tags: /tags/ || fa fa-tags    categories: /categories/ || fa fa-th    archives: /archives/ || fa fa-archive</code></pre><blockquote><p>随后更改source目录底下创建的页面配置,以tags为例</p></blockquote><pre><code>----------------------------    title: about    date: 2018-04-24 17:57:26    type: &quot;tags&quot;    comments: false----------------------------</code></pre><h4 id="hexo-avatar-头像配置"><a href="#hexo-avatar-头像配置" class="headerlink" title="hexo avatar 头像配置"></a>hexo avatar 头像配置</h4><blockquote><p>配置自己个人博客网站的头像,需要更改主题目录底下的_config.yml文件,添加avatar配置</p></blockquote><pre><code>#头像url链接avatar: https://avatars.githubusercontent.com/u/11425476?v=4</code></pre><h4 id="hexo-search-全站搜索配置"><a href="#hexo-search-全站搜索配置" class="headerlink" title="hexo search 全站搜索配置"></a>hexo search 全站搜索配置</h4><blockquote><p>假如想要配置自己hexo个人博客网站的全站搜索配置,首先要下载hexo search外部依赖包</p></blockquote><pre><code>npm install hexo-generator-search --savenpm install hexo-generator-searchdb --save</code></pre><blockquote><p>更改根目录底下的_config.yml文件,添加search配置</p></blockquote><pre><code>search:    path: search.xml    field: post    format: html    limit: 10000</code></pre><blockquote><p>开启主题目录底下的_config.yml文件中的local_search配置</p></blockquote><pre><code>local_search:    enable: true        </code></pre><h4 id="hexo-new-post-name配置"><a href="#hexo-new-post-name配置" class="headerlink" title="hexo new_post_name配置"></a>hexo new_post_name配置</h4><blockquote><p>假如想要更改每一篇博客的文件名称,不再是默认的:title.md的文件名,需要更改根目录底下的_config.yml文件,更改new_post_name配置</p></blockquote><pre><code>new_post_name: :year-:month-:day-:title.md</code></pre><h4 id="hexo-auto-excerpt阅读全文配置"><a href="#hexo-auto-excerpt阅读全文配置" class="headerlink" title="hexo auto_excerpt阅读全文配置"></a>hexo auto_excerpt阅读全文配置</h4><blockquote><p>博客文章一般都会很长的,所以在首页要对博客进行超长省略,要想看所有的内容,点击阅读全文或者文章标题进入全文查看,在hexo-theme-next主题版本7.6之前需要更改主题目录底下的_config.yml文件,全局搜索auto_excerpt,更改auto_excerpt配置</p></blockquote><pre><code>auto_excerpt:    enable: true    length: 200</code></pre><blockquote><p>在hexo-theme-next主题版本7.6之后,由于auto_excerpt这种超长省略不应该是主题插件应该做的,作者将此配置移除,并给出新的专门针对此配置的插件<a href='https://github.com/chekun/hexo-excerpt'>hexo-excerpt</a></p></blockquote><p>   <img src="/images/remove_auto_excerpt.png"></p><pre><code>excerpt:    #显示的markdown代码块层数    depth: 5    excerpt_excludes: []    more_excludes: []    #设置为true: 显示超长省略,只展示部分,隐藏全文    #设置为false: 展示全文    hideWholePostExcerpts: true    excerpt_description: true    #是否显示阅读全文按钮    read_more_btn: true</code></pre><h4 id="hexo-browsersync开发环境创作自动更新配置"><a href="#hexo-browsersync开发环境创作自动更新配置" class="headerlink" title="hexo browsersync开发环境创作自动更新配置"></a>hexo browsersync开发环境创作自动更新配置</h4><blockquote><p>在创作博客时,需要每次手动刷新页面才能看到修改后的结果,感觉非常没有效率,如果存在类hrm热加载这种插件就太爽了!hexo-browsersync可以直接解决这个问题</p></blockquote><p>此插件原理基于browser-sync,与hexo建立关联,当创作的文件内容发生改变时,browser-sync就会监听到并刷新浏览器整个页面的内容,做到不需手动刷新,大大提高了创作效率.</p><pre><code>#更改根目录底下的_config.yml文件,添加browsersync属性#设置监听watch属性为true就可以了!browsersync:    watch: true    logLevel: &quot;warn&quot;</code></pre><h4 id="hexo-busuanzi-count卜算子统计配置"><a href="#hexo-busuanzi-count卜算子统计配置" class="headerlink" title="hexo busuanzi_count卜算子统计配置"></a>hexo busuanzi_count卜算子统计配置</h4><blockquote><p>上线之后,需要对个人博客进行管理,阅读人数以及次数对于创作者来说是很重要反馈点.更改主题目录底下的_config.yml文件,配置busuanzi_count卜算子统计</p></blockquote><pre><code>#可配置查看个人博客的阅读人数、次数以及每篇博客文章的次数busuanzi_count:    enable: true    total_visitors: true    total_visitors_icon: fa fa-user    total_views: true    total_views_icon: fa fa-eye    post_views: true    post_views_icon: fa fa-eye</code></pre><h4 id="hexo-其他配置"><a href="#hexo-其他配置" class="headerlink" title="hexo 其他配置"></a>hexo 其他配置</h4><blockquote><p>更改根目录底下的_config.yml文件,更改网站title(标题)、author(作者)、keywords(关键字)、description(描述)配置,比如本人的配置</p></blockquote><pre><code>title: WTW&#39;s Frontendauthor: WTW(比木白)keywords: hexo,hexo-cli,hexo博客,hexo博客个人网站,hexo blogsubtitle: 道阻且长,行则将至description: 前端领域内所不知道的都探索于此!</code></pre><blockquote><p>更改主题目录底下的_config.yml文件,设置个人的github(github托管代码网址)、google(google个人资料网址)、gmail(gmail邮箱网址)、twitter(twitter个人微博网址)等等,比如本人的配置</p></blockquote><pre><code>social:  GitHub: https://github.com/white-than-wood || fab fa-github  E-Mail: https://dreamthen.00@gmail.com || fab fa-envelope  Google: https://plus.google.com/u/0/103833130011211353424 || fab fa-google</code></pre><blockquote><p>发布到GitHub Page上之后,你会发现README.md莫名的消失,主要是因为hexo构建发布到远程的目录只是source目录,所以只要将README.md copy一份放到source目录下,并且配置渲染时跳过的markdown类型文件就可以了</p></blockquote><pre><code>#hexo构建渲染时会将source目录下markdown类型文件转译为html,我们不需要将README.md转译,所以直接skip render#更改根目录底下的_config.yml文件,修改skip_render属性skip_render: README.md</code></pre>]]></content>
-      
-      
+      <tags>
+        <tag>homebrew</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>think of git</title>
+    <url>/2022/05/15/thinkofgit/</url>
+    <content><![CDATA[<h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote>
+<p>git remote add origin <a href="mailto:&#x67;&#105;&#x74;&#64;&#103;&#105;&#116;&#x68;&#x75;&#98;&#x2e;&#99;&#x6f;&#x6d;">&#x67;&#105;&#x74;&#64;&#103;&#105;&#116;&#x68;&#x75;&#98;&#x2e;&#99;&#x6f;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
+</blockquote>
+<p>   从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的git项目时,势必要与远程git库建立联系(远程git库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在远程<a href="mailto:&#103;&#x69;&#x74;&#x40;&#103;&#x69;&#116;&#104;&#117;&#98;&#46;&#99;&#111;&#109;">&#103;&#x69;&#x74;&#x40;&#103;&#x69;&#116;&#104;&#117;&#98;&#46;&#99;&#111;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git链接上面建立一个新远程句柄简称并进行关联,之后推送、同步代码直接与此句柄简称关联就可以了,不需要再去copy使用github远程库上面的链接.</p>
+<blockquote>
+<p>git push –set-upstream origin master</p>
+</blockquote>
+<p>   在建立了与远程代码库的新远程句柄简称之后,首次推送同步代码,需要设置推送、同步代码的上游远程分支,当首次设置之后,后续无需设置.<br>–set-upstream origin master就是设置推送、同步代码的上游origin远程句柄简称的分支为master.</p>
+<blockquote>
+<p>git merge master –allow-unrelated-histories</p>
+</blockquote>
+<p>   当同一个仓库存在多个独立的分支并没有公共的上游交集分支时,会出现无法合并的情况(多出现于本地git初始化时默认主分支为master,而远程github默认主分支为main).</p>
+<pre><code>fatal: refusing to merge unrelated histories
+</code></pre>
+<p>   故此我们需要在人为确认合并分支安全的情况下,将多个独立的分支进行允许强制合并,也就是–allow-unrelated-histories.</p>
+<h1 id="SSH公私钥安全关联"><a href="#SSH公私钥安全关联" class="headerlink" title="SSH公私钥安全关联"></a>SSH公私钥安全关联</h1><blockquote>
+<p>本地设置与github远程仓库的ssh安全关联</p>
+</blockquote>
+<p>   只有持有账号私钥的情况下才可以推送、同步代码到拥有公钥的github远程仓库,使用ssh命令产生公私钥.我这里用的是rsa的加解密方式,小伙伴们也可以选择自己喜欢的加密方式.</p>
+<pre><code>#使用自己的github账号来作为rsa加解密的注释
+#-t: type,选用rsa的密钥类型
+#-b: byte,公私钥的长度大小4096比特
+#-C: comments,添加公私钥生成的注释
+ssh-keygen -t rsa -b 4096 -C &#39;15866369958@qq.com&#39;
+</code></pre>
+<p>   在mac下,生成之后,前往自己账号目录下查询.ssh&#x2F;id_rsa.pub,将id_rsa.pub文件里面的内容复制添加到github的账号settings设置下的SSH and GPG keys.</p>
+   <img src="/images/ssh_settings.png" style="width: 160px;float: left;"/>
+   <img src="/images/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>
+   <div style="clear: both;display: block;"></div>
+
+<p>   添加成功之后,我们测试一下,将远程github库(‘<a href="mailto:&#103;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#117;&#98;&#x2e;&#x63;&#111;&#x6d;">&#103;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#117;&#98;&#x2e;&#x63;&#111;&#x6d;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明ssh-keygen设置与github远程仓库ssh安全关联生效.</p>
+]]></content>
       <categories>
-          
-          <category> hexo </category>
-          
+        <category>git</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-            <tag> blog </tag>
-            
-            <tag> next themes </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>git</tag>
+        <tag>github</tag>
+      </tags>
+  </entry>
 </search>
