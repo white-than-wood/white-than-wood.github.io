@@ -4,12 +4,12 @@
     <url>
         <loc>http://example.com/2022/05/15/thinkofgit/</loc>
         
-        <lastmod>2022-05-21T06:45:19.033Z</lastmod>
+        <lastmod>2022-05-22T07:08:27.412Z</lastmod>
         
         <date>1652564405000</date>
         <title>think of git | WTW's Frontend</title>
         
-        <desc>git命令 git remote add origin &#x67;&#105;&#x74;&#64;&#103;&#105;&#116;&#x68;&#x75;&#98;&#x2e;&#99;&#x6f;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄</desc>
+        <desc>git命令 git remote add origin &#x67;&#105;&#116;&#x40;&#103;&#x69;&#116;&#x68;&#117;&#98;&#x2e;&#x63;&#x6f;&#109;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程</desc>
     </url>
     
     <url>
@@ -46,12 +46,12 @@
     </url>
     
     <url>
-        <loc>http://example.com/about/index.html</loc>
+        <loc>http://example.com/archives/index.html</loc>
         
         <lastmod>2022-05-14T22:48:48.825Z</lastmod>
         
-        <date>1652472544000</date>
-        <title>about | WTW's Frontend</title>
+        <date>1652472553000</date>
+        <title>archives | WTW's Frontend</title>
         
         <desc></desc>
     </url>
@@ -68,12 +68,12 @@
     </url>
     
     <url>
-        <loc>http://example.com/archives/index.html</loc>
+        <loc>http://example.com/about/index.html</loc>
         
         <lastmod>2022-05-14T22:48:48.825Z</lastmod>
         
-        <date>1652472553000</date>
-        <title>archives | WTW's Frontend</title>
+        <date>1652472544000</date>
+        <title>about | WTW's Frontend</title>
         
         <desc></desc>
     </url>
