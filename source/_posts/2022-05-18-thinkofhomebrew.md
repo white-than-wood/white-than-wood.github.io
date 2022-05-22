@@ -46,7 +46,7 @@ categories: homebrew
 > fatal: not in a git directory 
 > Error: Command failed with exit 128: git
 
-   当出现这种错误时,就说明本地与远程并没有建立关联,并没有添加origin句柄简称映射远程的镜像链接,所以我们需要重新设置一下.
+   当出现这种错误时,就说明本地与远程并没有建立关联,并没有添加origin句柄简称映射远程的镜像或者github链接,所以我们需要重新设置一下.
 
    * Bash终端配置
     
