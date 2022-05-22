@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://white-than-wood.github.io/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</loc>
+        
+        <lastmod>2022-05-22T16:43:10.232Z</lastmod>
+        
+        <date>1652473823000</date>
+        <title>hexo搭建next博客 | WTW's Frontend</title>
+        
+        <desc>引言 此博客用于搭建hexo的工具博客.基本不会探索深究配置的原因,敬请知悉~ hexo安装 首先要用npm外部依赖包管理工具安装全局命令hexo-cli npm install hexo-cli -g</desc>
+    </url>
+    
+    <url>
         <loc>https://white-than-wood.github.io/2022/05/18/thinkofhomebrew/</loc>
         
         <lastmod>2022-05-22T16:39:19.409Z</lastmod>
@@ -13,17 +24,6 @@
     </url>
     
     <url>
-        <loc>https://white-than-wood.github.io/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</loc>
-        
-        <lastmod>2022-05-22T16:24:42.191Z</lastmod>
-        
-        <date>1652473823000</date>
-        <title>hexo搭建next博客 | WTW's Frontend</title>
-        
-        <desc>hexo安装 首先要用npm外部依赖包管理工具安装全局命令hexo-cli npm install hexo-cli -g 然后使用hexo初始化博客目录,比如blog目录,目录名要与后续自己建立的github上hexo托管代码的repository同名 hexo init blog</desc>
-    </url>
-    
-    <url>
         <loc>https://white-than-wood.github.io/2022/05/15/thinkofgit/</loc>
         
         <lastmod>2022-05-22T07:08:27.412Z</lastmod>
@@ -31,7 +31,7 @@
         <date>1652564405000</date>
         <title>think of git | WTW's Frontend</title>
         
-        <desc>git命令 git remote add origin &#x67;&#x69;&#116;&#x40;&#103;&#105;&#116;&#x68;&#117;&#x62;&#46;&#x63;&#x6f;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程</desc>
+        <desc>git命令 git remote add origin &#103;&#x69;&#x74;&#64;&#x67;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#99;&#x6f;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄</desc>
     </url>
     
     <url>
@@ -57,23 +57,23 @@
     </url>
     
     <url>
-        <loc>https://white-than-wood.github.io/archives/index.html</loc>
-        
-        <lastmod>2022-05-14T22:48:48.825Z</lastmod>
-        
-        <date>1652472553000</date>
-        <title>archives | WTW's Frontend</title>
-        
-        <desc></desc>
-    </url>
-    
-    <url>
         <loc>https://white-than-wood.github.io/categories/index.html</loc>
         
         <lastmod>2022-05-14T22:48:48.825Z</lastmod>
         
         <date>1652472563000</date>
         <title>categories | WTW's Frontend</title>
+        
+        <desc></desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/archives/index.html</loc>
+        
+        <lastmod>2022-05-14T22:48:48.825Z</lastmod>
+        
+        <date>1652472553000</date>
+        <title>archives | WTW's Frontend</title>
         
         <desc></desc>
     </url>
