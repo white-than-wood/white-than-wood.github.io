@@ -8,7 +8,7 @@
     "deploy": "hexo deploy",
     "server": "hexo server",
     "publish": "git push && hexo clean && hexo generate -deploy",
-    "gtalk": "node talk-auto-init.js"
+    "gitalk": "node talk-auto-init.js"
   },
   "hexo": {
     "version": "6.2.0"
