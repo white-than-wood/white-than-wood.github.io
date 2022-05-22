@@ -29,7 +29,7 @@ categories: homebrew
 
     curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to raw.githubusercontent.com:443
 
-   究其根本原因,在于国内网络环境对于境外服务器的种种限制,只用解决这一问题才能真正意义上解决 GitHub push/pull 网络错误的问题.所以我查找到了一条可以彻底解决的路,使用国内镜像,就跟npm的淘宝镜像相同,homebrew在国内也有多条镜像途径.
+   究其根本原因,在于国内网络环境对于境外服务器的种种限制,只用解决这一问题才能真正意义上解决下载homebrew网络错误的问题.所以我查找到了一条可以彻底解决的路,使用国内镜像,就跟npm的淘宝镜像相同,homebrew在国内也有多条镜像途径.
 
     /bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"
 
