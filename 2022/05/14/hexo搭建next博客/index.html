@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://white-than-wood.github.io/images/developer_settings.png">
 <meta property="og:image" content="https://white-than-wood.github.io/images/access_tokens.png">
 <meta property="article:published_time" content="2022-05-13T20:30:23.000Z">
-<meta property="article:modified_time" content="2022-05-22T09:39:37.581Z">
+<meta property="article:modified_time" content="2022-05-22T09:45:10.483Z">
 <meta property="article:author" content="WTW(比木白)">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="blog">
@@ -263,7 +263,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-22 17:39:37" itemprop="dateModified" datetime="2022-05-22T17:39:37+08:00">2022-05-22</time>
+      <time title="修改时间：2022-05-22 17:45:10" itemprop="dateModified" datetime="2022-05-22T17:45:10+08:00">2022-05-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -562,9 +562,9 @@ gitalk:
 </code></pre>
 <p>   上面的配置项中有几个需要说明的：</p>
 <ul>
-<li>client_id与client_secret是Github的OAuth认证(下一个部分会介绍)</li>
-<li>github_id与admin_user这里建议填一样,填成自己的github账号名(不是邮箱,也不是用户名)</li>
-<li>proxy默认即是上面的地址,它其实会回调到这里<a target="_blank" rel="noopener" href='https://github.com/login/oauth/access_token'>https://github.com/login/oauth/access_token</a>来,出403的问题,主要是由于跨域</li>
+<li>client_id与client_secret是Github的OAuth认证(下一个部分会介绍).</li>
+<li>github_id与admin_user这里建议填一样,填成自己的github账号名(不是邮箱,也不是用户名).</li>
+<li>proxy默认即是上面的地址,它其实会回调到这里<a target="_blank" rel="noopener" href='https://github.com/login/oauth/access_token'>https://github.com/login/oauth/access_token</a>来,出403的问题,主要是由于跨域.</li>
 </ul>
 <blockquote>
 <p>Github的OAuth认证</p>
@@ -578,18 +578,18 @@ gitalk:
 </blockquote>
 <p>   原理: 通过sitemap中的信息,请求github开放api达到自动产生issues的目的.<br>   基本的要求: github API需要请求token.</p>
 <ul>
-<li>申请github Token</li>
+<li>申请github Token.</li>
 </ul>
 <p>   我们需要使用Personal access tokens方式,这种方式限制每小时5000次,结合缓存功能,基本满足需求.<br>   从Github的<a target="_blank" rel="noopener" href='https://github.com/settings/tokens'>Personal access tokens</a>页面,点击<a target="_blank" rel="noopener" href='https://github.com/settings/tokens/new'>Generate new token</a>.</p>
 <p>   <img src="/images/access_tokens.png"></p>
 <ul>
-<li>安装npm依赖项</li>
+<li>安装npm依赖项.</li>
 </ul>
 <pre><code>npm i -D md5 moment request xml-parser
 npm i -S hexo-generator-sitemap
 </code></pre>
 <ul>
-<li>配置sitemap</li>
+<li>配置sitemap.</li>
 </ul>
 <p>   在根目录中创建sitemap_template.xml.</p>
    <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">urlset</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;</span>&gt;</span></span><br><span class="line">  &#123;% for post in posts %&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">loc</span>&gt;</span>&#123;&#123; post.permalink | uriencode &#125;&#125;<span class="tag">&lt;/<span class="name">loc</span>&gt;</span></span><br><span class="line">    &#123;% if post.updated %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">lastmod</span>&gt;</span>&#123;&#123; post.updated.toISOString() &#125;&#125;<span class="tag">&lt;/<span class="name">lastmod</span>&gt;</span></span><br><span class="line">    &#123;% elif post.date %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">lastmod</span>&gt;</span>&#123;&#123; post.date.toISOString() &#125;&#125;<span class="tag">&lt;/<span class="name">lastmod</span>&gt;</span></span><br><span class="line">    &#123;% endif %&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">date</span>&gt;</span>&#123;&#123; post.date &#125;&#125;<span class="tag">&lt;/<span class="name">date</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>&#123;&#123; post.title + &#x27; | &#x27; + config.title &#125;&#125;<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    &#123;# nunjucks 模版语法 https://github.com/mozilla/nunjucks #&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">desc</span>&gt;</span>&#123;&#123; post.description | default(post.excerpt) | default(post.content) | default(config.description) | striptags | truncate(200, true, &#x27;&#x27;) &#125;&#125;<span class="tag">&lt;/<span class="name">desc</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">  &#123;% endfor %&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">urlset</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -626,7 +626,7 @@ sitemap:
 <pre><code>npm run talk
 </code></pre>
 <ul>
-<li>已经缓存过后的结果：</li>
+<li>已经缓存过后的结果:</li>
 </ul>
 <pre><code>&gt; hexo-site@0.0.0 gitalk
 &gt; node talk-auto-init.js
