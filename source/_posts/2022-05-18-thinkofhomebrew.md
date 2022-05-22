@@ -42,3 +42,41 @@ categories: homebrew
    ![](/images/homebrew_install_git.png)
 
    这样就可以愉快快捷的下载任意在homebrew上的资源了!PS: 每下载完一次资源,还是最好执行一下source ~/.bash_profile,使得配置文件在修改了环境变量等配置的情况下进行重置.
+
+> fatal: not in a git directory 
+> Error: Command failed with exit 128: git
+
+   当出现这种错误时,就说明本地与远程并没有建立关联,并没有添加origin句柄简称映射远程的镜像链接,所以我们需要重新设置一下.
+
+   * Bash终端配置
+    
+    # 替换brew.git:
+    cd "$(brew --repo)"
+    git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+
+    # 替换homebrew-core.git:
+    cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+    git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+
+    # 应用生效
+    brew update
+
+    # 替换homebrew-bottles:
+    echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles' >> ~/.bash_profile
+    source ~/.bash_profile
+
+   * Zsh终端配置
+
+    # 替换brew.git:
+    cd "$(brew --repo)"
+    git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+    # 替换homebrew-core.git:
+    cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+    git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+    # 应用生效
+    brew update
+    # 替换homebrew-bottles:
+    echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles' >> ~/.zshrc
+    source ~/.zshrc
+
+   
