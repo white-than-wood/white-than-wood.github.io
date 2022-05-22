@@ -43,3 +43,21 @@ categories: git
    <div style="clear: both;display: block;"></div>
 
    添加成功之后,我们测试一下,将远程github库('git@github.com'开头链接)克隆到本地,如果可以拉取到本地,那就说明ssh-keygen设置与github远程仓库ssh安全关联生效.
+   
+> 本地设置多个ssh公私钥与多个github远程仓库建立安全关联
+
+   当需要与远程多个github仓库建立安全关联时,需要设置多个ssh公私钥.这时ssh-keygen与ssh-add联合使用.
+   
+    ssh-keygen -t rsa -b 4096 -C 'dreamthen.99@gmail.com'
+    #这时会出现需要你设置进行保存公私钥的文件名,默认还是为id_rsa
+    Generating public/private rsa key pair.
+    Enter file in which to save the key (/Users/yinwk/.ssh/id_rsa): id_rsa_ano
+    #设置过后,公私钥就会以id_rsa_ano.pub以及id_rsa_ano文件进行保存
+    
+   一系列操作结束后,我们还需要将新生成的私钥交与ssh-agent管理.ssh-agent简单来说是一个ssh密钥管理器,作为本地与远程建立ssh安全关联的代理机制.
+
+    ssh-add ~/.ssh/id_rsa_ano
+
+   在成功交与ssh-agent管理后,我们重复第一个部分中'单个ssh公私钥与单个github远程仓库建立安全关联'的后续操作即可.
+
+    
