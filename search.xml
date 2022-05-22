@@ -1,6 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>think of homebrew</title>
+    <url>/2022/05/18/thinkofhomebrew/</url>
+    <content><![CDATA[<h1 id="download-homebrew"><a href="#download-homebrew" class="headerlink" title="download homebrew"></a>download homebrew</h1><blockquote>
+<p>最近在下载homebrew时,发现其总是出现连接被拒绝的情况</p>
+</blockquote>
+<pre><code>curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
+</code></pre>
+<p>   后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的 DNS 解析被污染，导致 DNS 解析过程无法通过域名取得正确的IP地址.</p>
+<blockquote>
+<p>使用修改本机hosts文件,建立域名与IP的映射关系,当访问hosts文件列表中的域名时,依次尝试在其映射的IP进行请求,绕过DNS</p>
+</blockquote>
+<p>   使用<a href='https://www.ipaddress.com/'>https://www.ipaddress.com/</a>查找域名所对应的IP地址.</p>
+<p>   <img src="/images/ipaddress.png"></p>
+<p>   使用switchHosts修改mac的hosts文件.</p>
+<p>   <img src="/images/switchhosts.png"></p>
+<p>   PS: 使用switchHosts无法对原有的hosts文件进行修改,只能添加新的hosts文件对原有的hosts文件进行合并覆盖,添加好后,将其配置的switch开关打开,允许其合并覆盖.</p>
+<blockquote>
+<p>再次下载,被拒绝的情况不存在了,但是出现了新的异常情况</p>
+</blockquote>
+<pre><code>curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to raw.githubusercontent.com:443
+</code></pre>
+<p>   究其根本原因,在于国内网络环境对于境外服务器的种种限制,只用解决这一问题才能真正意义上解决 GitHub push&#x2F;pull 网络错误的问题.所以我查找到了一条可以彻底解决的路,使用国内镜像,就跟npm的淘宝镜像相同,homebrew在国内也有多条镜像途径.</p>
+<pre><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
+</code></pre>
+<p>   <img src="/images/homebrew_mirror.png"></p>
+<p>   选择任意一个镜像进行下载,最好是用’梯子’🐶.有时候用’梯子’也下载的非常慢,好在重新进行下载时,会在原来downloaded的基础之上进行下载.下载好之后,重启终端命令行工具,或者执行一下source .bash_profile,使得配置文件在修改了环境变等配置的情况下进行重置.</p>
+<blockquote>
+<p>brew install</p>
+</blockquote>
+<p>   <img src="/images/homebrew_install_git.png"></p>
+<p>   这样就可以愉快快捷的下载任意在homebrew上的资源了!PS: 每下载完一次资源,还是最好执行一下source ~&#x2F;.bash_profile,使得配置文件在修改了环境变量等配置的情况下进行重置.</p>
+<blockquote>
+<p>fatal: not in a git directory<br>Error: Command failed with exit 128: git</p>
+</blockquote>
+<p>   当出现这种错误时,就说明本地与远程并没有建立关联,并没有添加origin句柄简称映射远程的镜像或者github链接,所以我们需要重新设置一下.</p>
+<ul>
+<li>Bash终端配置</li>
+</ul>
+<pre><code># 替换brew.git:
+cd &quot;$(brew --repo)&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+
+# 替换homebrew-core.git:
+cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+
+# 应用生效
+brew update
+
+# 替换homebrew-bottles:
+echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+</code></pre>
+<ul>
+<li>Zsh终端配置</li>
+</ul>
+<pre><code># 替换brew.git:
+cd &quot;$(brew --repo)&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+# 替换homebrew-core.git:
+cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+# 应用生效
+brew update
+# 替换homebrew-bottles:
+echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.zshrc
+source ~/.zshrc
+</code></pre>
+]]></content>
+      <categories>
+        <category>homebrew</category>
+      </categories>
+      <tags>
+        <tag>homebrew</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>think of git</title>
+    <url>/2022/05/15/thinkofgit/</url>
+    <content><![CDATA[<h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote>
+<p>git remote add origin <a href="mailto:&#103;&#x69;&#116;&#64;&#103;&#105;&#x74;&#104;&#x75;&#98;&#46;&#99;&#111;&#109;">&#103;&#x69;&#116;&#64;&#103;&#105;&#x74;&#104;&#x75;&#98;&#46;&#99;&#111;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
+</blockquote>
+<p>   从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的git项目时,势必要与远程git库建立联系(远程git库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在远程<a href="mailto:&#x67;&#105;&#116;&#64;&#x67;&#105;&#116;&#104;&#117;&#x62;&#x2e;&#99;&#111;&#x6d;">&#x67;&#105;&#116;&#64;&#x67;&#105;&#116;&#104;&#117;&#x62;&#x2e;&#99;&#111;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git链接上面建立一个新远程句柄简称并进行关联,之后推送、同步代码直接与此句柄简称关联就可以了,不需要再去copy使用github远程库上面的链接.</p>
+<blockquote>
+<p>git push –set-upstream origin master</p>
+</blockquote>
+<p>   在建立了与远程代码库的新远程句柄简称之后,首次推送同步代码,需要设置推送、同步代码的上游远程分支,当首次设置之后,后续无需设置.<br>–set-upstream origin master就是设置推送、同步代码的上游origin远程句柄简称的分支为master.</p>
+<blockquote>
+<p>git merge master –allow-unrelated-histories</p>
+</blockquote>
+<p>   当同一个仓库存在多个独立的分支并没有公共的上游交集分支时,会出现无法合并的情况(多出现于本地git初始化时默认主分支为master,而远程github默认主分支为main).</p>
+<pre><code>fatal: refusing to merge unrelated histories
+</code></pre>
+<p>   故此我们需要在人为确认合并分支安全的情况下,将多个独立的分支进行允许强制合并,也就是–allow-unrelated-histories.</p>
+<h1 id="SSH公私钥安全关联"><a href="#SSH公私钥安全关联" class="headerlink" title="SSH公私钥安全关联"></a>SSH公私钥安全关联</h1><blockquote>
+<p>本地设置与github远程仓库的ssh安全关联</p>
+</blockquote>
+<p>   只有持有账号私钥的情况下才可以推送、同步代码到拥有公钥的github远程仓库,使用ssh命令产生公私钥.我这里用的是rsa的加解密方式,小伙伴们也可以选择自己喜欢的加密方式.</p>
+<pre><code>#使用自己的github账号来作为rsa加解密的注释
+#-t: type,选用rsa的密钥类型
+#-b: byte,公私钥的长度大小4096比特
+#-C: comments,添加公私钥生成的注释
+ssh-keygen -t rsa -b 4096 -C &#39;15866369958@qq.com&#39;
+</code></pre>
+<p>   在mac下,生成之后,前往自己账号目录下查询.ssh&#x2F;id_rsa.pub,将id_rsa.pub文件里面的内容复制添加到github的账号settings设置下的SSH and GPG keys.</p>
+   <img src="/images/ssh_settings.png" style="width: 160px;float: left;"/>
+   <img src="/images/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>
+   <div style="clear: both;display: block;"></div>
+
+<p>   添加成功之后,我们测试一下,将远程github库(‘<a href="mailto:&#103;&#105;&#116;&#x40;&#x67;&#105;&#x74;&#x68;&#x75;&#x62;&#x2e;&#99;&#x6f;&#109;">&#103;&#105;&#116;&#x40;&#x67;&#105;&#x74;&#x68;&#x75;&#x62;&#x2e;&#99;&#x6f;&#109;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明ssh-keygen设置与github远程仓库ssh安全关联生效.</p>
+<blockquote>
+<p>本地设置多个ssh公私钥与多个github远程仓库建立安全关联</p>
+</blockquote>
+<p>   当需要与远程多个github仓库建立安全关联时,需要设置多个ssh公私钥.这时ssh-keygen与ssh-add联合使用.</p>
+<pre><code>ssh-keygen -t rsa -b 4096 -C &#39;dreamthen.99@gmail.com&#39;
+#这时会出现需要你设置进行保存公私钥的文件名,默认还是为id_rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/yinwk/.ssh/id_rsa): id_rsa_ano
+#设置过后,公私钥就会以id_rsa_ano.pub以及id_rsa_ano文件进行保存
+</code></pre>
+<p>   一系列操作结束后,我们还需要将新生成的私钥交与ssh-agent管理.ssh-agent简单来说是一个ssh密钥管理器,作为本地与远程建立ssh安全关联的代理机制.</p>
+<pre><code>ssh-add ~/.ssh/id_rsa_ano
+</code></pre>
+<p>   在成功交与ssh-agent管理后,我们重复第一个部分中’单个ssh公私钥与单个github远程仓库建立安全关联’的后续操作即可.</p>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>github</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo搭建next博客</title>
     <url>/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h1 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h1><blockquote>
@@ -406,140 +540,6 @@ fancybox: true
         <tag>hexo</tag>
         <tag>blog</tag>
         <tag>next themes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>think of git</title>
-    <url>/2022/05/15/thinkofgit/</url>
-    <content><![CDATA[<h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote>
-<p>git remote add origin <a href="mailto:&#103;&#x69;&#116;&#x40;&#x67;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;">&#103;&#x69;&#116;&#x40;&#x67;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
-</blockquote>
-<p>   从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的git项目时,势必要与远程git库建立联系(远程git库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在远程<a href="mailto:&#103;&#x69;&#x74;&#64;&#x67;&#105;&#116;&#x68;&#117;&#x62;&#46;&#x63;&#x6f;&#109;">&#103;&#x69;&#x74;&#64;&#x67;&#105;&#116;&#x68;&#117;&#x62;&#46;&#x63;&#x6f;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git链接上面建立一个新远程句柄简称并进行关联,之后推送、同步代码直接与此句柄简称关联就可以了,不需要再去copy使用github远程库上面的链接.</p>
-<blockquote>
-<p>git push –set-upstream origin master</p>
-</blockquote>
-<p>   在建立了与远程代码库的新远程句柄简称之后,首次推送同步代码,需要设置推送、同步代码的上游远程分支,当首次设置之后,后续无需设置.<br>–set-upstream origin master就是设置推送、同步代码的上游origin远程句柄简称的分支为master.</p>
-<blockquote>
-<p>git merge master –allow-unrelated-histories</p>
-</blockquote>
-<p>   当同一个仓库存在多个独立的分支并没有公共的上游交集分支时,会出现无法合并的情况(多出现于本地git初始化时默认主分支为master,而远程github默认主分支为main).</p>
-<pre><code>fatal: refusing to merge unrelated histories
-</code></pre>
-<p>   故此我们需要在人为确认合并分支安全的情况下,将多个独立的分支进行允许强制合并,也就是–allow-unrelated-histories.</p>
-<h1 id="SSH公私钥安全关联"><a href="#SSH公私钥安全关联" class="headerlink" title="SSH公私钥安全关联"></a>SSH公私钥安全关联</h1><blockquote>
-<p>本地设置与github远程仓库的ssh安全关联</p>
-</blockquote>
-<p>   只有持有账号私钥的情况下才可以推送、同步代码到拥有公钥的github远程仓库,使用ssh命令产生公私钥.我这里用的是rsa的加解密方式,小伙伴们也可以选择自己喜欢的加密方式.</p>
-<pre><code>#使用自己的github账号来作为rsa加解密的注释
-#-t: type,选用rsa的密钥类型
-#-b: byte,公私钥的长度大小4096比特
-#-C: comments,添加公私钥生成的注释
-ssh-keygen -t rsa -b 4096 -C &#39;15866369958@qq.com&#39;
-</code></pre>
-<p>   在mac下,生成之后,前往自己账号目录下查询.ssh&#x2F;id_rsa.pub,将id_rsa.pub文件里面的内容复制添加到github的账号settings设置下的SSH and GPG keys.</p>
-   <img src="/images/ssh_settings.png" style="width: 160px;float: left;"/>
-   <img src="/images/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>
-   <div style="clear: both;display: block;"></div>
-
-<p>   添加成功之后,我们测试一下,将远程github库(‘<a href="mailto:&#103;&#x69;&#x74;&#64;&#x67;&#105;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#x6d;">&#103;&#x69;&#x74;&#64;&#x67;&#105;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#x6d;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明ssh-keygen设置与github远程仓库ssh安全关联生效.</p>
-<blockquote>
-<p>本地设置多个ssh公私钥与多个github远程仓库建立安全关联</p>
-</blockquote>
-<p>   当需要与远程多个github仓库建立安全关联时,需要设置多个ssh公私钥.这时ssh-keygen与ssh-add联合使用.</p>
-<pre><code>ssh-keygen -t rsa -b 4096 -C &#39;dreamthen.99@gmail.com&#39;
-#这时会出现需要你设置进行保存公私钥的文件名,默认还是为id_rsa
-Generating public/private rsa key pair.
-Enter file in which to save the key (/Users/yinwk/.ssh/id_rsa): id_rsa_ano
-#设置过后,公私钥就会以id_rsa_ano.pub以及id_rsa_ano文件进行保存
-</code></pre>
-<p>   一系列操作结束后,我们还需要将新生成的私钥交与ssh-agent管理.ssh-agent简单来说是一个ssh密钥管理器,作为本地与远程建立ssh安全关联的代理机制.</p>
-<pre><code>ssh-add ~/.ssh/id_rsa_ano
-</code></pre>
-<p>   在成功交与ssh-agent管理后,我们重复第一个部分中’单个ssh公私钥与单个github远程仓库建立安全关联’的后续操作即可.</p>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-        <tag>github</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>think of homebrew</title>
-    <url>/2022/05/18/thinkofhomebrew/</url>
-    <content><![CDATA[<h1 id="download-homebrew"><a href="#download-homebrew" class="headerlink" title="download homebrew"></a>download homebrew</h1><blockquote>
-<p>最近在下载homebrew时,发现其总是出现连接被拒绝的情况</p>
-</blockquote>
-<pre><code>curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
-</code></pre>
-<p>   后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的 DNS 解析被污染，导致 DNS 解析过程无法通过域名取得正确的IP地址.</p>
-<blockquote>
-<p>使用修改本机hosts文件,建立域名与IP的映射关系,当访问hosts文件列表中的域名时,依次尝试在其映射的IP进行请求,绕过DNS</p>
-</blockquote>
-<p>   使用<a href='https://www.ipaddress.com/'>https://www.ipaddress.com/</a>查找域名所对应的IP地址.</p>
-<p>   <img src="/images/ipaddress.png"></p>
-<p>   使用switchHosts修改mac的hosts文件.</p>
-<p>   <img src="/images/switchhosts.png"></p>
-<p>   PS: 使用switchHosts无法对原有的hosts文件进行修改,只能添加新的hosts文件对原有的hosts文件进行合并覆盖,添加好后,将其配置的switch开关打开,允许其合并覆盖.</p>
-<blockquote>
-<p>再次下载,被拒绝的情况不存在了,但是出现了新的异常情况</p>
-</blockquote>
-<pre><code>curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to raw.githubusercontent.com:443
-</code></pre>
-<p>   究其根本原因,在于国内网络环境对于境外服务器的种种限制,只用解决这一问题才能真正意义上解决 GitHub push&#x2F;pull 网络错误的问题.所以我查找到了一条可以彻底解决的路,使用国内镜像,就跟npm的淘宝镜像相同,homebrew在国内也有多条镜像途径.</p>
-<pre><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
-</code></pre>
-<p>   <img src="/images/homebrew_mirror.png"></p>
-<p>   选择任意一个镜像进行下载,最好是用’梯子’🐶.有时候用’梯子’也下载的非常慢,好在重新进行下载时,会在原来downloaded的基础之上进行下载.下载好之后,重启终端命令行工具,或者执行一下source .bash_profile,使得配置文件在修改了环境变等配置的情况下进行重置.</p>
-<blockquote>
-<p>brew install</p>
-</blockquote>
-<p>   <img src="/images/homebrew_install_git.png"></p>
-<p>   这样就可以愉快快捷的下载任意在homebrew上的资源了!PS: 每下载完一次资源,还是最好执行一下source ~&#x2F;.bash_profile,使得配置文件在修改了环境变量等配置的情况下进行重置.</p>
-<blockquote>
-<p>fatal: not in a git directory<br>Error: Command failed with exit 128: git</p>
-</blockquote>
-<p>   当出现这种错误时,就说明本地与远程并没有建立关联,并没有添加origin句柄简称映射远程的镜像链接,所以我们需要重新设置一下.</p>
-<ul>
-<li>Bash终端配置</li>
-</ul>
-<pre><code># 替换brew.git:
-cd &quot;$(brew --repo)&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
-
-# 替换homebrew-core.git:
-cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
-
-# 应用生效
-brew update
-
-# 替换homebrew-bottles:
-echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.bash_profile
-source ~/.bash_profile
-</code></pre>
-<ul>
-<li>Zsh终端配置</li>
-</ul>
-<pre><code># 替换brew.git:
-cd &quot;$(brew --repo)&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
-# 替换homebrew-core.git:
-cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
-# 应用生效
-brew update
-# 替换homebrew-bottles:
-echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.zshrc
-source ~/.zshrc
-</code></pre>
-]]></content>
-      <categories>
-        <category>homebrew</category>
-      </categories>
-      <tags>
-        <tag>homebrew</tag>
       </tags>
   </entry>
 </search>
