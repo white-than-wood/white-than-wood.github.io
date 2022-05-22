@@ -79,4 +79,6 @@ categories: homebrew
     echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles' >> ~/.zshrc
     source ~/.zshrc
 
+   这样就可解决本地与远程并没有建立关联的问题.
+
    
