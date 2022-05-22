@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://white-than-wood.github.io/images/developer_settings.png">
 <meta property="og:image" content="https://white-than-wood.github.io/images/access_tokens.png">
 <meta property="article:published_time" content="2022-05-13T20:30:23.000Z">
-<meta property="article:modified_time" content="2022-05-22T09:45:10.483Z">
+<meta property="article:modified_time" content="2022-05-22T13:10:49.158Z">
 <meta property="article:author" content="WTW(比木白)">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="blog">
@@ -264,7 +264,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-22 17:45:10" itemprop="dateModified" datetime="2022-05-22T17:45:10+08:00">2022-05-22</time>
+      <time title="修改时间：2022-05-22 21:10:49" itemprop="dateModified" datetime="2022-05-22T21:10:49+08:00">2022-05-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -520,7 +520,7 @@ busuanzi_count:
     post_views_icon: fa fa-eye
 </code></pre>
 <h4 id="hexo-Gitalk留言板配置"><a href="#hexo-Gitalk留言板配置" class="headerlink" title="hexo Gitalk留言板配置"></a>hexo Gitalk留言板配置</h4><blockquote>
-<p>留言板comments是创作者与阅读者进行互动反馈的窗口,可以使阅读者与创作者共同进步.对于hexo来说,支持的留言板模式有很多种: ‘disqus | disqusjs | changyan | livere | gitalk | utterances’,比较常见、用户量比较大且与github关联性比较强的就是gitalk以及disqus,disqus需要’梯子’🐶才能评论,那么还是选用gitalk.留言板配置需要更改主题目录底下的_config.yml文件</p>
+<p>留言板comments是创作者与阅读者进行互动反馈的窗口,可以使阅读者与创作者共同进步.对于hexo来说,支持的留言板模式有很多种: ‘disqus | disqusjs | changyan | livere | gitalk | utterances’,比较常见、用户量比较大且与github关联性比较强的就是gitalk以及disqus,disqus需要’梯子’🐶才能评论,那么还是选用gitalk.留言板配置需要更改主题目录下的_config.yml文件</p>
 </blockquote>
 <p>   配置comments:</p>
 <pre><code># Multiple Comment System Support
@@ -680,6 +680,13 @@ description: 前端领域内所不知道的都探索于此!
 <pre><code>#hexo构建渲染时会将source目录下markdown类型文件转译为html,我们不需要将README.md转译,所以直接skip render
 #更改根目录底下的_config.yml文件,修改skip_render属性
 skip_render: README.md
+</code></pre>
+<blockquote>
+<p>当创作中图片过小,阅读者无法看清的情况下,放大配置就已然成为必要.fancybox配置可以点击使图片放大,并可同时查看全文的图片.更改主题目录下的_config.yml文件fancybox属性</p>
+</blockquote>
+<pre><code># FancyBox is a tool that offers a nice and elegant way to add zooming functionality for images.
+# For more information: https://fancyapps.com/fancybox/
+fancybox: true
 </code></pre>
 
     </div>

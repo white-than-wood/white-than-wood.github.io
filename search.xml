@@ -230,7 +230,7 @@ busuanzi_count:
     post_views_icon: fa fa-eye
 </code></pre>
 <h4 id="hexo-Gitalk留言板配置"><a href="#hexo-Gitalk留言板配置" class="headerlink" title="hexo Gitalk留言板配置"></a>hexo Gitalk留言板配置</h4><blockquote>
-<p>留言板comments是创作者与阅读者进行互动反馈的窗口,可以使阅读者与创作者共同进步.对于hexo来说,支持的留言板模式有很多种: ‘disqus | disqusjs | changyan | livere | gitalk | utterances’,比较常见、用户量比较大且与github关联性比较强的就是gitalk以及disqus,disqus需要’梯子’🐶才能评论,那么还是选用gitalk.留言板配置需要更改主题目录底下的_config.yml文件</p>
+<p>留言板comments是创作者与阅读者进行互动反馈的窗口,可以使阅读者与创作者共同进步.对于hexo来说,支持的留言板模式有很多种: ‘disqus | disqusjs | changyan | livere | gitalk | utterances’,比较常见、用户量比较大且与github关联性比较强的就是gitalk以及disqus,disqus需要’梯子’🐶才能评论,那么还是选用gitalk.留言板配置需要更改主题目录下的_config.yml文件</p>
 </blockquote>
 <p>   配置comments:</p>
 <pre><code># Multiple Comment System Support
@@ -391,6 +391,13 @@ description: 前端领域内所不知道的都探索于此!
 #更改根目录底下的_config.yml文件,修改skip_render属性
 skip_render: README.md
 </code></pre>
+<blockquote>
+<p>当创作中图片过小,阅读者无法看清的情况下,放大配置就已然成为必要.fancybox配置可以点击使图片放大,并可同时查看全文的图片.更改主题目录下的_config.yml文件fancybox属性</p>
+</blockquote>
+<pre><code># FancyBox is a tool that offers a nice and elegant way to add zooming functionality for images.
+# For more information: https://fancyapps.com/fancybox/
+fancybox: true
+</code></pre>
 ]]></content>
       <categories>
         <category>hexo</category>
@@ -405,9 +412,9 @@ skip_render: README.md
     <title>think of git</title>
     <url>/2022/05/15/thinkofgit/</url>
     <content><![CDATA[<h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote>
-<p>git remote add origin <a href="mailto:&#103;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#x62;&#46;&#99;&#111;&#109;">&#103;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#x62;&#46;&#99;&#111;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
+<p>git remote add origin <a href="mailto:&#103;&#x69;&#116;&#x40;&#x67;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;">&#103;&#x69;&#116;&#x40;&#x67;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#99;&#x6f;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
 </blockquote>
-<p>   从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的git项目时,势必要与远程git库建立联系(远程git库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在远程<a href="mailto:&#103;&#x69;&#116;&#64;&#x67;&#x69;&#116;&#x68;&#117;&#98;&#x2e;&#99;&#x6f;&#109;">&#103;&#x69;&#116;&#64;&#x67;&#x69;&#116;&#x68;&#117;&#98;&#x2e;&#99;&#x6f;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git链接上面建立一个新远程句柄简称并进行关联,之后推送、同步代码直接与此句柄简称关联就可以了,不需要再去copy使用github远程库上面的链接.</p>
+<p>   从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的git项目时,势必要与远程git库建立联系(远程git库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在远程<a href="mailto:&#103;&#x69;&#x74;&#64;&#x67;&#105;&#116;&#x68;&#117;&#x62;&#46;&#x63;&#x6f;&#109;">&#103;&#x69;&#x74;&#64;&#x67;&#105;&#116;&#x68;&#117;&#x62;&#46;&#x63;&#x6f;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git链接上面建立一个新远程句柄简称并进行关联,之后推送、同步代码直接与此句柄简称关联就可以了,不需要再去copy使用github远程库上面的链接.</p>
 <blockquote>
 <p>git push –set-upstream origin master</p>
 </blockquote>
@@ -434,7 +441,7 @@ ssh-keygen -t rsa -b 4096 -C &#39;15866369958@qq.com&#39;
    <img src="/images/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>
    <div style="clear: both;display: block;"></div>
 
-<p>   添加成功之后,我们测试一下,将远程github库(‘<a href="mailto:&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#x68;&#117;&#98;&#46;&#99;&#111;&#x6d;">&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#x68;&#117;&#98;&#46;&#99;&#111;&#x6d;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明ssh-keygen设置与github远程仓库ssh安全关联生效.</p>
+<p>   添加成功之后,我们测试一下,将远程github库(‘<a href="mailto:&#103;&#x69;&#x74;&#64;&#x67;&#105;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#x6d;">&#103;&#x69;&#x74;&#64;&#x67;&#105;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#x6d;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明ssh-keygen设置与github远程仓库ssh安全关联生效.</p>
 <blockquote>
 <p>本地设置多个ssh公私钥与多个github远程仓库建立安全关联</p>
 </blockquote>
