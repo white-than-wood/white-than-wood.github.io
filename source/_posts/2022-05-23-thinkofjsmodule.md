@@ -15,7 +15,7 @@ categories: javascript module
 
 > commonjs
 
-   commonjs的特性就是其不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了其两个特点: 动态导入和赋值复制.
+   commonjs的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.
 
    * 动态导入.
 
@@ -70,7 +70,7 @@ categories: javascript module
 
    优势: 支持同步/异步模块加载,amd近似于同步模块导入导出(与commonjs同步模块加载有着本质的不同),cmd异步模块导入导出;
 
-   劣势: 不支持静态分析,静态分析所带来的一系列福利不能在amd(cmd)模块导入导出模式下施行;受限于第三方库的环境依赖;写法上很不友好;适用范围很窄,没有类NodeJS、npm以及ECMAScript标准这种受众面很广泛的'推手'推动;
+   劣势: 不支持静态分析,静态分析所带来的一系列福利()不能在amd(cmd)模块导入导出模式下施行;受限于第三方库的环境依赖;写法上很不友好;适用范围很窄,没有类NodeJS、npm以及ECMAScript标准这种受众面很广泛的'推手'推动;
 
 > umd
 
@@ -170,7 +170,9 @@ categories: javascript module
 
 > esm(ecmascript module)
 
-   模块导入导出的最终方案模式,也是现在NodeJS、npm以及ECMAScript标准这些受众面很广泛的'推手'主要推动的模块导入导出模式.
+   模块导入导出的最终方案模式.也是现在NodeJS、npm以及ECMAScript标准这些受众面很广泛的'推手'主要推动的模块导入导出模式.
+
+   其导入是在编译器编译阶段,由此特性也导致了两个特点: 静态分析和赋值引用.与commonjs的特性与特点完全相反.
    
    * NodeJS ESM.
 
