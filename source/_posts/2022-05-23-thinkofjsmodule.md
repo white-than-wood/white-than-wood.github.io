@@ -199,4 +199,4 @@ categories: javascript module
 
    优势: 支持静态分析,静态分析所带来的一系列福利都可接收;可实行异步模块加载;支持动态导入import();
    
-   劣势: 现阶段NodeJS、npm以及ECMAScript标准这些受众面很广泛的'推手'因历史、兼容、底层改动大等问题,实现的都不成熟,还需要Webpack Babel等工具进行转译;
+   劣势: 现阶段NodeJS、npm以及ECMAScript标准这些受众面很广泛的'推手'因历史、兼容、底层改动大等问题,实现的都不成熟,还需要Webpack/Babel等工具进行转译;
