@@ -2,25 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
-        <loc>https://white-than-wood.github.io/2022/05/23/thinkofwebpack/</loc>
-        
-        <lastmod>2022-05-23T15:16:07.928Z</lastmod>
-        
-        <date>1653237961000</date>
-        <title>think of webpack | WTW's Frontend</title>
-        
-        <desc>webpack配置 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’}打包构建导出的模块无法实行TreeShaking. 在配置webpack的输出output时,都会遇到输出模块的配置,也就是webpack 4中的libraryType以及webpack 5中的libraryType(未删但新特性不更新) </desc>
-    </url>
-    
-    <url>
         <loc>https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/</loc>
         
-        <lastmod>2022-05-23T15:05:33.495Z</lastmod>
+        <lastmod>2022-05-23T15:29:16.731Z</lastmod>
         
         <date>1653238104000</date>
         <title>think of JsModule | WTW's Frontend</title>
         
         <desc>模块导入导出的历史 JsModule的演化经历 下面这张图可以清晰的看出,javascript module演化的历史,由最初的commonjs到最终方案esm,而现在正处于umd -&gt; esm阶段. commonjs</desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/23/thinkofwebpack/</loc>
+        
+        <lastmod>2022-05-23T15:17:51.184Z</lastmod>
+        
+        <date>1653237961000</date>
+        <title>think of webpack | WTW's Frontend</title>
+        
+        <desc>webpack配置 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’}打包构建导出的模块无法实行TreeShaking. 在配置webpack的输出output时,都会遇到输出模块的配置,也就是webpack 4中的libraryType以及webpack 5中的libraryType(未删但新特性不更新) </desc>
     </url>
     
     <url>
@@ -53,7 +53,7 @@
         <date>1652564405000</date>
         <title>think of git | WTW's Frontend</title>
         
-        <desc>git命令 git remote add origin &#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄</desc>
+        <desc>git命令 git remote add origin &#103;&#x69;&#x74;&#x40;&#103;&#x69;&#116;&#104;&#117;&#x62;&#46;&#x63;&#111;&#109;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程</desc>
     </url>
     
     <url>
@@ -79,23 +79,23 @@
     </url>
     
     <url>
-        <loc>https://white-than-wood.github.io/categories/index.html</loc>
-        
-        <lastmod>2022-05-14T22:48:48.825Z</lastmod>
-        
-        <date>1652472563000</date>
-        <title>categories | WTW's Frontend</title>
-        
-        <desc></desc>
-    </url>
-    
-    <url>
         <loc>https://white-than-wood.github.io/archives/index.html</loc>
         
         <lastmod>2022-05-14T22:48:48.825Z</lastmod>
         
         <date>1652472553000</date>
         <title>archives | WTW's Frontend</title>
+        
+        <desc></desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/categories/index.html</loc>
+        
+        <lastmod>2022-05-14T22:48:48.825Z</lastmod>
+        
+        <date>1652472563000</date>
+        <title>categories | WTW's Frontend</title>
         
         <desc></desc>
     </url>
