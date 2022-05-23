@@ -2,6 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://white-than-wood.github.io/archives/index.html</loc>
+        
+        <lastmod>2022-05-23T15:47:43.889Z</lastmod>
+        
+        <date>1652472553000</date>
+        <title>归档 | WTW's Frontend</title>
+        
+        <desc></desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/tags/index.html</loc>
+        
+        <lastmod>2022-05-23T15:47:34.370Z</lastmod>
+        
+        <date>1652472525000</date>
+        <title>标签 | WTW's Frontend</title>
+        
+        <desc></desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/categories/index.html</loc>
+        
+        <lastmod>2022-05-23T15:47:34.360Z</lastmod>
+        
+        <date>1652472563000</date>
+        <title>分类 | WTW's Frontend</title>
+        
+        <desc></desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/about/index.html</loc>
+        
+        <lastmod>2022-05-23T15:47:16.674Z</lastmod>
+        
+        <date>1652472544000</date>
+        <title>关于White-Than-Wood | WTW's Frontend</title>
+        
+        <desc></desc>
+    </url>
+    
+    <url>
         <loc>https://white-than-wood.github.io/2022/05/23/thinkofwebpack/</loc>
         
         <lastmod>2022-05-23T15:41:56.806Z</lastmod>
@@ -53,51 +97,7 @@
         <date>1652564405000</date>
         <title>think of git | WTW's Frontend</title>
         
-        <desc>git命令 git remote add origin &#103;&#x69;&#x74;&#64;&#103;&#105;&#x74;&#x68;&#x75;&#98;&#46;&#x63;&#111;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄</desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/tags/index.html</loc>
-        
-        <lastmod>2022-05-14T22:48:48.828Z</lastmod>
-        
-        <date>1652472525000</date>
-        <title>tags | WTW's Frontend</title>
-        
-        <desc></desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/archives/index.html</loc>
-        
-        <lastmod>2022-05-14T22:48:48.825Z</lastmod>
-        
-        <date>1652472553000</date>
-        <title>archives | WTW's Frontend</title>
-        
-        <desc></desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/categories/index.html</loc>
-        
-        <lastmod>2022-05-14T22:48:48.825Z</lastmod>
-        
-        <date>1652472563000</date>
-        <title>categories | WTW's Frontend</title>
-        
-        <desc></desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/about/index.html</loc>
-        
-        <lastmod>2022-05-14T22:48:48.825Z</lastmod>
-        
-        <date>1652472544000</date>
-        <title>about | WTW's Frontend</title>
-        
-        <desc></desc>
+        <desc>git命令 git remote add origin &#103;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#104;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程</desc>
     </url>
     
 </urlset>
