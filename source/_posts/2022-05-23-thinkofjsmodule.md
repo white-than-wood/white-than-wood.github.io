@@ -59,11 +59,13 @@ categories: javascript module
    * 优势和劣势.
 
    优势: 导入比较灵活;NodeJS模块导入导出完全采用commonjs模式;npm上绝大部分的依赖库都会兼容commonjs模块导入导出;同步模块加载;
-   劣势: 不支持静态分析,静态分析所带来的一系列福利不能commonjs模块导入导出模式下施行;不能实行异步加载;
+   劣势: 不支持静态分析,静态分析所带来的一系列福利不能commonjs模块导入导出模式下施行;不能实行异步模块加载;
 
 > amd(cmd)
 
    amd(cmd)的适用范围没有commonjs和esm那么广,因为受限于第三方库的环境(无论是SeaJS,还是RequireJS都需要事先下载依赖)
+
+   * 优势和劣势.
 
 > umd
 
