@@ -63,7 +63,7 @@ categories: javascript module
 
 > amd(cmd)
 
-   
+   amd(cmd)的适用范围没有commonjs和esm那么广
 
 > umd
 
