@@ -63,6 +63,8 @@ categories: javascript module
 
 > amd(cmd)
 
+   
+
 > umd
 
 > esm(ecmascript module)
