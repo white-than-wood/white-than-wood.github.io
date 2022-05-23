@@ -63,7 +63,7 @@ categories: javascript module
 
 > amd(cmd)
 
-   amd(cmd)的适用范围没有commonjs和esm那么广
+   amd(cmd)的适用范围没有commonjs和esm那么广,因为受限于第三方库的环境(无论是SeaJS,还是RequireJS都需要事先下载依赖)
 
 > umd
 
