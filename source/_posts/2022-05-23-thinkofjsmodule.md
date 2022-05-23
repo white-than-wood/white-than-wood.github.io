@@ -172,7 +172,7 @@ categories: javascript module
 
    模块导入导出的最终方案模式.也是现在NodeJS、npm以及ECMAScript标准这些受众面很广泛的'推手'主要推动的模块导入导出模式.
 
-   其导入是在编译器编译阶段,由此特性也导致了两个特点: 静态分析和赋值引用.与commonjs的特性与特点完全相反.
+   其导入是在编译器编译阶段,由此特性也导致了两个特点: 静态分析和赋值引用. 与commonjs的特性与特点完全相反.
    
    * NodeJS ESM.
 
@@ -196,6 +196,47 @@ categories: javascript module
    import module from './module.js';
    console.log(module.count);
    ```
+
+   * 静态分析.
+
+   其导入是在编译器编译阶段,所以需要将所使用的模块都在所要导入文件的头部进行导入.可对其引入的值、函数或者模块可进行静态分析.
+
+   ```javascript
+   //module.js
+   export const count = 4;
+   ```
+
+   ```javascript
+   //index.js
+   //对其引入的值、函数或者模块可进行静态分析
+   import {count} from './module.js';
+   console.log(count);
+   ```
+
+   * 赋值引用.
+
+   ```javascript
+   //module.js
+   export let count = 4;
+   export function add() {
+     count++;
+   }
+   ```
+
+   ```javascript
+   //index.js
+   import {count, add} from './module.js';
+   console.log('count:', count);
+   add();
+   console.log('count:', count);
+   ```
+
+   上面这两段js代码与commonjs赋值复制部分是同一个例子,但是执行结果却是不相同的,其结果为:
+
+    count: 4
+    count: 5
+
+   可以看出esm对于导出的变量以及函数都是编译器编译时连同引用一起导出,导致通过模块内部修改变量的值之后,在外部导入模块变量的值也发生了改变.
 
    * 优势和劣势.
 
