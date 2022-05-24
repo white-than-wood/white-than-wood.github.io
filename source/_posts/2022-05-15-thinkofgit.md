@@ -50,7 +50,7 @@ categories: git
 
        - ssh-agent.
 
-         ssh-agent实际上是一个本地的高速缓存代理机制,可以在用户不输入任何密码短语的情况下,将session缓存中的私钥与远程仓库建立ssh安全关联.
+         ssh-agent实际上是一个本地的高速缓存代理机制,可以在用户不输入任何密码短语的情况下,将session缓存中的私钥与远程仓库建立ssh安全关联并实行通信.
      
        - ssh-add.
      
