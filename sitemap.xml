@@ -2,6 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://white-than-wood.github.io/2022/05/15/thinkofgit/</loc>
+        
+        <lastmod>2022-05-24T15:43:00.347Z</lastmod>
+        
+        <date>1652564405000</date>
+        <title>think of git | WTW's Frontend</title>
+        
+        <desc>git命令 git remote add origin &#x67;&#105;&#x74;&#x40;&#x67;&#105;&#116;&#104;&#117;&#x62;&#x2e;&#x63;&#111;&#109;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远</desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/23/thinkofwebpack/</loc>
+        
+        <lastmod>2022-05-24T14:07:44.587Z</lastmod>
+        
+        <date>1653237961000</date>
+        <title>think of webpack | WTW's Frontend</title>
+        
+        <desc>webpack配置 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’}打包构建导出的模块无法实行TreeShaking. 在配置webpack的输出output时,都会遇到输出模块的配置,也就是webpack 4中的libraryType以及webpack 5中的libraryType(未删但新特性不更新) </desc>
+    </url>
+    
+    <url>
         <loc>https://white-than-wood.github.io/archives/index.html</loc>
         
         <lastmod>2022-05-23T15:47:43.889Z</lastmod>
@@ -46,17 +68,6 @@
     </url>
     
     <url>
-        <loc>https://white-than-wood.github.io/2022/05/23/thinkofwebpack/</loc>
-        
-        <lastmod>2022-05-23T15:41:56.806Z</lastmod>
-        
-        <date>1653237961000</date>
-        <title>think of webpack | WTW's Frontend</title>
-        
-        <desc>webpack配置 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’}打包构建导出的模块无法实行TreeShaking. 在配置webpack的输出output时,都会遇到输出模块的配置,也就是webpack 4中的libraryType以及webpack 5中的libraryType(未删但新特性不更新) </desc>
-    </url>
-    
-    <url>
         <loc>https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/</loc>
         
         <lastmod>2022-05-23T15:29:16.731Z</lastmod>
@@ -87,17 +98,6 @@
         <title>think of homebrew | WTW's Frontend</title>
         
         <desc>download homebrew 最近在下载homebrew时,发现其总是出现连接被拒绝的情况 curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused 后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的 DNS</desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/15/thinkofgit/</loc>
-        
-        <lastmod>2022-05-22T07:08:27.412Z</lastmod>
-        
-        <date>1652564405000</date>
-        <title>think of git | WTW's Frontend</title>
-        
-        <desc>git命令 git remote add origin &#103;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#104;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程</desc>
     </url>
     
 </urlset>
