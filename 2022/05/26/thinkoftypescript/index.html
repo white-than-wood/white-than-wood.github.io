@@ -21,26 +21,32 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"white-than-wood.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2},"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="前端领域内所不知道的都探索于此!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="WTW&#39;s Frontend">
-<meta property="og:url" content="https://white-than-wood.github.io/categories/postcss/index.html">
+    <meta name="description" content="typescript配置{“module”: “umd”} 问题1    近期在配置typescript配合webpack构建打包项目时发现,tsconfig.json里配置模块导入导出模式为{“module”:”umd”},webpack使用ts-loader来处理,导入导出的模块模式同样使用{libraryTarget: ‘umd’} or output -&gt; library: {typ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="think of typescript">
+<meta property="og:url" content="https://white-than-wood.github.io/2022/05/26/thinkoftypescript/index.html">
 <meta property="og:site_name" content="WTW&#39;s Frontend">
-<meta property="og:description" content="前端领域内所不知道的都探索于此!">
+<meta property="og:description" content="typescript配置{“module”: “umd”} 问题1    近期在配置typescript配合webpack构建打包项目时发现,tsconfig.json里配置模块导入导出模式为{“module”:”umd”},webpack使用ts-loader来处理,导入导出的模块模式同样使用{libraryTarget: ‘umd’} or output -&gt; library: {typ">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://white-than-wood.github.io/images/typescript_module_umd.png">
+<meta property="article:published_time" content="2022-05-26T14:39:25.000Z">
+<meta property="article:modified_time" content="2022-05-26T16:12:02.042Z">
 <meta property="article:author" content="WTW(比木白)">
-<meta property="article:tag" content="hexo,hexo博客,hexo blog,git,homebrew,esm,JsModule,webpack,postcss,typescript">
+<meta property="article:tag" content="javascript module">
+<meta property="article:tag" content="webpack">
+<meta property="article:tag" content="typescript">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://white-than-wood.github.io/images/typescript_module_umd.png">
 
 
-<link rel="canonical" href="https://white-than-wood.github.io/categories/postcss/">
+<link rel="canonical" href="https://white-than-wood.github.io/2022/05/26/thinkoftypescript/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"categories/postcss/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://white-than-wood.github.io/2022/05/26/thinkoftypescript/","path":"2022/05/26/thinkoftypescript/","title":"think of typescript"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>分类: postcss | WTW's Frontend</title>
+<title>think of typescript | WTW's Frontend</title>
   
 
 
@@ -130,7 +136,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -143,6 +149,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#typescript%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">typescript配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%9Cmodule%E2%80%9D-%E2%80%9Cumd%E2%80%9D"><span class="nav-number">1.1.</span> <span class="nav-text">{“module”: “umd”}</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -207,51 +214,147 @@
 </noscript>
 
 
-    <div class="main-inner category posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">postcss
-          <small>分类</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://white-than-wood.github.io/2022/05/26/thinkoftypescript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/11425476?v=4">
+      <meta itemprop="name" content="WTW(比木白)">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WTW's Frontend">
+      <meta itemprop="description" content="前端领域内所不知道的都探索于此!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="think of typescript | WTW's Frontend">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          think of typescript
         </h1>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-05-26 22:39:25" itemprop="dateCreated datePublished" datetime="2022-05-26T22:39:25+08:00">2022-05-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-27 00:12:02" itemprop="dateModified" datetime="2022-05-27T00:12:02+08:00">2022-05-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/typescript/" itemprop="url" rel="index"><span itemprop="name">typescript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="typescript配置"><a href="#typescript配置" class="headerlink" title="typescript配置"></a>typescript配置</h1><h2 id="“module”-“umd”"><a href="#“module”-“umd”" class="headerlink" title="{“module”: “umd”}"></a>{“module”: “umd”}</h2><blockquote>
+<p>问题1</p>
+</blockquote>
+<p>  近期在配置typescript配合webpack构建打包项目时发现,tsconfig.json里配置模块导入导出模式为{“module”:”umd”},webpack使用ts-loader来处理,导入导出的模块模式同样使用{libraryTarget: ‘umd’} or output -&gt; library: {type: ‘umd’},构建打包出来的模块竟然不识别(下图就是模块不识别的异常)……反之,我配置为{“module”:”commonjs”},webpack采用同样的配置,构建打包出来的模块就是可以识别的,并且运行很正常.</p>
+<ul>
+<li><p>奇事.</p>
+<ul>
+<li>标准”umd”中不是包含”commonjs”吗?</li>
+<li>webpack为啥在模块导入导出模式中会出现只识别typescript {“module”:”commonjs”},而不识别typescript {“module”:”umd”}呢？</li>
+</ul>
+</li>
+<li><p>异常.</p>
+</li>
+</ul>
+<p>  <img src="/images/typescript_module_umd.png"></p>
+<ul>
+<li><p>原因.</p>
+<p>其根本原因,是typescript的对于模块导入导出的”umd”模式并没有遵从统一的”umd”标准来.</p>
+<ul>
+<li><p>“umd”标准.</p>
+<p><a href='https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E5%8E%86%E5%8F%B2'>think of JsModule -&gt; 模块导入导出的历史 -&gt; “umd”部分</a></p>
+</li>
+<li><p>typescript “umd”.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span> (<span class="params">factory</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="variable language_">module</span> === <span class="string">&#x27;object&#x27;</span> &amp;&amp; <span class="keyword">typeof</span> <span class="variable language_">module</span>.<span class="property">exports</span> === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">     <span class="keyword">var</span> v = <span class="title function_">factory</span>(<span class="built_in">require</span>, <span class="built_in">exports</span>); <span class="keyword">if</span> (v !== <span class="literal">undefined</span>) <span class="variable language_">module</span>.<span class="property">exports</span> = v;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">&#x27;function&#x27;</span> &amp;&amp; define.<span class="property">amd</span>) &#123;</span><br><span class="line">     <span class="title function_">define</span>([<span class="string">&quot;require&quot;</span>, <span class="string">&quot;exports&quot;</span>], factory);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)(<span class="keyword">function</span> (<span class="params"><span class="built_in">require</span>, <span class="built_in">exports</span></span>) &#123;&#125;);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>结论.</p>
+<p>通过两套”umd”配置可以看出,没有标准”umd”条件中的第三种处理,允许导出到window.namesapace &#x3D; export;因此,当大量开发人员需要同时支持所有这三个时,当前的typescript {“module”:”umd”}模块导入导出机制是非常糟糕的,webpack也是基于typescript {“module”:”umd”}产生的这种问题,对typescript {“module”:”umd”}模块导入导出模式是不支持的,所以会出现只识别typescript {“module”:”commonjs”},不识别typescript {“module”:”umd”}的奇事发生.</p>
+</li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-05-25T19:11:27+08:00"
-              content="2022-05-25">
-          05-25
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/25/thinkofpostcss/" itemprop="url">
-            <span itemprop="name">think of postcss</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript-module/" rel="tag"># javascript module</a>
+              <a href="/tags/webpack/" rel="tag"># webpack</a>
+              <a href="/tags/typescript/" rel="tag"># typescript</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/25/thinkofpostcss/" rel="prev" title="think of postcss">
+                  <i class="fa fa-chevron-left"></i> think of postcss
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-    </div>
-  </div>
-  
-  
-  
 
+
+
+
+
+    <div class="comments gitalk-container"></div>
 </div>
   </main>
 
@@ -314,7 +417,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"white-than-wood","repo":"white-than-wood.github.io","client_id":"11715b5591585c1aab05","client_secret":"8d2cbbbac0ae1230064d1f907a3648b08b42c13a","admin_user":"white-than-wood","distraction_free_mode":true,"proxy":"https://shielded-brushlands-08810.herokuapp.com/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"893e8fa06ae951153c9bf53ab8d13b4b"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"white-than-wood","repo":"white-than-wood.github.io","client_id":"11715b5591585c1aab05","client_secret":"8d2cbbbac0ae1230064d1f907a3648b08b42c13a","admin_user":"white-than-wood","distraction_free_mode":true,"proxy":"https://shielded-brushlands-08810.herokuapp.com/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"44ffaf09d81bb5deba540899ac25d8bf"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>

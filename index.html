@@ -29,7 +29,7 @@
 <meta property="og:description" content="前端领域内所不知道的都探索于此!">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="WTW(比木白)">
-<meta property="article:tag" content="hexo,hexo博客,hexo blog,git,homebrew,esm,JsModule,webpack,postcss">
+<meta property="article:tag" content="hexo,hexo博客,hexo blog,git,homebrew,esm,JsModule,webpack,postcss,typescript">
 <meta name="twitter:card" content="summary">
 
 
@@ -157,18 +157,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -217,6 +217,112 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://white-than-wood.github.io/2022/05/26/thinkoftypescript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/11425476?v=4">
+      <meta itemprop="name" content="WTW(比木白)">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WTW's Frontend">
+      <meta itemprop="description" content="前端领域内所不知道的都探索于此!">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | WTW's Frontend">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/05/26/thinkoftypescript/" class="post-title-link" itemprop="url">think of typescript</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-05-26 22:39:25" itemprop="dateCreated datePublished" datetime="2022-05-26T22:39:25+08:00">2022-05-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-27 00:12:02" itemprop="dateModified" datetime="2022-05-27T00:12:02+08:00">2022-05-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/typescript/" itemprop="url" rel="index"><span itemprop="name">typescript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="typescript配置"><a href="#typescript配置" class="headerlink" title="typescript配置"></a>typescript配置</h1><h2 id="“module”-“umd”"><a href="#“module”-“umd”" class="headerlink" title="{“module”: “umd”}"></a>{“module”: “umd”}</h2><blockquote>
+<p>问题1</p>
+</blockquote>
+<p>  近期在配置typescript配合webpack构建打包项目时发现,tsconfig.json里配置模块导入导出模式为{“module”:”umd”},webpack使用ts-loader来处理,导入导出的模块模式同样使用{libraryTarget: ‘umd’} or output -&gt; library: {type: ‘umd’},构建打包出来的模块竟然不识别(下图就是模块不识别的异常)……反之,我配置为{“module”:”commonjs”},webpack采用同样的配置,构建打包出来的模块就是可以识别的,并且运行很正常.</p>
+<ul>
+<li><p>奇事.</p>
+<ul>
+<li>标准”umd”中不是包含”commonjs”吗?</li>
+<li>webpack为啥在模块导入导出模式中会出现只识别typescript {“module”:”commonjs”},而不识别typescript {“module”:”umd”}呢？</li>
+</ul>
+</li>
+<li><p>异常.</p>
+</li>
+</ul>
+<p>  <img src="/images/typescript_module_umd.png"></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/05/26/thinkoftypescript/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://white-than-wood.github.io/2022/05/25/thinkofpostcss/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -253,7 +359,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-26 21:30:47" itemprop="dateModified" datetime="2022-05-26T21:30:47+08:00">2022-05-26</time>
+      <time title="修改时间：2022-05-26 22:51:17" itemprop="dateModified" datetime="2022-05-26T22:51:17+08:00">2022-05-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -276,8 +382,9 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="postcss配置"><a href="#postcss配置" class="headerlink" title="postcss配置"></a>postcss配置</h1><blockquote>
-<p>postcss在概念上主要是为了使新的css样式以及特性在更多种类的浏览器上得到兼容</p>
+<p>介绍</p>
 </blockquote>
+<p>  postcss在概念上主要是为了使新的css样式以及特性在更多种类的浏览器上得到兼容.</p>
 <ul>
 <li>css新样式.</li>
 </ul>
@@ -383,6 +490,7 @@
 <blockquote>
 <p>commonjs</p>
 </blockquote>
+<p>   commonjs的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/23/thinkofjsmodule/#more" rel="contents">
@@ -452,7 +560,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-24 22:07:44" itemprop="dateModified" datetime="2022-05-24T22:07:44+08:00">2022-05-24</time>
+      <time title="修改时间：2022-05-26 23:16:46" itemprop="dateModified" datetime="2022-05-26T23:16:46+08:00">2022-05-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -474,14 +582,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="webpack配置"><a href="#webpack配置" class="headerlink" title="webpack配置"></a>webpack配置</h1><blockquote>
-<p>output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’}打包构建导出的模块无法实行TreeShaking.</p>
+          <h1 id="webpack配置"><a href="#webpack配置" class="headerlink" title="webpack配置"></a>webpack配置</h1><h2 id="output"><a href="#output" class="headerlink" title="output"></a>output</h2><blockquote>
+<p>问题1</p>
+</blockquote>
+<p>   近期在配置webpack时,发现output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’}打包构建导出的模块无法实行TreeShaking.</p>
+<blockquote>
+<p>介绍</p>
 </blockquote>
 <p>   在配置webpack的输出output时,都会遇到输出模块的配置,也就是webpack 4中的libraryType以及webpack 5中的libraryType(未删但新特性不更新) and library: {type: ‘xxx’},首先解释一下这几个属性的含义,libraryType指的是每个chunk模块以怎样的模块形式构建打包输出,而library: {type: ‘xxx’}在webpack 5中属于对libraryType的复写,跟libraryType是一个含义.</p>
-<ul>
-<li>libraryType的值枚举</li>
-</ul>
-   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="comment">//值枚举</span></span><br><span class="line">  <span class="comment">//&#x27;commonjs&#x27; | &#x27;commonjs2&#x27; | &#x27;amd&#x27; | &#x27;umd&#x27; | &#x27;this&#x27; | &#x27;var&#x27; | &#x27;global&#x27; | &#x27;module&#x27;</span></span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">libraryType</span>: <span class="string">&#x27;commonjs&#x27;</span> </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/23/thinkofwebpack/#more" rel="contents">
@@ -551,7 +659,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-23 00:39:19" itemprop="dateModified" datetime="2022-05-23T00:39:19+08:00">2022-05-23</time>
+      <time title="修改时间：2022-05-26 23:07:49" itemprop="dateModified" datetime="2022-05-26T23:07:49+08:00">2022-05-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -574,14 +682,15 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="download-homebrew"><a href="#download-homebrew" class="headerlink" title="download homebrew"></a>download homebrew</h1><blockquote>
-<p>最近在下载homebrew时,发现其总是出现连接被拒绝的情况</p>
+<p>问题</p>
 </blockquote>
+<p>  最近在下载homebrew时,发现其总是出现连接被拒绝的情况.</p>
 <pre><code>curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
 </code></pre>
-<p>   后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的 DNS 解析被污染，导致 DNS 解析过程无法通过域名取得正确的IP地址.</p>
 <blockquote>
-<p>使用修改本机hosts文件,建立域名与IP的映射关系,当访问hosts文件列表中的域名时,依次尝试在其映射的IP进行请求,绕过DNS</p>
+<p>原因</p>
 </blockquote>
+<p>  后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的 DNS 解析被污染，导致 DNS 解析过程无法通过域名取得正确的IP地址.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/18/thinkofhomebrew/#more" rel="contents">
@@ -674,13 +783,16 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote>
-<p>git remote add origin <a href="mailto:&#103;&#105;&#116;&#64;&#103;&#105;&#116;&#x68;&#117;&#98;&#46;&#99;&#x6f;&#109;">&#103;&#105;&#116;&#64;&#103;&#105;&#116;&#x68;&#117;&#98;&#46;&#99;&#x6f;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
+<p>git remote add origin <a href="mailto:&#x67;&#x69;&#116;&#x40;&#103;&#105;&#116;&#104;&#117;&#98;&#46;&#x63;&#x6f;&#x6d;">&#x67;&#x69;&#116;&#x40;&#103;&#105;&#116;&#104;&#117;&#98;&#46;&#x63;&#x6f;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
 </blockquote>
-<p>   从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的git项目时,势必要与远程git库建立联系(远程git库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在远程<a href="mailto:&#103;&#105;&#116;&#x40;&#x67;&#105;&#116;&#104;&#117;&#98;&#46;&#99;&#x6f;&#x6d;">&#103;&#105;&#116;&#x40;&#x67;&#105;&#116;&#104;&#117;&#98;&#46;&#99;&#x6f;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git链接上面建立一个新远程句柄简称并进行关联,之后推送、同步代码直接与此句柄简称关联就可以了,不需要再去copy使用github远程库上面的链接.</p>
+<p>   从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的git项目时,势必要与远程git库建立联系(远程git库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在远程<a href="mailto:&#x67;&#x69;&#116;&#64;&#x67;&#x69;&#116;&#x68;&#x75;&#98;&#46;&#x63;&#x6f;&#109;">&#x67;&#x69;&#116;&#64;&#x67;&#x69;&#116;&#x68;&#x75;&#98;&#46;&#x63;&#x6f;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git链接上面建立一个新远程句柄简称并进行关联,之后推送、同步代码直接与此句柄简称关联就可以了,不需要再去copy使用github远程库上面的链接.</p>
 <blockquote>
 <p>git push –set-upstream origin master</p>
 </blockquote>
 <p>   在建立了与远程代码库的新远程句柄简称之后,首次推送同步代码,需要设置推送、同步代码的上游远程分支,当首次设置之后,后续无需设置.<br>–set-upstream origin master就是设置推送、同步代码的上游origin远程句柄简称的分支为master.</p>
+<blockquote>
+<p>git merge master –allow-unrelated-histories</p>
+</blockquote>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/15/thinkofgit/#more" rel="contents">
@@ -778,6 +890,9 @@
 </blockquote>
 <pre><code>npm install hexo-cli -g
 </code></pre>
+<blockquote>
+<p>然后使用hexo初始化博客目录,比如blog目录,目录名要与后续自己建立的github上hexo托管代码的repository同名</p>
+</blockquote>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/#more" rel="contents">
