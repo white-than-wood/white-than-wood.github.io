@@ -2,6 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://white-than-wood.github.io/2022/05/25/thinkofpostcss/</loc>
+        
+        <lastmod>2022-05-26T13:23:14.188Z</lastmod>
+        
+        <date>1653477087000</date>
+        <title>thinkofpostcss | WTW's Frontend</title>
+        
+        <desc>postcss配置 postcss在概念上主要是为了使新的css样式以及特性在更多种类的浏览器上得到兼容 css新样式. 1234/*经过postcss转译之前*/.dom &#123; user-select: none; &#125; 1234567/*经过postcss转译之后*/.dom &#123; -webkit-user-select:none; -moz-user-select:n</desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/</loc>
+        
+        <lastmod>2022-05-26T13:18:58.574Z</lastmod>
+        
+        <date>1653238104000</date>
+        <title>think of JsModule | WTW's Frontend</title>
+        
+        <desc>模块导入导出的历史 JsModule的演化经历 下面这张图可以清晰的看出,javascript module演化的历史,由最初的commonjs到最终方案esm,而现在正处于umd -&gt; esm阶段. commonjs</desc>
+    </url>
+    
+    <url>
         <loc>https://white-than-wood.github.io/2022/05/15/thinkofgit/</loc>
         
         <lastmod>2022-05-25T11:00:06.844Z</lastmod>
@@ -9,7 +31,7 @@
         <date>1652564405000</date>
         <title>think of git | WTW's Frontend</title>
         
-        <desc>git命令 git remote add origin &#103;&#x69;&#116;&#64;&#103;&#x69;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#111;&#109;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄</desc>
+        <desc>git命令 git remote add origin &#x67;&#x69;&#x74;&#64;&#103;&#105;&#x74;&#x68;&#117;&#x62;&#x2e;&#x63;&#111;&#109;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程</desc>
     </url>
     
     <url>
@@ -65,17 +87,6 @@
         <title>关于White-Than-Wood | WTW's Frontend</title>
         
         <desc></desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/</loc>
-        
-        <lastmod>2022-05-23T15:29:16.731Z</lastmod>
-        
-        <date>1653238104000</date>
-        <title>think of JsModule | WTW's Frontend</title>
-        
-        <desc>模块导入导出的历史 JsModule的演化经历 下面这张图可以清晰的看出,javascript module演化的历史,由最初的commonjs到最终方案esm,而现在正处于umd -&gt; esm阶段. commonjs</desc>
     </url>
     
     <url>
