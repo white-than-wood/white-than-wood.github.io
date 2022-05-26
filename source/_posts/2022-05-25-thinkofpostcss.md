@@ -38,7 +38,7 @@ categories: postcss
   ```
 
   ```css
-  /*经过postcss转译之前*/
+  /*经过postcss转译之后*/
   .dom {
     color: rgba(18,52,86,.471);
   }
