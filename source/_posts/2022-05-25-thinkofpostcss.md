@@ -7,7 +7,9 @@ categories: postcss
 
 # postcss配置
 
-> postcss在概念上主要是为了使新的css样式以及特性在更多种类的浏览器上得到兼容
+> 介绍
+
+  postcss在概念上主要是为了使新的css样式以及特性在更多种类的浏览器上得到兼容.
 
   - css新样式.
 
@@ -44,7 +46,9 @@ categories: postcss
   }
   ```
 
-> 现阶段postcss转译的工具使用率比较多的有两种: autoprefixer以及postcss-preset-env
+> 工具
+
+  现阶段postcss转译的工具使用率比较多的有两种: autoprefixer以及postcss-preset-env.
 
   - autoprefixer.
 
