@@ -231,7 +231,7 @@ categories: javascript module
    console.log('count:', count);
    ```
 
-   上面这两段js代码与commonjs赋值复制部分是同一个例子,但是执行结果却是不相同的,其结果为:
+   上面这两段js代码与commonjs赋值复制部分是同一个🌰,但是执行结果却是不相同的,其结果为:
 
     count: 4
     count: 5
