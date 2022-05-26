@@ -1,5 +1,5 @@
 ---
-title: thinkofpostcss
+title: think of postcss
 date: 2022-05-25 19:11:27
 tags: [postcss, webpack]
 categories: postcss
