@@ -6,6 +6,16 @@
 
 PS: 查看的领域分为两个版本:github、blog website,小伙伴们择喜而食.
 
+# typescript
+
+> github
+
+* <a href='https://github.com/white-than-wood/white-than-wood.github.io/blob/main/source/_posts/2022-05-26-thinkoftypescript.md' target='_blank'>think of typescript</a>
+
+> blog website
+
+* <a href='https://white-than-wood.github.io/2022/05/26/thinkoftypescript/' target='_blank'>think of typescript</a>
+
 # postcss
 
 > github
