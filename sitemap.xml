@@ -4,12 +4,56 @@
     <url>
         <loc>https://white-than-wood.github.io/2022/05/26/thinkoftypescript/</loc>
         
-        <lastmod>2022-05-26T16:12:02.042Z</lastmod>
+        <lastmod>2022-05-27T04:34:26.489Z</lastmod>
         
         <date>1653575965000</date>
         <title>think of typescript | WTW's Frontend</title>
         
         <desc>typescript配置{“module”: “umd”} 问题1 近期在配置typescript配合webpack构建打包项目时发现,tsconfig.json里配置模块导入导出模式为{“module”:”umd”},webpack使用ts-loader来处理,导入导出的模块模式同样使用{libraryTarget: ‘umd’} or output -&gt; library: {type: </desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/</loc>
+        
+        <lastmod>2022-05-27T04:33:34.318Z</lastmod>
+        
+        <date>1653238104000</date>
+        <title>think of JsModule | WTW's Frontend</title>
+        
+        <desc>模块导入导出的历史 JsModule的演化经历 下面这张图可以清晰的看出,javascript module演化的历史,由最初的commonjs到最终方案esm,而现在正处于umd -&gt; esm阶段. commonjs commonjs的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.</desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/18/thinkofhomebrew/</loc>
+        
+        <lastmod>2022-05-27T04:32:48.205Z</lastmod>
+        
+        <date>1652885650000</date>
+        <title>think of homebrew | WTW's Frontend</title>
+        
+        <desc>download homebrew 问题 最近在下载homebrew时,发现其总是出现连接被拒绝的情况. curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused 原因 后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些</desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/15/thinkofgit/</loc>
+        
+        <lastmod>2022-05-27T04:30:09.396Z</lastmod>
+        
+        <date>1652564405000</date>
+        <title>think of git | WTW's Frontend</title>
+        
+        <desc>git命令 git remote add origin &#103;&#x69;&#116;&#x40;&#x67;&#x69;&#x74;&#104;&#117;&#98;&#46;&#99;&#111;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄</desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</loc>
+        
+        <lastmod>2022-05-27T04:27:43.325Z</lastmod>
+        
+        <date>1652473823000</date>
+        <title>hexo搭建next博客 | WTW's Frontend</title>
+        
+        <desc>引言 此博客用于搭建hexo的工具博客.基本不会探索深究配置的原因,敬请知悉~ hexo安装 首先要用npm外部依赖包管理工具安装全局命令hexo-cli npm install hexo-cli -g 然后使用hexo初始化博客目录,比如blog目录,目录名要与后续自己建立的github上hexo托管代码的repository同名</desc>
     </url>
     
     <url>
@@ -24,17 +68,6 @@
     </url>
     
     <url>
-        <loc>https://white-than-wood.github.io/2022/05/18/thinkofhomebrew/</loc>
-        
-        <lastmod>2022-05-26T15:07:49.008Z</lastmod>
-        
-        <date>1652885650000</date>
-        <title>think of homebrew | WTW's Frontend</title>
-        
-        <desc>download homebrew 问题 最近在下载homebrew时,发现其总是出现连接被拒绝的情况. curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused 原因 后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些</desc>
-    </url>
-    
-    <url>
         <loc>https://white-than-wood.github.io/2022/05/25/thinkofpostcss/</loc>
         
         <lastmod>2022-05-26T14:51:17.341Z</lastmod>
@@ -43,28 +76,6 @@
         <title>think of postcss | WTW's Frontend</title>
         
         <desc>postcss配置 介绍 postcss在概念上主要是为了使新的css样式以及特性在更多种类的浏览器上得到兼容. css新样式. 1234/*经过postcss转译之前*/.dom &#123; user-select: none; &#125; 1234567/*经过postcss转译之后*/.dom &#123; -webkit-user-select:none; -moz-user-sele</desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/</loc>
-        
-        <lastmod>2022-05-26T13:41:54.804Z</lastmod>
-        
-        <date>1653238104000</date>
-        <title>think of JsModule | WTW's Frontend</title>
-        
-        <desc>模块导入导出的历史 JsModule的演化经历 下面这张图可以清晰的看出,javascript module演化的历史,由最初的commonjs到最终方案esm,而现在正处于umd -&gt; esm阶段. commonjs commonjs的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.</desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/15/thinkofgit/</loc>
-        
-        <lastmod>2022-05-25T11:00:06.844Z</lastmod>
-        
-        <date>1652564405000</date>
-        <title>think of git | WTW's Frontend</title>
-        
-        <desc>git命令 git remote add origin &#103;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#98;&#46;&#99;&#111;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄</desc>
     </url>
     
     <url>
@@ -109,17 +120,6 @@
         <title>关于White-Than-Wood | WTW's Frontend</title>
         
         <desc></desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</loc>
-        
-        <lastmod>2022-05-22T16:43:10.232Z</lastmod>
-        
-        <date>1652473823000</date>
-        <title>hexo搭建next博客 | WTW's Frontend</title>
-        
-        <desc>引言 此博客用于搭建hexo的工具博客.基本不会探索深究配置的原因,敬请知悉~ hexo安装 首先要用npm外部依赖包管理工具安装全局命令hexo-cli npm install hexo-cli -g 然后使用hexo初始化博客目录,比如blog目录,目录名要与后续自己建立的github上hexo托管代码的repository同名</desc>
     </url>
     
 </urlset>
