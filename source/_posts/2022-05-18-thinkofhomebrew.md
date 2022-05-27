@@ -25,11 +25,11 @@ categories: homebrew
 
    1. 使用<a href='https://www.ipaddress.com/'>https://www.ipaddress.com/</a>查找域名所对应的IP地址.
 
-   ![](http://image.white-than-wood.zone/homebrew/ipaddress.png)
+   ![](https://image.white-than-wood.zone/homebrew/ipaddress.png)
 
    2. 使用switchHosts修改mac的hosts文件.
 
-   ![](http://image.white-than-wood.zone/homebrew/switchhosts.png)
+   ![](https://image.white-than-wood.zone/homebrew/switchhosts.png)
 
    PS: 使用switchHosts无法对原有的hosts文件进行修改,只能添加新的hosts文件对原有的hosts文件进行合并覆盖,添加好后,将其配置的switch开关打开,允许其合并覆盖.
 
@@ -53,13 +53,13 @@ categories: homebrew
 
     /bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"
 
-  ![](http://image.white-than-wood.zone/homebrew/homebrew_mirror.png)
+  ![](https://image.white-than-wood.zone/homebrew/homebrew_mirror.png)
 
   2. 选择任意一个镜像进行下载,最好是用'梯子'🐶.有时候用'梯子'也下载的非常慢,好在重新进行下载时,会在原来downloaded的基础之上进行下载.下载好之后,重启终端命令行工具,或者执行一下source .bash_profile,使得配置文件在修改了环境变等配置的情况下进行重置.
 
 > brew install
 
-   ![](http://image.white-than-wood.zone/homebrew/homebrew_install_git.png)
+   ![](https://image.white-than-wood.zone/homebrew/homebrew_install_git.png)
 
    这样就可以愉快快捷的下载任意在homebrew上的资源了!PS: 每下载完一次资源,还是最好执行一下source ~/.bash_profile,使得配置文件在修改了环境变量等配置的情况下进行重置.
 

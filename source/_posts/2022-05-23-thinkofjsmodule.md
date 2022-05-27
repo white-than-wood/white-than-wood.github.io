@@ -11,7 +11,7 @@ categories: javascript module
 
    下面这张图可以清晰的看出,javascript module演化的历史,由最初的commonjs到最终方案esm,而现在正处于umd -> esm阶段.
 
-   ![](http://image.white-than-wood.zone/jsmodule/js_module_history.png)
+   ![](https://image.white-than-wood.zone/jsmodule/js_module_history.png)
 
 > commonjs
 
