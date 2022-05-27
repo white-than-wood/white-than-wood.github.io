@@ -38,8 +38,8 @@ categories: git
 
    在mac下,生成之后,前往自己账号目录下查询.ssh/id_rsa.pub,将id_rsa.pub文件里面的内容复制添加到github的账号settings设置下的SSH and GPG keys.
    
-   <img src="/images/ssh_settings.png" style="width: 160px;float: left;"/>
-   <img src="/images/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>
+   <img src="http://image.white-than-wood.zone/git/ssh_settings.png" style="width: 160px;float: left;"/>
+   <img src="http://image.white-than-wood.zone/git/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>
    <div style="clear: both;display: block;"></div>
 
    添加成功之后,我们测试一下,将远程github库('git@github.com'开头链接)克隆到本地,如果可以拉取到本地,那就说明ssh-keygen设置与github远程仓库ssh安全关联生效.

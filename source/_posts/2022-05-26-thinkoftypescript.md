@@ -20,7 +20,7 @@ categories: typescript
 
   - 异常.
 
-  ![](/images/typescript_module_umd.png)
+  ![](http://image.white-than-wood.zone/typescript/typescript_module_umd.png)
 
   - 原因.
 
