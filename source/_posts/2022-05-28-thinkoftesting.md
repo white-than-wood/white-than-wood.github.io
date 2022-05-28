@@ -41,7 +41,7 @@ categories: testing
 
   - App Testing.
 
-    可在线自由搭配不同的品牌手机、版本、Android系统以及IOS系统对App包或者App Url进行实时交互式跨真机测试,每次真实真机测试sessions可测试10分钟,在测试期间可切换之前自由搭配的所有配置选项、可录屏、可标记bug(编辑bug截图、下载bug截图以及上传到lambdaTest衍生的SLACK、JIRA和ASANA项目管理系统).
+    可在线自由搭配不同的品牌手机、版本设备对App包或者App Url进行实时交互式跨真机测试,每次真实真机测试sessions可测试10分钟,在测试期间可切换之前自由搭配的品牌手机以及版本设备、可录屏、可标记bug(编辑bug截图、下载bug截图以及上传到lambdaTest衍生的SLACK、JIRA和ASANA项目管理系统).
 
     - 配置.
 
@@ -73,7 +73,7 @@ categories: testing
 
     - 问题.
 
-      现阶段lambdaTest上手动测试中大部分浏览器版本、操作系统、品牌手机、版本、Android系统以及IOS系统都是不开放的,开放的很小的部分仅仅也是为了给用户进行体验的,如果需要开放就需要付费,另外支出成本.
+      现阶段lambdaTest上手动测试中大部分浏览器版本、操作系统、品牌手机以及版本设备都是不开放的,开放的很小的部分仅仅也是为了给用户进行体验的,如果需要开放就需要付费,另外支出成本.
 
 > 自动化测试(Automatic testing)
 
@@ -94,9 +94,9 @@ categories: testing
 
     使用Selenium以及配合lambdaTest的配置还是比较简单的,官方有具体的一步一步实现的文章: <a href='https://www.lambdatest.com/support/docs/run-selenium-ide-tests-on-lambdatest-selenium-cloud-grid/'>Run Selenium IDE Tests with LambdaTest Selenium Grid</a>
 
-  - selenium-side-runner配合lambdaTest。
+  - selenium-side-runner命令行配合lambdaTest。
 
-    使用selenium-side-runner依赖包在命令行中运行导出的Selenium IDE测试套件,在lambdaTest在线平台上搭配不同的浏览器版本、浏览器类型、操作系统、品牌手机、版本、Android系统以及IOS系统进行生成自动化测试录屏.
+    使用selenium-side-runner依赖包在命令行中运行导出的Selenium IDE测试套件,在lambdaTest在线平台上搭配不同的浏览器版本、浏览器类型、操作系统、品牌手机以及版本设备进行生成自动化测试录屏.
 
     - 可根据selenium事件步骤分帧在录屏中在线查看测试套件自动化测试的情况;
     - 可在线查看在自动化测试过程当中网络资源接口的加载情况;
@@ -133,4 +133,4 @@ categories: testing
 
   - 结论.
 
-    Selenium确实是自动化测试工具领域最为流行的一种测试套件,作为Chrome extensions,无需编辑一行代码就可实现可视化、自动化测试,并且效果顶级.而lambdaTest在线自动化测试更是与Selenium配合的相得益彰,在不同的浏览器版本、浏览器类型、操作系统、品牌手机、版本、Android系统以及IOS系统进行生成自动化测试录屏都是简洁、易用且容易理解,只能说如果作为一个测试,现在可以说"大大真的解放了头脑和双手".
+    Selenium确实是自动化测试工具领域最为流行的一种测试套件,作为Chrome extensions,无需编辑一行代码就可实现可视化、自动化测试,并且效果顶级.而lambdaTest在线自动化测试更是与Selenium配合的相得益彰,在不同的浏览器版本、浏览器类型、操作系统、品牌手机以及版本设备进行生成自动化测试录屏都是简洁、易用且容易理解,只能说如果作为一个测试,现在可以说"大大真的解放了头脑和双手".
