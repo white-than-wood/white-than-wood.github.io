@@ -1,6 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>think of JsModule</title>
+    <url>/2022/05/23/thinkofjsmodule/</url>
+    <content><![CDATA[<h1 id="模块导入导出的历史"><a href="#模块导入导出的历史" class="headerlink" title="模块导入导出的历史"></a>模块导入导出的历史</h1><blockquote>
+<p>JsModule的演化经历</p>
+</blockquote>
+<p>   下面这张图可以清晰的看出,javascript module演化的历史,由最初的commonjs到最终方案esm,而现在正处于umd -&gt; esm阶段.</p>
+<p>   <img src="https://image.white-than-wood.zone/jsmodule/js_module_history.png"></p>
+<blockquote>
+<p>commonjs</p>
+</blockquote>
+<p>   commonjs的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.</p>
+<ul>
+<li>动态导入.</li>
+</ul>
+<p>   下面这段js代码完美诠释了此含义,在此判断为true的情况下的commonjs,才会导入selectivizr,并实行selectivizr中的脚本.</p>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(browser.<span class="property">desktop</span> &amp;&amp; browser.<span class="property">msie</span> &amp;&amp; browser.<span class="property">versionNumber</span> &lt; <span class="number">9</span>)&#123;</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">&#x27;selectivizr&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>赋值复制.</li>
+</ul>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// module.js</span></span><br><span class="line"><span class="keyword">let</span> count = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params"></span>) &#123;</span><br><span class="line">  count++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  count,</span><br><span class="line">  add</span><br><span class="line">&#125;;	 </span><br></pre></td></tr></table></figure>
+
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> &#123;count, add&#125; = <span class="built_in">require</span>(<span class="string">&#x27;./module.js&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);</span><br><span class="line"><span class="title function_">add</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);	 </span><br></pre></td></tr></table></figure>
+
+<p>   上面这两段js代码完美诠释了此含义,其结果为:</p>
+<pre><code>count: 4
+count: 4
+</code></pre>
+<p>   可以看出commonjs对于导出的变量以及函数都是代码执行时直接复制其值,而不是连同引用一起导出,导致通过模块内部修改变量的值之后,在外部导入模块变量并没有发现其值发生变化.</p>
+<ul>
+<li><p>优势和劣势.</p>
+<ul>
+<li><p>优势: </p>
+<ul>
+<li>导入比较灵活;</li>
+<li>NodeJS模块导入导出完全采用commonjs模式,npm上绝大部分的依赖库都会兼容commonjs模块导入导出,适用范围很广泛;</li>
+<li>同步模块加载;</li>
+</ul>
+</li>
+<li><p>劣势: </p>
+<ul>
+<li>不支持静态分析,静态分析所带来的一系列福利不能在commonjs模块导入导出模式下实行;</li>
+<li>不能实行异步模块加载;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>amd(cmd)</p>
+</blockquote>
+<p>   amd(cmd)的适用范围很窄,受众面也远远没有commonjs和esm广泛,因为受限于第三方库的环境依赖(无论是SeaJS,还是RequireJS都需要事先下载依赖).</p>
+<ul>
+<li><p>优势和劣势.</p>
+<ul>
+<li><p>优势: </p>
+<ul>
+<li>支持同步&#x2F;异步模块加载,amd近似于同步模块导入导出(与commonjs同步模块加载有着本质的不同),cmd异步模块导入导出;</li>
+</ul>
+</li>
+<li><p>劣势: </p>
+<ul>
+<li>不支持静态分析,静态分析所带来的一系列福利不能在amd(cmd)模块导入导出模式下实行;</li>
+<li>受限于第三方库的环境依赖;</li>
+<li>写法上很不友好;</li>
+<li>适用范围很窄,没有类NodeJS、npm以及ECMAScript标准这种受众面很广泛的’推手’推动;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>umd</p>
+</blockquote>
+<p>   umd,全称: Universal Module Definition,其标准为: <a href='https://github.com/umdjs/umd/blob/master/templates/commonjsStrictGlobal.js'>commonjsStrictGlobal</a>以及<a href='https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js'>returnExportsGlobal</a>.</p>
+<ul>
+<li>commonjsStrictGlobal.</li>
+</ul>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Uses CommonJS, AMD or browser globals to create a module. This example</span></span><br><span class="line"><span class="comment">// creates a global even when AMD is used. This is useful if you have some</span></span><br><span class="line"><span class="comment">// scripts that are loaded by an AMD loader, but they still want access to</span></span><br><span class="line"><span class="comment">// globals. If you do not need to export a global for the AMD case, see</span></span><br><span class="line"><span class="comment">// commonjsStrict.js.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// If you just want to support Node, or other CommonJS-like environments that</span></span><br><span class="line"><span class="comment">// support module.exports, and you are not creating a module that has a</span></span><br><span class="line"><span class="comment">// circular dependency, then see returnExportsGlobal.js instead. It will allow</span></span><br><span class="line"><span class="comment">// you to export a function as the module value.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Defines a module &quot;commonJsStrictGlobal&quot; that depends another module called</span></span><br><span class="line"><span class="comment">// &quot;b&quot;. Note that the name of the module is implied by the file name. It is</span></span><br><span class="line"><span class="comment">// best if the file name and the exported global have matching names.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// If the &#x27;b&#x27; module also uses this type of boilerplate, then</span></span><br><span class="line"><span class="comment">// in the browser, it will create a global .b that is used below.</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span> (<span class="params">root, factory</span>) &#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">&#x27;function&#x27;</span> &amp;&amp; define.<span class="property">amd</span>) &#123;</span><br><span class="line">      <span class="comment">// AMD. Register as an anonymous module.</span></span><br><span class="line">      <span class="title function_">define</span>([<span class="string">&#x27;exports&#x27;</span>, <span class="string">&#x27;b&#x27;</span>], <span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, b</span>) &#123;</span><br><span class="line">         <span class="title function_">factory</span>((root.<span class="property">commonJsStrictGlobal</span> = <span class="built_in">exports</span>), b);</span><br><span class="line">      &#125;);</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">exports</span> === <span class="string">&#x27;object&#x27;</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">exports</span>.<span class="property">nodeName</span> !== <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">      <span class="comment">// CommonJS</span></span><br><span class="line">      <span class="title function_">factory</span>(<span class="built_in">exports</span>, <span class="built_in">require</span>(<span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// Browser globals</span></span><br><span class="line">      <span class="title function_">factory</span>((root.<span class="property">commonJsStrictGlobal</span> = &#123;&#125;), root.<span class="property">b</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;(<span class="keyword">typeof</span> self !== <span class="string">&#x27;undefined&#x27;</span> ? self : <span class="variable language_">this</span>, <span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, b</span>) &#123;</span><br><span class="line">   <span class="comment">// Use b in some fashion.</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// attach properties to the exports object to define</span></span><br><span class="line">   <span class="comment">// the exported module properties.</span></span><br><span class="line">   <span class="built_in">exports</span>.<span class="property">action</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>returnExportsGlobal.</li>
+</ul>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Uses CommonJS, AMD or browser globals to create a module.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// If you just want to support Node, or other CommonJS-like environments that</span></span><br><span class="line"><span class="comment">// support module.exports, and you are not creating a module that has a</span></span><br><span class="line"><span class="comment">// circular dependency, then see returnExports.js instead. It will allow</span></span><br><span class="line"><span class="comment">// you to export a function as the module value.</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// Defines a module &quot;commonJsStrict&quot; that depends another module called &quot;b&quot;.</span></span><br><span class="line"><span class="comment">// Note that the name of the module is implied by the file name. It is best</span></span><br><span class="line"><span class="comment">// if the file name and the exported global have matching names.</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// If the &#x27;b&#x27; module also uses this type of boilerplate, then</span></span><br><span class="line"><span class="comment">// in the browser, it will create a global .b that is used below.</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// If you do not want to support the browser global path, then you</span></span><br><span class="line"><span class="comment">// can remove the `root` use and the passing `this` as the first arg to</span></span><br><span class="line"><span class="comment">// the top function.</span></span><br><span class="line">   </span><br><span class="line">(<span class="keyword">function</span> (<span class="params">root, factory</span>) &#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">&#x27;function&#x27;</span> &amp;&amp; define.<span class="property">amd</span>) &#123;</span><br><span class="line">      <span class="comment">// AMD. Register as an anonymous module.</span></span><br><span class="line">      <span class="title function_">define</span>([<span class="string">&#x27;exports&#x27;</span>, <span class="string">&#x27;b&#x27;</span>], factory);</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">exports</span> === <span class="string">&#x27;object&#x27;</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">exports</span>.<span class="property">nodeName</span> !== <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">      <span class="comment">// CommonJS</span></span><br><span class="line">      <span class="title function_">factory</span>(<span class="built_in">exports</span>, <span class="built_in">require</span>(<span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// Browser globals</span></span><br><span class="line">      <span class="title function_">factory</span>((root.<span class="property">commonJsStrict</span> = &#123;&#125;), root.<span class="property">b</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;(<span class="keyword">typeof</span> self !== <span class="string">&#x27;undefined&#x27;</span> ? self : <span class="variable language_">this</span>, <span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, b</span>) &#123;</span><br><span class="line">   <span class="comment">// Use b in some fashion.</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// attach properties to the exports object to define</span></span><br><span class="line">   <span class="comment">// the exported module properties.</span></span><br><span class="line">   <span class="built_in">exports</span>.<span class="property">action</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<p>   从源码中可以看出umd是对于commonjs、Node(webpack中值枚举为commonjs2)、amd以及Browser globals的并集,是实行兼容的一种模块导入导出模式.</p>
+<ul>
+<li><p>优势和劣势.</p>
+<ul>
+<li><p>优势: </p>
+<ul>
+<li>兼容的这几种模块导入导出都支持同步模块加载;</li>
+<li>导入比较灵活;</li>
+<li>导出的类型更丰富;</li>
+</ul>
+</li>
+<li><p>劣势: </p>
+<ul>
+<li>不支持静态分析,静态分析所带来的一系列福利也不能在umd模块导入导出模式下实行;</li>
+<li>不能实行异步模块加载;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>esm(ecmascript module)</p>
+</blockquote>
+<p>   模块导入导出的最终方案模式,也是现在NodeJS、npm以及ECMAScript标准这些受众面很广泛的’推手’主要推动的模块导入导出模式. 其导入是在编译器编译阶段,由此特性也导致了两个特点: 静态分析和赋值引用,与commonjs的特性与特点完全相反.</p>
+<ul>
+<li>NodeJS ESM.</li>
+</ul>
+<p>   混用阶段,也就是import配合module.exports,require配合export. </p>
+<p>   注意在import配合module.export这部分,import必须导入module.exports导出的模块,不能导入exports导出的模块,由于还是以commonjs模块导出,那么esm导入就不能实行静态分析,只能整体导入.</p>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line"><span class="keyword">const</span> count = <span class="number">4</span>;</span><br><span class="line"><span class="comment">//NodeJS ESM必须使用module.exports导出</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  count	 </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="comment">//以commonjs模块导出,esm导入不能实行静态分析,只能整体导入.</span></span><br><span class="line"><span class="comment">//import &#123;count&#125; from &#x27;./module.js&#x27;;</span></span><br><span class="line"><span class="keyword">import</span> <span class="variable language_">module</span> <span class="keyword">from</span> <span class="string">&#x27;./module.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">module</span>.<span class="property">count</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>静态分析.</li>
+</ul>
+<p>   其导入是在编译器编译阶段,所以需要将所使用的模块都在所要导入文件的头部进行导入.可对其引入的值、函数或者模块可进行静态分析.</p>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> count = <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="comment">//对其引入的值、函数或者模块可进行静态分析</span></span><br><span class="line"><span class="keyword">import</span> &#123;count&#125; <span class="keyword">from</span> <span class="string">&#x27;./module.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(count);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>赋值引用.</li>
+</ul>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> count = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">add</span>(<span class="params"></span>) &#123;</span><br><span class="line">  count++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;count, add&#125; <span class="keyword">from</span> <span class="string">&#x27;./module.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);</span><br><span class="line"><span class="title function_">add</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);</span><br></pre></td></tr></table></figure>
+
+<p>   上面这两段js代码与commonjs赋值复制部分是同一个🌰,但是执行结果却是不相同的,其结果为:</p>
+<pre><code>count: 4
+count: 5
+</code></pre>
+<p>   可以看出esm对于导出的变量以及函数都是编译器编译时连同引用一起导出,导致通过模块内部修改变量的值之后,在外部导入模块变量的值也发生了改变.</p>
+<ul>
+<li><p>优势和劣势.</p>
+<ul>
+<li><p>优势: </p>
+<ul>
+<li>支持静态分析,静态分析所带来的一系列福利都可接收;</li>
+<li>可实行异步模块加载;支持动态导入import();</li>
+</ul>
+</li>
+<li><p>劣势:</p>
+<ul>
+<li>现阶段NodeJS、npm以及ECMAScript标准这些受众面很广泛的’推手’因历史、兼容、底层改动大等问题,实现的都不成熟,还需要Webpack&#x2F;Babel等工具进行转译;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>javascript module</category>
+      </categories>
+      <tags>
+        <tag>commonjs</tag>
+        <tag>esm</tag>
+        <tag>amd</tag>
+        <tag>cmd</tag>
+        <tag>umd</tag>
+        <tag>javascript module</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>think of homebrew</title>
+    <url>/2022/05/18/thinkofhomebrew/</url>
+    <content><![CDATA[<h1 id="download-homebrew"><a href="#download-homebrew" class="headerlink" title="download homebrew"></a>download homebrew</h1><blockquote>
+<p>问题</p>
+</blockquote>
+<p>  最近在下载homebrew时,发现其总是出现连接被拒绝的情况.</p>
+<pre><code>curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
+</code></pre>
+<blockquote>
+<p>原因</p>
+</blockquote>
+<p>  后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的 DNS 解析被污染，导致 DNS 解析过程无法通过域名取得正确的IP地址.</p>
+<blockquote>
+<p>方案</p>
+</blockquote>
+<p>  使用修改本机hosts文件,建立域名与IP的映射关系,当访问hosts文件列表中的域名时,依次尝试在其映射的IP进行请求,绕过DNS.</p>
+<ul>
+<li>步骤.</li>
+</ul>
+<ol>
+<li>使用<a href='https://www.ipaddress.com/'>https://www.ipaddress.com/</a>查找域名所对应的IP地址.</li>
+</ol>
+<p>   <img src="https://image.white-than-wood.zone/homebrew/ipaddress.png"></p>
+<ol start="2">
+<li>使用switchHosts修改mac的hosts文件.</li>
+</ol>
+<p>   <img src="https://image.white-than-wood.zone/homebrew/switchhosts.png"></p>
+<p>   PS: 使用switchHosts无法对原有的hosts文件进行修改,只能添加新的hosts文件对原有的hosts文件进行合并覆盖,添加好后,将其配置的switch开关打开,允许其合并覆盖.</p>
+<blockquote>
+<p>次生问题</p>
+</blockquote>
+<p>  再次下载,被拒绝的情况不存在了,但是出现了新的异常情况.</p>
+<pre><code>curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to raw.githubusercontent.com:443
+</code></pre>
+<blockquote>
+<p>次生原因</p>
+</blockquote>
+<p>  其根本原因,在于国内网络环境对于境外服务器的种种限制,只用解决这一问题才能真正意义上解决下载homebrew网络错误的问题.</p>
+<blockquote>
+<p>次生方案</p>
+</blockquote>
+<p>  所以我查找到了一条可以彻底解决的路,使用国内镜像,就跟npm的淘宝镜像相同,homebrew在国内也有多条镜像途径.</p>
+<ul>
+<li>步骤.</li>
+</ul>
+<ol>
+<li>首先下载homebrew国内镜像.</li>
+</ol>
+<pre><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
+</code></pre>
+<p>  <img src="https://image.white-than-wood.zone/homebrew/homebrew_mirror.png"></p>
+<ol start="2">
+<li>选择任意一个镜像进行下载,最好是用’梯子’🐶.有时候用’梯子’也下载的非常慢,好在重新进行下载时,会在原来downloaded的基础之上进行下载.下载好之后,重启终端命令行工具,或者执行一下source .bash_profile,使得配置文件在修改了环境变等配置的情况下进行重置.</li>
+</ol>
+<blockquote>
+<p>brew install</p>
+</blockquote>
+<p>   <img src="https://image.white-than-wood.zone/homebrew/homebrew_install_git.png"></p>
+<p>   这样就可以愉快快捷的下载任意在homebrew上的资源了!PS: 每下载完一次资源,还是最好执行一下source ~&#x2F;.bash_profile,使得配置文件在修改了环境变量等配置的情况下进行重置.</p>
+<blockquote>
+<p>异常</p>
+</blockquote>
+<pre><code>fatal: not in a git directory
+Error: Command failed with exit 128: git
+</code></pre>
+<p>   当出现这种异常时,就说明本地与远程并没有建立关联,并没有添加origin句柄简称映射远程的镜像或者github链接,所以我们需要重新设置一下.</p>
+<ul>
+<li>Bash终端配置</li>
+</ul>
+<pre><code># 替换brew.git:
+cd &quot;$(brew --repo)&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+
+# 替换homebrew-core.git:
+cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+
+# 应用生效
+brew update
+
+# 替换homebrew-bottles:
+echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+</code></pre>
+<ul>
+<li>Zsh终端配置</li>
+</ul>
+<pre><code># 替换brew.git:
+cd &quot;$(brew --repo)&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+# 替换homebrew-core.git:
+cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+# 应用生效
+brew update
+# 替换homebrew-bottles:
+echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.zshrc
+source ~/.zshrc
+</code></pre>
+<p>   这样就可解决本地与远程并没有建立关联的问题.</p>
+]]></content>
+      <categories>
+        <category>homebrew</category>
+      </categories>
+      <tags>
+        <tag>homebrew</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo搭建next博客</title>
     <url>/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>   <b>此博客用于搭建hexo的工具博客.基本不会探索深究配置的原因,敬请知悉~</b></p>
@@ -410,311 +688,6 @@ fancybox: true
       </tags>
   </entry>
   <entry>
-    <title>think of git</title>
-    <url>/2022/05/15/thinkofgit/</url>
-    <content><![CDATA[<h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote>
-<p>git remote add origin <a href="mailto:&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
-</blockquote>
-<p>   从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的git项目时,势必要与远程git库建立联系(远程git库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在远程<a href="mailto:&#103;&#x69;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#x75;&#x62;&#46;&#99;&#x6f;&#109;">&#103;&#x69;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#x75;&#x62;&#46;&#99;&#x6f;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git链接上面建立一个新远程句柄简称并进行关联,之后推送、同步代码直接与此句柄简称关联就可以了,不需要再去copy使用github远程库上面的链接.</p>
-<blockquote>
-<p>git push –set-upstream origin master</p>
-</blockquote>
-<p>   在建立了与远程代码库的新远程句柄简称之后,首次推送同步代码,需要设置推送、同步代码的上游远程分支,当首次设置之后,后续无需设置.<br>–set-upstream origin master就是设置推送、同步代码的上游origin远程句柄简称的分支为master.</p>
-<blockquote>
-<p>git merge master –allow-unrelated-histories</p>
-</blockquote>
-<p>   当同一个仓库存在多个独立的分支并没有公共的上游交集分支时,会出现无法合并的情况(多出现于本地git初始化时默认主分支为master,而远程github默认主分支为main).</p>
-<pre><code>fatal: refusing to merge unrelated histories
-</code></pre>
-<p>   故此我们需要在人为确认合并分支安全的情况下,将多个独立的分支进行允许强制合并,也就是–allow-unrelated-histories.</p>
-<h1 id="SSH公私钥安全关联"><a href="#SSH公私钥安全关联" class="headerlink" title="SSH公私钥安全关联"></a>SSH公私钥安全关联</h1><blockquote>
-<p>本地设置与github远程仓库的ssh安全关联</p>
-</blockquote>
-<p>   只有持有账号私钥的情况下才可以推送、同步代码到拥有公钥的github远程仓库,使用ssh命令产生公私钥.我这里用的是rsa的加解密方式,小伙伴们也可以选择自己喜欢的加密方式.</p>
-<pre><code>#使用自己的github账号来作为rsa加解密的注释
-#-t: type,选用rsa的密钥类型
-#-b: byte,公私钥的长度大小4096比特
-#-C: comments,添加公私钥生成的注释
-ssh-keygen -t rsa -b 4096 -C &#39;15866369958@qq.com&#39;
-</code></pre>
-<p>   在mac下,生成之后,前往自己账号目录下查询.ssh&#x2F;id_rsa.pub,将id_rsa.pub文件里面的内容复制添加到github的账号settings设置下的SSH and GPG keys.</p>
-   <img src="https://image.white-than-wood.zone/git/ssh_settings.png" style="width: 160px;float: left;"/>
-   <img src="https://image.white-than-wood.zone/git/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>
-   <div style="clear: both;display: block;"></div>
-
-<p>   添加成功之后,我们测试一下,将远程github库(‘<a href="mailto:&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#104;&#117;&#98;&#46;&#99;&#x6f;&#109;">&#x67;&#105;&#x74;&#64;&#103;&#105;&#x74;&#104;&#117;&#98;&#46;&#99;&#x6f;&#109;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明ssh-keygen设置与github远程仓库ssh安全关联生效.</p>
-<blockquote>
-<p>本地设置多个ssh私钥与多个github账号远程仓库建立安全关联</p>
-</blockquote>
-<ul>
-<li><p>ssh-add交与ssh-agent代理高速缓存管理.</p>
-<ul>
-<li><p>ssh-agent.</p>
-<p>ssh-agent实际上是一个本地的高速缓存代理机制,可以在用户不输入任何密码短语的情况下,将session缓存中的私钥与远程仓库建立ssh安全关联并实行通信.</p>
-</li>
-<li><p>ssh-add.</p>
-<p>ssh-add是将指定的ssh私钥置于ssh-agent的高速缓存中,执行时会在ssh-agent建立一个session,并将ssh私钥放入其中.注意,此行为是一次性行为,也就是临时性行为,重启ssh-agent之后,会重置.</p>
-<pre><code>#可用于查看ssh-agent的高速缓存中的私钥列表.
-ssh-add list
-#清空ssh-agent的高速缓存中的私钥列表.
-ssh-add -D
-#重启ssh-agent.
-eval $(ssh-agent)
-</code></pre>
-</li>
-<li><p>步骤.</p>
-<p>使用ssh-keygen与ssh-add联合使用.</p>
-<pre><code>ssh-keygen -t rsa -b 4096 -C &#39;dreamthen.99@gmail.com&#39;
-#这时会出现需要你设置进行保存公私钥的文件名,默认还是为id_rsa
-Generating public/private rsa key pair.
-Enter file in which to save the key (/Users/yinwk/.ssh/id_rsa): id_rsa_ano
-#设置过后,公私钥就会以id_rsa_ano.pub以及id_rsa_ano文件进行保存
-</code></pre>
-<p>一系列操作结束后,我们还需要将新生成的私钥交与ssh-agent代理高速缓存管理.</p>
-<pre><code>ssh-add ~/.ssh/id_rsa_ano
-</code></pre>
-<p>在成功交与ssh-agent管理后,我们重复上一个部分中’本地设置与github远程仓库的ssh安全关联’的后续操作即可.</p>
-</li>
-<li><p>问题.</p>
-<p>使用此方法是有比较多的问题的,首先就是重启ssh-agent或者电脑之后,ssh-agent中的高速缓存会重置,也就是会被清空掉.再就是对于同一个ssh域名下的链接建立ssh安全关联时,ssh-agent会选择高速缓存列表中的一个缓存私钥来建立通信.举个🌰:</p>
-<pre><code>#这两个github库有着同样的域名别名,也就是@github.com,在建立通信时,如果将两个账号下生成的私钥都放入ssh-agent高速缓存中,ssh-agent会默认选择高速缓存列表中先放入的ssh私钥进行通信.
-#只有在切换不同的账号项目开发时,将ssh-agent重启,并且将当前项目所对应的ssh私钥放入ssh-agent高速缓存中才可以建立ssh安全关联并且实行通信.
-git@github.com:white-than-wood/white-than-wood.github.io.git
-git@github.com:dreamthen/webpack-rebuild.github.io.git
-</code></pre>
-</li>
-<li><p>结论.</p>
-<p>ssh-add交与ssh-agent代理高速缓存管理这种方法,本质也不是为了让多个ssh公私钥与多个github远程仓库建立安全关联而产生的,作用是为了避免每次与远程建立ssh安全关联时必须填写密码短语.并且我们在生成ssh密钥时,一般也是不设置密码短语的,都是直接回车(密码短语为空).这种每次必须手动向高速缓存中添加私钥的行为,不仅麻烦,而且是临时性的、不合理的.</p>
-</li>
-</ul>
-</li>
-<li><p>配置.ssh&#x2F;config文件使不同本地项目ssh私钥永久性与远程不同github账号仓库建立安全关联.</p>
-<ul>
-<li><p>.ssh&#x2F;config.</p>
-<p>通过配置config文件来辅助管理ssh,通常.ssh&#x2F;config文件是不存在的,需要自己创建配置.</p>
-<pre><code>touch ~/.ssh/config
-</code></pre>
-</li>
-<li><p>步骤.</p>
-<ul>
-<li><p>配置config.</p>
-<p>配置多个域名对应不同的ssh私钥,与本地自定义的域名别称建立联系.</p>
-<pre><code>vim ~/.ssh/config
-</code></pre>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">#github</span><br><span class="line">Host github.com-white-than-wood</span><br><span class="line">     HostName github.com</span><br><span class="line">     User white-than-wood</span><br><span class="line">     IdentityFile &quot;~/.ssh/id_rsa&quot;</span><br><span class="line">     IdentitiesOnly yes</span><br><span class="line">       </span><br><span class="line">#github</span><br><span class="line">Host github.com-dreamthen</span><br><span class="line">     HostName github.com</span><br><span class="line">     User dreamthen</span><br><span class="line">     IdentityFile &quot;~/.ssh/id_rsa_ano&quot;</span><br><span class="line">     IdentitiesOnly yes</span><br><span class="line">       </span><br><span class="line">#Host: 自定义的域名别称,要与本地不同账号的项目域名关联</span><br><span class="line">#HostName: 对应的代码存储/协同网站域名,如github.com,不同公司的gitlab域名不同</span><br><span class="line">#User: 对应的不同代码存储/协同网站域名账号名称</span><br><span class="line">#IdentityFile: 对应的不同代码存储/协同网站域名账号下的ssh私钥</span><br><span class="line">#IdentitiesOnly: 只能通过指定的IdentityFile来与远程建立ssh安全关联</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置本地不同账号的项目域名、账号名称以及email地址.</p>
-<p>进入不同github账号的项目下,修改.git&#x2F;config文件,注意自定义的域名别称要与.ssh&#x2F;config中的Host对应,因为每次建立ssh安全关联实行通信都会通过.ssh&#x2F;config文件进行辅助管理.</p>
-<pre><code>vim .git/config
-</code></pre>
-  <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">#white-than-wood账号下的项目</span><br><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">        url = git@github.com-white-than-wood:white-than-wood/white-than-wood.github.io.git</span><br><span class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">        </span><br><span class="line">[user]</span><br><span class="line">        name = white-than-wood</span><br><span class="line">        email = 1309777341@qq.com </span><br><span class="line"></span><br><span class="line">#dreamthen账号下的项目</span><br><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">        url = git@github.com-dreamthen:dreamthen/webpack-rebuild.github.io.git</span><br><span class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">        </span><br><span class="line">[user]</span><br><span class="line">        name = dreamthen</span><br><span class="line">        email = dreamthen.00@gmail.com</span><br></pre></td></tr></table></figure>
-
-<p>也可以直接使用命令来进行修改.git&#x2F;config中的内容.</p>
-<pre><code>#white-than-wood账号下的项目
-git remote set-url origin git@github.com-white-than-wood:white-than-wood/white-than-wood.github.io.git
-git config user.name &#39;white-than-wood&#39;
-git config user.email &#39;1309777341@qq.com&#39;
-
-#dreamthen账号下的项目
-git remote set-url origin git@github.com-dreamthen:dreamthen/webpack-rebuild.github.io.git
-git config user.name &#39;dreamthen&#39;
-git config user.email &#39;dreamthen.00@gmail.com&#39;
-</code></pre>
-</li>
-</ul>
-</li>
-<li><p>测试自定义域名别称.</p>
-<pre><code># 若 Hi white-than-wood! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 说明测试与远程建立ssh安全关联实行通信身份验证通过.
-ssh -T git@github.com-white-than-wood
-# 若 Hi dreamthen! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 说明测试与远程建立ssh安全关联实行通信身份验证通过.
-ssh -T git@github.com-dreamthen
-</code></pre>
-</li>
-<li><p>结论</p>
-<p>此方法永久性的解决了不同的github账号下本地项目ssh私钥与远程建立安全关联并实行通信的问题.</p>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-        <tag>github</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>think of JsModule</title>
-    <url>/2022/05/23/thinkofjsmodule/</url>
-    <content><![CDATA[<h1 id="模块导入导出的历史"><a href="#模块导入导出的历史" class="headerlink" title="模块导入导出的历史"></a>模块导入导出的历史</h1><blockquote>
-<p>JsModule的演化经历</p>
-</blockquote>
-<p>   下面这张图可以清晰的看出,javascript module演化的历史,由最初的commonjs到最终方案esm,而现在正处于umd -&gt; esm阶段.</p>
-<p>   <img src="https://image.white-than-wood.zone/jsmodule/js_module_history.png"></p>
-<blockquote>
-<p>commonjs</p>
-</blockquote>
-<p>   commonjs的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.</p>
-<ul>
-<li>动态导入.</li>
-</ul>
-<p>   下面这段js代码完美诠释了此含义,在此判断为true的情况下的commonjs,才会导入selectivizr,并实行selectivizr中的脚本.</p>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(browser.<span class="property">desktop</span> &amp;&amp; browser.<span class="property">msie</span> &amp;&amp; browser.<span class="property">versionNumber</span> &lt; <span class="number">9</span>)&#123;</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">&#x27;selectivizr&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>赋值复制.</li>
-</ul>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// module.js</span></span><br><span class="line"><span class="keyword">let</span> count = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params"></span>) &#123;</span><br><span class="line">  count++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  count,</span><br><span class="line">  add</span><br><span class="line">&#125;;	 </span><br></pre></td></tr></table></figure>
-
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> &#123;count, add&#125; = <span class="built_in">require</span>(<span class="string">&#x27;./module.js&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);</span><br><span class="line"><span class="title function_">add</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);	 </span><br></pre></td></tr></table></figure>
-
-<p>   上面这两段js代码完美诠释了此含义,其结果为:</p>
-<pre><code>count: 4
-count: 4
-</code></pre>
-<p>   可以看出commonjs对于导出的变量以及函数都是代码执行时直接复制其值,而不是连同引用一起导出,导致通过模块内部修改变量的值之后,在外部导入模块变量并没有发现其值发生变化.</p>
-<ul>
-<li><p>优势和劣势.</p>
-<ul>
-<li><p>优势: </p>
-<ul>
-<li>导入比较灵活;</li>
-<li>NodeJS模块导入导出完全采用commonjs模式,npm上绝大部分的依赖库都会兼容commonjs模块导入导出,适用范围很广泛;</li>
-<li>同步模块加载;</li>
-</ul>
-</li>
-<li><p>劣势: </p>
-<ul>
-<li>不支持静态分析,静态分析所带来的一系列福利不能在commonjs模块导入导出模式下实行;</li>
-<li>不能实行异步模块加载;</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>amd(cmd)</p>
-</blockquote>
-<p>   amd(cmd)的适用范围很窄,受众面也远远没有commonjs和esm广泛,因为受限于第三方库的环境依赖(无论是SeaJS,还是RequireJS都需要事先下载依赖).</p>
-<ul>
-<li><p>优势和劣势.</p>
-<ul>
-<li><p>优势: </p>
-<ul>
-<li>支持同步&#x2F;异步模块加载,amd近似于同步模块导入导出(与commonjs同步模块加载有着本质的不同),cmd异步模块导入导出;</li>
-</ul>
-</li>
-<li><p>劣势: </p>
-<ul>
-<li>不支持静态分析,静态分析所带来的一系列福利不能在amd(cmd)模块导入导出模式下实行;</li>
-<li>受限于第三方库的环境依赖;</li>
-<li>写法上很不友好;</li>
-<li>适用范围很窄,没有类NodeJS、npm以及ECMAScript标准这种受众面很广泛的’推手’推动;</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>umd</p>
-</blockquote>
-<p>   umd,全称: Universal Module Definition,其标准为: <a href='https://github.com/umdjs/umd/blob/master/templates/commonjsStrictGlobal.js'>commonjsStrictGlobal</a>以及<a href='https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js'>returnExportsGlobal</a>.</p>
-<ul>
-<li>commonjsStrictGlobal.</li>
-</ul>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Uses CommonJS, AMD or browser globals to create a module. This example</span></span><br><span class="line"><span class="comment">// creates a global even when AMD is used. This is useful if you have some</span></span><br><span class="line"><span class="comment">// scripts that are loaded by an AMD loader, but they still want access to</span></span><br><span class="line"><span class="comment">// globals. If you do not need to export a global for the AMD case, see</span></span><br><span class="line"><span class="comment">// commonjsStrict.js.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// If you just want to support Node, or other CommonJS-like environments that</span></span><br><span class="line"><span class="comment">// support module.exports, and you are not creating a module that has a</span></span><br><span class="line"><span class="comment">// circular dependency, then see returnExportsGlobal.js instead. It will allow</span></span><br><span class="line"><span class="comment">// you to export a function as the module value.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Defines a module &quot;commonJsStrictGlobal&quot; that depends another module called</span></span><br><span class="line"><span class="comment">// &quot;b&quot;. Note that the name of the module is implied by the file name. It is</span></span><br><span class="line"><span class="comment">// best if the file name and the exported global have matching names.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// If the &#x27;b&#x27; module also uses this type of boilerplate, then</span></span><br><span class="line"><span class="comment">// in the browser, it will create a global .b that is used below.</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span> (<span class="params">root, factory</span>) &#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">&#x27;function&#x27;</span> &amp;&amp; define.<span class="property">amd</span>) &#123;</span><br><span class="line">      <span class="comment">// AMD. Register as an anonymous module.</span></span><br><span class="line">      <span class="title function_">define</span>([<span class="string">&#x27;exports&#x27;</span>, <span class="string">&#x27;b&#x27;</span>], <span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, b</span>) &#123;</span><br><span class="line">         <span class="title function_">factory</span>((root.<span class="property">commonJsStrictGlobal</span> = <span class="built_in">exports</span>), b);</span><br><span class="line">      &#125;);</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">exports</span> === <span class="string">&#x27;object&#x27;</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">exports</span>.<span class="property">nodeName</span> !== <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">      <span class="comment">// CommonJS</span></span><br><span class="line">      <span class="title function_">factory</span>(<span class="built_in">exports</span>, <span class="built_in">require</span>(<span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// Browser globals</span></span><br><span class="line">      <span class="title function_">factory</span>((root.<span class="property">commonJsStrictGlobal</span> = &#123;&#125;), root.<span class="property">b</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;(<span class="keyword">typeof</span> self !== <span class="string">&#x27;undefined&#x27;</span> ? self : <span class="variable language_">this</span>, <span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, b</span>) &#123;</span><br><span class="line">   <span class="comment">// Use b in some fashion.</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// attach properties to the exports object to define</span></span><br><span class="line">   <span class="comment">// the exported module properties.</span></span><br><span class="line">   <span class="built_in">exports</span>.<span class="property">action</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>returnExportsGlobal.</li>
-</ul>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Uses CommonJS, AMD or browser globals to create a module.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// If you just want to support Node, or other CommonJS-like environments that</span></span><br><span class="line"><span class="comment">// support module.exports, and you are not creating a module that has a</span></span><br><span class="line"><span class="comment">// circular dependency, then see returnExports.js instead. It will allow</span></span><br><span class="line"><span class="comment">// you to export a function as the module value.</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// Defines a module &quot;commonJsStrict&quot; that depends another module called &quot;b&quot;.</span></span><br><span class="line"><span class="comment">// Note that the name of the module is implied by the file name. It is best</span></span><br><span class="line"><span class="comment">// if the file name and the exported global have matching names.</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// If the &#x27;b&#x27; module also uses this type of boilerplate, then</span></span><br><span class="line"><span class="comment">// in the browser, it will create a global .b that is used below.</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// If you do not want to support the browser global path, then you</span></span><br><span class="line"><span class="comment">// can remove the `root` use and the passing `this` as the first arg to</span></span><br><span class="line"><span class="comment">// the top function.</span></span><br><span class="line">   </span><br><span class="line">(<span class="keyword">function</span> (<span class="params">root, factory</span>) &#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">&#x27;function&#x27;</span> &amp;&amp; define.<span class="property">amd</span>) &#123;</span><br><span class="line">      <span class="comment">// AMD. Register as an anonymous module.</span></span><br><span class="line">      <span class="title function_">define</span>([<span class="string">&#x27;exports&#x27;</span>, <span class="string">&#x27;b&#x27;</span>], factory);</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">exports</span> === <span class="string">&#x27;object&#x27;</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">exports</span>.<span class="property">nodeName</span> !== <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">      <span class="comment">// CommonJS</span></span><br><span class="line">      <span class="title function_">factory</span>(<span class="built_in">exports</span>, <span class="built_in">require</span>(<span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// Browser globals</span></span><br><span class="line">      <span class="title function_">factory</span>((root.<span class="property">commonJsStrict</span> = &#123;&#125;), root.<span class="property">b</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;(<span class="keyword">typeof</span> self !== <span class="string">&#x27;undefined&#x27;</span> ? self : <span class="variable language_">this</span>, <span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, b</span>) &#123;</span><br><span class="line">   <span class="comment">// Use b in some fashion.</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// attach properties to the exports object to define</span></span><br><span class="line">   <span class="comment">// the exported module properties.</span></span><br><span class="line">   <span class="built_in">exports</span>.<span class="property">action</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
-
-<p>   从源码中可以看出umd是对于commonjs、Node(webpack中值枚举为commonjs2)、amd以及Browser globals的并集,是实行兼容的一种模块导入导出模式.</p>
-<ul>
-<li><p>优势和劣势.</p>
-<ul>
-<li><p>优势: </p>
-<ul>
-<li>兼容的这几种模块导入导出都支持同步模块加载;</li>
-<li>导入比较灵活;</li>
-<li>导出的类型更丰富;</li>
-</ul>
-</li>
-<li><p>劣势: </p>
-<ul>
-<li>不支持静态分析,静态分析所带来的一系列福利也不能在umd模块导入导出模式下实行;</li>
-<li>不能实行异步模块加载;</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>esm(ecmascript module)</p>
-</blockquote>
-<p>   模块导入导出的最终方案模式,也是现在NodeJS、npm以及ECMAScript标准这些受众面很广泛的’推手’主要推动的模块导入导出模式. 其导入是在编译器编译阶段,由此特性也导致了两个特点: 静态分析和赋值引用,与commonjs的特性与特点完全相反.</p>
-<ul>
-<li>NodeJS ESM.</li>
-</ul>
-<p>   混用阶段,也就是import配合module.exports,require配合export. </p>
-<p>   注意在import配合module.export这部分,import必须导入module.exports导出的模块,不能导入exports导出的模块,由于还是以commonjs模块导出,那么esm导入就不能实行静态分析,只能整体导入.</p>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line"><span class="keyword">const</span> count = <span class="number">4</span>;</span><br><span class="line"><span class="comment">//NodeJS ESM必须使用module.exports导出</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  count	 </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="comment">//以commonjs模块导出,esm导入不能实行静态分析,只能整体导入.</span></span><br><span class="line"><span class="comment">//import &#123;count&#125; from &#x27;./module.js&#x27;;</span></span><br><span class="line"><span class="keyword">import</span> <span class="variable language_">module</span> <span class="keyword">from</span> <span class="string">&#x27;./module.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">module</span>.<span class="property">count</span>);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>静态分析.</li>
-</ul>
-<p>   其导入是在编译器编译阶段,所以需要将所使用的模块都在所要导入文件的头部进行导入.可对其引入的值、函数或者模块可进行静态分析.</p>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> count = <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
-
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="comment">//对其引入的值、函数或者模块可进行静态分析</span></span><br><span class="line"><span class="keyword">import</span> &#123;count&#125; <span class="keyword">from</span> <span class="string">&#x27;./module.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(count);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>赋值引用.</li>
-</ul>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> count = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">add</span>(<span class="params"></span>) &#123;</span><br><span class="line">  count++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;count, add&#125; <span class="keyword">from</span> <span class="string">&#x27;./module.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);</span><br><span class="line"><span class="title function_">add</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);</span><br></pre></td></tr></table></figure>
-
-<p>   上面这两段js代码与commonjs赋值复制部分是同一个🌰,但是执行结果却是不相同的,其结果为:</p>
-<pre><code>count: 4
-count: 5
-</code></pre>
-<p>   可以看出esm对于导出的变量以及函数都是编译器编译时连同引用一起导出,导致通过模块内部修改变量的值之后,在外部导入模块变量的值也发生了改变.</p>
-<ul>
-<li><p>优势和劣势.</p>
-<ul>
-<li><p>优势: </p>
-<ul>
-<li>支持静态分析,静态分析所带来的一系列福利都可接收;</li>
-<li>可实行异步模块加载;支持动态导入import();</li>
-</ul>
-</li>
-<li><p>劣势:</p>
-<ul>
-<li>现阶段NodeJS、npm以及ECMAScript标准这些受众面很广泛的’推手’因历史、兼容、底层改动大等问题,实现的都不成熟,还需要Webpack&#x2F;Babel等工具进行转译;</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>javascript module</category>
-      </categories>
-      <tags>
-        <tag>commonjs</tag>
-        <tag>esm</tag>
-        <tag>amd</tag>
-        <tag>cmd</tag>
-        <tag>umd</tag>
-        <tag>javascript module</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>think of webpack</title>
     <url>/2022/05/23/thinkofwebpack/</url>
     <content><![CDATA[<h1 id="webpack配置"><a href="#webpack配置" class="headerlink" title="webpack配置"></a>webpack配置</h1><h2 id="output"><a href="#output" class="headerlink" title="output"></a>output</h2><blockquote>
@@ -753,115 +726,6 @@ count: 5
       <tags>
         <tag>javascript module</tag>
         <tag>webpack</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>think of homebrew</title>
-    <url>/2022/05/18/thinkofhomebrew/</url>
-    <content><![CDATA[<h1 id="download-homebrew"><a href="#download-homebrew" class="headerlink" title="download homebrew"></a>download homebrew</h1><blockquote>
-<p>问题</p>
-</blockquote>
-<p>  最近在下载homebrew时,发现其总是出现连接被拒绝的情况.</p>
-<pre><code>curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
-</code></pre>
-<blockquote>
-<p>原因</p>
-</blockquote>
-<p>  后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的 DNS 解析被污染，导致 DNS 解析过程无法通过域名取得正确的IP地址.</p>
-<blockquote>
-<p>方案</p>
-</blockquote>
-<p>  使用修改本机hosts文件,建立域名与IP的映射关系,当访问hosts文件列表中的域名时,依次尝试在其映射的IP进行请求,绕过DNS.</p>
-<ul>
-<li>步骤.</li>
-</ul>
-<ol>
-<li>使用<a href='https://www.ipaddress.com/'>https://www.ipaddress.com/</a>查找域名所对应的IP地址.</li>
-</ol>
-<p>   <img src="https://image.white-than-wood.zone/homebrew/ipaddress.png"></p>
-<ol start="2">
-<li>使用switchHosts修改mac的hosts文件.</li>
-</ol>
-<p>   <img src="https://image.white-than-wood.zone/homebrew/switchhosts.png"></p>
-<p>   PS: 使用switchHosts无法对原有的hosts文件进行修改,只能添加新的hosts文件对原有的hosts文件进行合并覆盖,添加好后,将其配置的switch开关打开,允许其合并覆盖.</p>
-<blockquote>
-<p>次生问题</p>
-</blockquote>
-<p>  再次下载,被拒绝的情况不存在了,但是出现了新的异常情况.</p>
-<pre><code>curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to raw.githubusercontent.com:443
-</code></pre>
-<blockquote>
-<p>次生原因</p>
-</blockquote>
-<p>  其根本原因,在于国内网络环境对于境外服务器的种种限制,只用解决这一问题才能真正意义上解决下载homebrew网络错误的问题.</p>
-<blockquote>
-<p>次生方案</p>
-</blockquote>
-<p>  所以我查找到了一条可以彻底解决的路,使用国内镜像,就跟npm的淘宝镜像相同,homebrew在国内也有多条镜像途径.</p>
-<ul>
-<li>步骤.</li>
-</ul>
-<ol>
-<li>首先下载homebrew国内镜像.</li>
-</ol>
-<pre><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
-</code></pre>
-<p>  <img src="https://image.white-than-wood.zone/homebrew/homebrew_mirror.png"></p>
-<ol start="2">
-<li>选择任意一个镜像进行下载,最好是用’梯子’🐶.有时候用’梯子’也下载的非常慢,好在重新进行下载时,会在原来downloaded的基础之上进行下载.下载好之后,重启终端命令行工具,或者执行一下source .bash_profile,使得配置文件在修改了环境变等配置的情况下进行重置.</li>
-</ol>
-<blockquote>
-<p>brew install</p>
-</blockquote>
-<p>   <img src="https://image.white-than-wood.zone/homebrew/homebrew_install_git.png"></p>
-<p>   这样就可以愉快快捷的下载任意在homebrew上的资源了!PS: 每下载完一次资源,还是最好执行一下source ~&#x2F;.bash_profile,使得配置文件在修改了环境变量等配置的情况下进行重置.</p>
-<blockquote>
-<p>异常</p>
-</blockquote>
-<pre><code>fatal: not in a git directory
-Error: Command failed with exit 128: git
-</code></pre>
-<p>   当出现这种异常时,就说明本地与远程并没有建立关联,并没有添加origin句柄简称映射远程的镜像或者github链接,所以我们需要重新设置一下.</p>
-<ul>
-<li>Bash终端配置</li>
-</ul>
-<pre><code># 替换brew.git:
-cd &quot;$(brew --repo)&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
-
-# 替换homebrew-core.git:
-cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
-
-# 应用生效
-brew update
-
-# 替换homebrew-bottles:
-echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.bash_profile
-source ~/.bash_profile
-</code></pre>
-<ul>
-<li>Zsh终端配置</li>
-</ul>
-<pre><code># 替换brew.git:
-cd &quot;$(brew --repo)&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
-# 替换homebrew-core.git:
-cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
-# 应用生效
-brew update
-# 替换homebrew-bottles:
-echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.zshrc
-source ~/.zshrc
-</code></pre>
-<p>   这样就可解决本地与远程并没有建立关联的问题.</p>
-]]></content>
-      <categories>
-        <category>homebrew</category>
-      </categories>
-      <tags>
-        <tag>homebrew</tag>
       </tags>
   </entry>
   <entry>
@@ -976,6 +840,142 @@ source ~/.zshrc
       </tags>
   </entry>
   <entry>
+    <title>think of git</title>
+    <url>/2022/05/15/thinkofgit/</url>
+    <content><![CDATA[<h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote>
+<p>git remote add origin <a href="mailto:&#103;&#105;&#x74;&#x40;&#x67;&#105;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#109;">&#103;&#105;&#x74;&#x40;&#x67;&#105;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
+</blockquote>
+<p>   从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的git项目时,势必要与远程git库建立联系(远程git库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在远程<a href="mailto:&#x67;&#x69;&#116;&#64;&#103;&#x69;&#x74;&#x68;&#117;&#x62;&#46;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#116;&#64;&#103;&#x69;&#x74;&#x68;&#117;&#x62;&#46;&#99;&#x6f;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git链接上面建立一个新远程句柄简称并进行关联,之后推送、同步代码直接与此句柄简称关联就可以了,不需要再去copy使用github远程库上面的链接.</p>
+<blockquote>
+<p>git push –set-upstream origin master</p>
+</blockquote>
+<p>   在建立了与远程代码库的新远程句柄简称之后,首次推送同步代码,需要设置推送、同步代码的上游远程分支,当首次设置之后,后续无需设置.<br>–set-upstream origin master就是设置推送、同步代码的上游origin远程句柄简称的分支为master.</p>
+<blockquote>
+<p>git merge master –allow-unrelated-histories</p>
+</blockquote>
+<p>   当同一个仓库存在多个独立的分支并没有公共的上游交集分支时,会出现无法合并的情况(多出现于本地git初始化时默认主分支为master,而远程github默认主分支为main).</p>
+<pre><code>fatal: refusing to merge unrelated histories
+</code></pre>
+<p>   故此我们需要在人为确认合并分支安全的情况下,将多个独立的分支进行允许强制合并,也就是–allow-unrelated-histories.</p>
+<h1 id="SSH公私钥安全关联"><a href="#SSH公私钥安全关联" class="headerlink" title="SSH公私钥安全关联"></a>SSH公私钥安全关联</h1><blockquote>
+<p>本地设置与github远程仓库的ssh安全关联</p>
+</blockquote>
+<p>   只有持有账号私钥的情况下才可以推送、同步代码到拥有公钥的github远程仓库,使用ssh命令产生公私钥.我这里用的是rsa的加解密方式,小伙伴们也可以选择自己喜欢的加密方式.</p>
+<pre><code>#使用自己的github账号来作为rsa加解密的注释
+#-t: type,选用rsa的密钥类型
+#-b: byte,公私钥的长度大小4096比特
+#-C: comments,添加公私钥生成的注释
+ssh-keygen -t rsa -b 4096 -C &#39;15866369958@qq.com&#39;
+</code></pre>
+<p>   在mac下,生成之后,前往自己账号目录下查询.ssh&#x2F;id_rsa.pub,将id_rsa.pub文件里面的内容复制添加到github的账号settings设置下的SSH and GPG keys.</p>
+   <img src="https://image.white-than-wood.zone/git/ssh_settings.png" style="width: 160px;float: left;"/>
+   <img src="https://image.white-than-wood.zone/git/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>
+   <div style="clear: both;display: block;"></div>
+
+<p>   添加成功之后,我们测试一下,将远程github库(‘<a href="mailto:&#x67;&#105;&#116;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#98;&#46;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#116;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#98;&#46;&#x63;&#x6f;&#x6d;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明ssh-keygen设置与github远程仓库ssh安全关联生效.</p>
+<blockquote>
+<p>本地设置多个ssh私钥与多个github账号远程仓库建立安全关联</p>
+</blockquote>
+<ul>
+<li><p>ssh-add交与ssh-agent代理高速缓存管理.</p>
+<ul>
+<li><p>ssh-agent.</p>
+<p>ssh-agent实际上是一个本地的高速缓存代理机制,可以在用户不输入任何密码短语的情况下,将session缓存中的私钥与远程仓库建立ssh安全关联并实行通信.</p>
+</li>
+<li><p>ssh-add.</p>
+<p>ssh-add是将指定的ssh私钥置于ssh-agent的高速缓存中,执行时会在ssh-agent建立一个session,并将ssh私钥放入其中.注意,此行为是一次性行为,也就是临时性行为,重启ssh-agent之后,会重置.</p>
+<pre><code>#可用于查看ssh-agent的高速缓存中的私钥列表.
+ssh-add list
+#清空ssh-agent的高速缓存中的私钥列表.
+ssh-add -D
+#重启ssh-agent.
+eval $(ssh-agent)
+</code></pre>
+</li>
+<li><p>步骤.</p>
+<p>使用ssh-keygen与ssh-add联合使用.</p>
+<pre><code>ssh-keygen -t rsa -b 4096 -C &#39;dreamthen.99@gmail.com&#39;
+#这时会出现需要你设置进行保存公私钥的文件名,默认还是为id_rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/yinwk/.ssh/id_rsa): id_rsa_ano
+#设置过后,公私钥就会以id_rsa_ano.pub以及id_rsa_ano文件进行保存
+</code></pre>
+<p>一系列操作结束后,我们还需要将新生成的私钥交与ssh-agent代理高速缓存管理.</p>
+<pre><code>ssh-add ~/.ssh/id_rsa_ano
+</code></pre>
+<p>在成功交与ssh-agent管理后,我们重复上一个部分中’本地设置与github远程仓库的ssh安全关联’的后续操作即可.</p>
+</li>
+<li><p>问题.</p>
+<p>使用此方法是有比较多的问题的,首先就是重启ssh-agent或者电脑之后,ssh-agent中的高速缓存会重置,也就是会被清空掉.再就是对于同一个ssh域名下的链接建立ssh安全关联时,ssh-agent会选择高速缓存列表中的一个缓存私钥来建立通信.举个🌰:</p>
+<pre><code>#这两个github库有着同样的域名别名,也就是@github.com,在建立通信时,如果将两个账号下生成的私钥都放入ssh-agent高速缓存中,ssh-agent会默认选择高速缓存列表中先放入的ssh私钥进行通信.
+#只有在切换不同的账号项目开发时,将ssh-agent重启,并且将当前项目所对应的ssh私钥放入ssh-agent高速缓存中才可以建立ssh安全关联并且实行通信.
+git@github.com:white-than-wood/white-than-wood.github.io.git
+git@github.com:dreamthen/webpack-rebuild.github.io.git
+</code></pre>
+</li>
+<li><p>结论.</p>
+<p>ssh-add交与ssh-agent代理高速缓存管理这种方法,本质也不是为了让多个ssh公私钥与多个github远程仓库建立安全关联而产生的,作用是为了避免每次与远程建立ssh安全关联时必须填写密码短语.并且我们在生成ssh密钥时,一般也是不设置密码短语的,都是直接回车(密码短语为空).这种每次必须手动向高速缓存中添加私钥的行为,不仅麻烦,而且是临时性的、不合理的.</p>
+</li>
+</ul>
+</li>
+<li><p>配置.ssh&#x2F;config文件使不同本地项目ssh私钥永久性与远程不同github账号仓库建立安全关联.</p>
+<ul>
+<li><p>.ssh&#x2F;config.</p>
+<p>通过配置config文件来辅助管理ssh,通常.ssh&#x2F;config文件是不存在的,需要自己创建配置.</p>
+<pre><code>touch ~/.ssh/config
+</code></pre>
+</li>
+<li><p>步骤.</p>
+<ul>
+<li><p>配置config.</p>
+<p>配置多个域名对应不同的ssh私钥,与本地自定义的域名别称建立联系.</p>
+<pre><code>vim ~/.ssh/config
+</code></pre>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">#github</span><br><span class="line">Host github.com-white-than-wood</span><br><span class="line">     HostName github.com</span><br><span class="line">     User white-than-wood</span><br><span class="line">     IdentityFile &quot;~/.ssh/id_rsa&quot;</span><br><span class="line">     IdentitiesOnly yes</span><br><span class="line">       </span><br><span class="line">#github</span><br><span class="line">Host github.com-dreamthen</span><br><span class="line">     HostName github.com</span><br><span class="line">     User dreamthen</span><br><span class="line">     IdentityFile &quot;~/.ssh/id_rsa_ano&quot;</span><br><span class="line">     IdentitiesOnly yes</span><br><span class="line">       </span><br><span class="line">#Host: 自定义的域名别称,要与本地不同账号的项目域名关联</span><br><span class="line">#HostName: 对应的代码存储/协同网站域名,如github.com,不同公司的gitlab域名不同</span><br><span class="line">#User: 对应的不同代码存储/协同网站域名账号名称</span><br><span class="line">#IdentityFile: 对应的不同代码存储/协同网站域名账号下的ssh私钥</span><br><span class="line">#IdentitiesOnly: 只能通过指定的IdentityFile来与远程建立ssh安全关联</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置本地不同账号的项目域名、账号名称以及email地址.</p>
+<p>进入不同github账号的项目下,修改.git&#x2F;config文件,注意自定义的域名别称要与.ssh&#x2F;config中的Host对应,因为每次建立ssh安全关联实行通信都会通过.ssh&#x2F;config文件进行辅助管理.</p>
+<pre><code>vim .git/config
+</code></pre>
+  <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">#white-than-wood账号下的项目</span><br><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">        url = git@github.com-white-than-wood:white-than-wood/white-than-wood.github.io.git</span><br><span class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">        </span><br><span class="line">[user]</span><br><span class="line">        name = white-than-wood</span><br><span class="line">        email = 1309777341@qq.com </span><br><span class="line"></span><br><span class="line">#dreamthen账号下的项目</span><br><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">        url = git@github.com-dreamthen:dreamthen/webpack-rebuild.github.io.git</span><br><span class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">        </span><br><span class="line">[user]</span><br><span class="line">        name = dreamthen</span><br><span class="line">        email = dreamthen.00@gmail.com</span><br></pre></td></tr></table></figure>
+
+<p>也可以直接使用命令来进行修改.git&#x2F;config中的内容.</p>
+<pre><code>#white-than-wood账号下的项目
+git remote set-url origin git@github.com-white-than-wood:white-than-wood/white-than-wood.github.io.git
+git config user.name &#39;white-than-wood&#39;
+git config user.email &#39;1309777341@qq.com&#39;
+
+#dreamthen账号下的项目
+git remote set-url origin git@github.com-dreamthen:dreamthen/webpack-rebuild.github.io.git
+git config user.name &#39;dreamthen&#39;
+git config user.email &#39;dreamthen.00@gmail.com&#39;
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>测试自定义域名别称.</p>
+<pre><code># 若 Hi white-than-wood! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 说明测试与远程建立ssh安全关联实行通信身份验证通过.
+ssh -T git@github.com-white-than-wood
+# 若 Hi dreamthen! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 说明测试与远程建立ssh安全关联实行通信身份验证通过.
+ssh -T git@github.com-dreamthen
+</code></pre>
+</li>
+<li><p>结论</p>
+<p>此方法永久性的解决了不同的github账号下本地项目ssh私钥与远程建立安全关联并实行通信的问题.</p>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>github</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>think of typescript</title>
     <url>/2022/05/26/thinkoftypescript/</url>
     <content><![CDATA[<h1 id="typescript配置"><a href="#typescript配置" class="headerlink" title="typescript配置"></a>typescript配置</h1><h2 id="“module”-“umd”"><a href="#“module”-“umd”" class="headerlink" title="{“module”: “umd”}"></a>{“module”: “umd”}</h2><blockquote>
@@ -1046,7 +1046,7 @@ source ~/.zshrc
 </ul>
 </li>
 <li><p>App Testing.</p>
-<p>可在线自由搭配不同的品牌手机、版本、Android系统以及IOS系统对App包或者App Url进行实时交互式跨真机测试,每次真实真机测试sessions可测试10分钟,在测试期间可切换之前自由搭配的所有配置选项、可录屏、可标记bug(编辑bug截图、下载bug截图以及上传到lambdaTest衍生的SLACK、JIRA和ASANA项目管理系统).</p>
+<p>可在线自由搭配不同的品牌手机、版本设备对App包或者App Url进行实时交互式跨真机测试,每次真实真机测试sessions可测试10分钟,在测试期间可切换之前自由搭配的品牌手机以及版本设备、可录屏、可标记bug(编辑bug截图、下载bug截图以及上传到lambdaTest衍生的SLACK、JIRA和ASANA项目管理系统).</p>
 <ul>
 <li><p>配置.</p>
 <p><img src="https://image.white-than-wood.zone/lambdaTest/Manual/app/Manual_home.png"></p>
@@ -1074,7 +1074,7 @@ source ~/.zshrc
 <p>lambdaTest手动测试简洁、易用且容易理解,测试过程流畅、无障碍性困难,其产品包含其衍生的生态是成熟且完备的,例如其衍生的一套项目管理系统SLACK、JIRA和ASANA.对于测试人员来说,无论是生产环境、开发环境和App包,如果尝试自己查看每个浏览器、操作系统和设备,一定是成为一项繁琐的工作,但lambdaTest都可在线简捷做各种搭配兼容测试,提高了效率,大大节约了时间成本.</p>
 <ul>
 <li><p>问题.</p>
-<p>现阶段lambdaTest上手动测试中大部分浏览器版本、操作系统、品牌手机、版本、Android系统以及IOS系统都是不开放的,开放的很小的部分仅仅也是为了给用户进行体验的,如果需要开放就需要付费,另外支出成本.</p>
+<p>现阶段lambdaTest上手动测试中大部分浏览器版本、操作系统、品牌手机以及版本设备都是不开放的,开放的很小的部分仅仅也是为了给用户进行体验的,如果需要开放就需要付费,另外支出成本.</p>
 </li>
 </ul>
 </li>
@@ -1100,8 +1100,8 @@ source ~/.zshrc
 <li><p>配置.</p>
 <p>使用Selenium以及配合lambdaTest的配置还是比较简单的,官方有具体的一步一步实现的文章: <a href='https://www.lambdatest.com/support/docs/run-selenium-ide-tests-on-lambdatest-selenium-cloud-grid/'>Run Selenium IDE Tests with LambdaTest Selenium Grid</a></p>
 </li>
-<li><p>selenium-side-runner配合lambdaTest。</p>
-<p>使用selenium-side-runner依赖包在命令行中运行导出的Selenium IDE测试套件,在lambdaTest在线平台上搭配不同的浏览器版本、浏览器类型、操作系统、品牌手机、版本、Android系统以及IOS系统进行生成自动化测试录屏.</p>
+<li><p>selenium-side-runner命令行配合lambdaTest。</p>
+<p>使用selenium-side-runner依赖包在命令行中运行导出的Selenium IDE测试套件,在lambdaTest在线平台上搭配不同的浏览器版本、浏览器类型、操作系统、品牌手机以及版本设备进行生成自动化测试录屏.</p>
 <ul>
 <li>可根据selenium事件步骤分帧在录屏中在线查看测试套件自动化测试的情况;</li>
 <li>可在线查看在自动化测试过程当中网络资源接口的加载情况;</li>
@@ -1129,7 +1129,7 @@ source ~/.zshrc
 <p><img src="https://image.white-than-wood.zone/lambdaTest/Automatic/Automatic_network.png"></p>
 </li>
 <li><p>结论.</p>
-<p>Selenium确实是自动化测试工具领域最为流行的一种测试套件,作为Chrome extensions,无需编辑一行代码就可实现可视化、自动化测试,并且效果顶级.而lambdaTest在线自动化测试更是与Selenium配合的相得益彰,在不同的浏览器版本、浏览器类型、操作系统、品牌手机、版本、Android系统以及IOS系统进行生成自动化测试录屏都是简洁、易用且容易理解,只能说如果作为一个测试,现在可以说”大大真的解放了头脑和双手”.</p>
+<p>Selenium确实是自动化测试工具领域最为流行的一种测试套件,作为Chrome extensions,无需编辑一行代码就可实现可视化、自动化测试,并且效果顶级.而lambdaTest在线自动化测试更是与Selenium配合的相得益彰,在不同的浏览器版本、浏览器类型、操作系统、品牌手机以及版本设备进行生成自动化测试录屏都是简洁、易用且容易理解,只能说如果作为一个测试,现在可以说”大大真的解放了头脑和双手”.</p>
 </li>
 </ul>
 </li>
