@@ -25,19 +25,19 @@ categories: automatic testing
 
     - 配置.
 
-    ![](https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_home.png)
+     ![](https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_home.png)
 
     - 测试.
 
-    ![](https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_testing.png)
+     ![](https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_testing.png)
 
     - Debug.
 
-    ![](https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_debug.png)
+     ![](https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_debug.png)
 
     - 录屏.
 
-    ![](https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_video.png)
+     ![](https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_video.png)
 
   - App Testing.
 
@@ -45,7 +45,7 @@ categories: automatic testing
 
     - 配置.
 
-    ![](https://image.white-than-wood.zone/lambdaTest/Manual/app/Manual_home.png)
+     ![](https://image.white-than-wood.zone/lambdaTest/Manual/app/Manual_home.png)
 
     - 测试.
 
@@ -53,11 +53,11 @@ categories: automatic testing
 
     - Debug.
 
-    ![](https://image.white-than-wood.zone/lambdaTest/Manual/app/Manual_debug.png)
+     ![](https://image.white-than-wood.zone/lambdaTest/Manual/app/Manual_debug.png)
 
     - 录屏.
 
-    ![](https://image.white-than-wood.zone/lambdaTest/Manual/app/Manual_video.png)
+     ![](https://image.white-than-wood.zone/lambdaTest/Manual/app/Manual_video.png)
 
   - Browser Testing开发环境在线测试.
 
