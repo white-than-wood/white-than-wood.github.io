@@ -8,7 +8,8 @@
     "deploy": "hexo deploy",
     "server": "hexo server",
     "publish": "git push && hexo clean && hexo generate -deploy",
-    "gitalk": "node talk-auto-init.js"
+    "gitalk": "node talk-auto-init.js",
+    "test": "selenium-side-runner -w 10 \"/Users/yinwk/LambdaTest-IDE.side\" --server https://1309777341:CCSgzqRBe9LAsxvPzCa8WSDO8XFlieeWZtdsw4CJ5XeD71DEmJ@hub.lambdatest.com/wd/hub -c \"browserName='Chrome' version='100.0' platform='MacOS Monterey' resolution='1920x1080' network=true\""
   },
   "hexo": {
     "version": "6.2.0"
