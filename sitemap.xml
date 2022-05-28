@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://white-than-wood.github.io/2022/05/28/thinkofautomatictesting/</loc>
+        
+        <lastmod>2022-05-28T12:21:32.940Z</lastmod>
+        
+        <date>1653738734000</date>
+        <title>think of testing | WTW's Frontend</title>
+        
+        <desc>测试(testing)跨浏览器自动化测试 在介绍自动化测试之前,我们先来说一下跨浏览器测试工具,基于全方位测试需求的考虑,跨浏览器测试应该是最重要的类型之一.如今,各种类型的浏览器可谓是琳琅满目.因此,需要确保用户在通过不同种类的浏览器访问平台服务时,不会产生较大的体验落差. 在市面上,诸如LambdaTest之类的在线工具,就能够帮助以一种轻松互动的方式,解决此方面的问题.LambdaTest是</desc>
+    </url>
+    
+    <url>
         <loc>https://white-than-wood.github.io/2022/05/26/thinkoftypescript/</loc>
         
         <lastmod>2022-05-27T07:34:27.676Z</lastmod>
@@ -42,7 +53,7 @@
         <date>1652564405000</date>
         <title>think of git | WTW's Frontend</title>
         
-        <desc>git命令 git remote add origin &#x67;&#x69;&#x74;&#x40;&#103;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远</desc>
+        <desc>git命令 git remote add origin &#103;&#105;&#116;&#x40;&#x67;&#x69;&#x74;&#x68;&#117;&#x62;&#46;&#99;&#x6f;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句</desc>
     </url>
     
     <url>
