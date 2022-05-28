@@ -2,7 +2,7 @@
 title: think of testing
 date: 2022-05-28 19:52:14
 tags: [lambdaTest, testing, automation, manual, real device, selenium]
-categories: automatic testing
+categories: testing
 ---
 
 # 测试(testing)
