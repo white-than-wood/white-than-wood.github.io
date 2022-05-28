@@ -1,10 +1,20 @@
 # White-Than-Wood.github.io
 
-前端领域内所不知道的为什么都探索于此!此领域是用于解决互联网前端领域内小伙伴们的求知欲而建.
+前端领域内所不知道的为什么都探索于此!此领域是用于解决互联网前端领域内小伙伴们的求知欲而建. 
 
 👽请记住: 💪🏻道阻且长,行则将至.
 
 PS: 查看的领域分为两个版本:github、blog website,小伙伴们择喜而食.
+
+# testing
+
+> github
+
+* <a href='https://github.com/white-than-wood/white-than-wood.github.io/blob/main/source/_posts/2022-05-28-thinkoftesting.md' target='_blank'>think of testing</a>
+
+> blog website
+
+* <a href='https://white-than-wood.github.io/2022/05/28/thinkoftesting/' target='_blank'>think of testing</a>
 
 # typescript
 
@@ -54,7 +64,7 @@ PS: 查看的领域分为两个版本:github、blog website,小伙伴们择喜�
 
 > blog website
 
-* <a href='https://white-than-wood.github.io/2022/05/18/thinkofhomebrew/' target='_blank'>think of homebrew</a>
+* <a href='https://white-than-wood.github.io/2022/05/18/thinkofhomebrew/' target='_blank'>think of homebrew</a> 
 
 # git
 
@@ -64,7 +74,7 @@ PS: 查看的领域分为两个版本:github、blog website,小伙伴们择喜�
 
 > blog website
 
-* <a href='https://white-than-wood.github.io/2022/05/15/thinkofgit/' target='_blank'>think of git</a>
+* <a href='https://white-than-wood.github.io/2022/05/15/thinkofgit/' target='_blank'>think of git</a> 
 
 # hexo
 
