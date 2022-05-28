@@ -1,115 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>think of homebrew</title>
-    <url>/2022/05/18/thinkofhomebrew/</url>
-    <content><![CDATA[<h1 id="download-homebrew"><a href="#download-homebrew" class="headerlink" title="download homebrew"></a>download homebrew</h1><blockquote>
-<p>问题</p>
-</blockquote>
-<p>  最近在下载homebrew时,发现其总是出现连接被拒绝的情况.</p>
-<pre><code>curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
-</code></pre>
-<blockquote>
-<p>原因</p>
-</blockquote>
-<p>  后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的 DNS 解析被污染，导致 DNS 解析过程无法通过域名取得正确的IP地址.</p>
-<blockquote>
-<p>方案</p>
-</blockquote>
-<p>  使用修改本机hosts文件,建立域名与IP的映射关系,当访问hosts文件列表中的域名时,依次尝试在其映射的IP进行请求,绕过DNS.</p>
-<ul>
-<li>步骤.</li>
-</ul>
-<ol>
-<li>使用<a href='https://www.ipaddress.com/'>https://www.ipaddress.com/</a>查找域名所对应的IP地址.</li>
-</ol>
-<p>   <img src="https://image.white-than-wood.zone/homebrew/ipaddress.png"></p>
-<ol start="2">
-<li>使用switchHosts修改mac的hosts文件.</li>
-</ol>
-<p>   <img src="https://image.white-than-wood.zone/homebrew/switchhosts.png"></p>
-<p>   PS: 使用switchHosts无法对原有的hosts文件进行修改,只能添加新的hosts文件对原有的hosts文件进行合并覆盖,添加好后,将其配置的switch开关打开,允许其合并覆盖.</p>
-<blockquote>
-<p>次生问题</p>
-</blockquote>
-<p>  再次下载,被拒绝的情况不存在了,但是出现了新的异常情况.</p>
-<pre><code>curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to raw.githubusercontent.com:443
-</code></pre>
-<blockquote>
-<p>次生原因</p>
-</blockquote>
-<p>  其根本原因,在于国内网络环境对于境外服务器的种种限制,只用解决这一问题才能真正意义上解决下载homebrew网络错误的问题.</p>
-<blockquote>
-<p>次生方案</p>
-</blockquote>
-<p>  所以我查找到了一条可以彻底解决的路,使用国内镜像,就跟npm的淘宝镜像相同,homebrew在国内也有多条镜像途径.</p>
-<ul>
-<li>步骤.</li>
-</ul>
-<ol>
-<li>首先下载homebrew国内镜像.</li>
-</ol>
-<pre><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
-</code></pre>
-<p>  <img src="https://image.white-than-wood.zone/homebrew/homebrew_mirror.png"></p>
-<ol start="2">
-<li>选择任意一个镜像进行下载,最好是用’梯子’🐶.有时候用’梯子’也下载的非常慢,好在重新进行下载时,会在原来downloaded的基础之上进行下载.下载好之后,重启终端命令行工具,或者执行一下source .bash_profile,使得配置文件在修改了环境变等配置的情况下进行重置.</li>
-</ol>
-<blockquote>
-<p>brew install</p>
-</blockquote>
-<p>   <img src="https://image.white-than-wood.zone/homebrew/homebrew_install_git.png"></p>
-<p>   这样就可以愉快快捷的下载任意在homebrew上的资源了!PS: 每下载完一次资源,还是最好执行一下source ~&#x2F;.bash_profile,使得配置文件在修改了环境变量等配置的情况下进行重置.</p>
-<blockquote>
-<p>异常</p>
-</blockquote>
-<pre><code>fatal: not in a git directory
-Error: Command failed with exit 128: git
-</code></pre>
-<p>   当出现这种异常时,就说明本地与远程并没有建立关联,并没有添加origin句柄简称映射远程的镜像或者github链接,所以我们需要重新设置一下.</p>
-<ul>
-<li>Bash终端配置</li>
-</ul>
-<pre><code># 替换brew.git:
-cd &quot;$(brew --repo)&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
-
-# 替换homebrew-core.git:
-cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
-
-# 应用生效
-brew update
-
-# 替换homebrew-bottles:
-echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.bash_profile
-source ~/.bash_profile
-</code></pre>
-<ul>
-<li>Zsh终端配置</li>
-</ul>
-<pre><code># 替换brew.git:
-cd &quot;$(brew --repo)&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
-# 替换homebrew-core.git:
-cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
-# 应用生效
-brew update
-# 替换homebrew-bottles:
-echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.zshrc
-source ~/.zshrc
-</code></pre>
-<p>   这样就可解决本地与远程并没有建立关联的问题.</p>
-]]></content>
-      <categories>
-        <category>homebrew</category>
-      </categories>
-      <tags>
-        <tag>homebrew</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>hexo搭建next博客</title>
     <url>/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>   <b>此博客用于搭建hexo的工具博客.基本不会探索深究配置的原因,敬请知悉~</b></p>
@@ -522,9 +413,9 @@ fancybox: true
     <title>think of git</title>
     <url>/2022/05/15/thinkofgit/</url>
     <content><![CDATA[<h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote>
-<p>git remote add origin <a href="mailto:&#103;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#109;">&#103;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
+<p>git remote add origin <a href="mailto:&#103;&#x69;&#116;&#x40;&#x67;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#x6d;">&#103;&#x69;&#116;&#x40;&#x67;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
 </blockquote>
-<p>   从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的git项目时,势必要与远程git库建立联系(远程git库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在远程<a href="mailto:&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#104;&#x75;&#98;&#x2e;&#x63;&#x6f;&#109;">&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#104;&#x75;&#98;&#x2e;&#x63;&#x6f;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git链接上面建立一个新远程句柄简称并进行关联,之后推送、同步代码直接与此句柄简称关联就可以了,不需要再去copy使用github远程库上面的链接.</p>
+<p>   从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的git项目时,势必要与远程git库建立联系(远程git库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在远程<a href="mailto:&#103;&#105;&#116;&#x40;&#x67;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#x63;&#111;&#109;">&#103;&#105;&#116;&#x40;&#x67;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#x63;&#111;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git链接上面建立一个新远程句柄简称并进行关联,之后推送、同步代码直接与此句柄简称关联就可以了,不需要再去copy使用github远程库上面的链接.</p>
 <blockquote>
 <p>git push –set-upstream origin master</p>
 </blockquote>
@@ -551,7 +442,7 @@ ssh-keygen -t rsa -b 4096 -C &#39;15866369958@qq.com&#39;
    <img src="https://image.white-than-wood.zone/git/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>
    <div style="clear: both;display: block;"></div>
 
-<p>   添加成功之后,我们测试一下,将远程github库(‘<a href="mailto:&#x67;&#x69;&#116;&#x40;&#103;&#x69;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#109;">&#x67;&#x69;&#116;&#x40;&#103;&#x69;&#116;&#x68;&#x75;&#x62;&#46;&#99;&#111;&#109;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明ssh-keygen设置与github远程仓库ssh安全关联生效.</p>
+<p>   添加成功之后,我们测试一下,将远程github库(‘<a href="mailto:&#103;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#103;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明ssh-keygen设置与github远程仓库ssh安全关联生效.</p>
 <blockquote>
 <p>本地设置多个ssh私钥与多个github账号远程仓库建立安全关联</p>
 </blockquote>
@@ -652,6 +543,267 @@ ssh -T git@github.com-dreamthen
       <tags>
         <tag>git</tag>
         <tag>github</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>think of homebrew</title>
+    <url>/2022/05/18/thinkofhomebrew/</url>
+    <content><![CDATA[<h1 id="download-homebrew"><a href="#download-homebrew" class="headerlink" title="download homebrew"></a>download homebrew</h1><blockquote>
+<p>问题</p>
+</blockquote>
+<p>  最近在下载homebrew时,发现其总是出现连接被拒绝的情况.</p>
+<pre><code>curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
+</code></pre>
+<blockquote>
+<p>原因</p>
+</blockquote>
+<p>  后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的 DNS 解析被污染，导致 DNS 解析过程无法通过域名取得正确的IP地址.</p>
+<blockquote>
+<p>方案</p>
+</blockquote>
+<p>  使用修改本机hosts文件,建立域名与IP的映射关系,当访问hosts文件列表中的域名时,依次尝试在其映射的IP进行请求,绕过DNS.</p>
+<ul>
+<li>步骤.</li>
+</ul>
+<ol>
+<li>使用<a href='https://www.ipaddress.com/'>https://www.ipaddress.com/</a>查找域名所对应的IP地址.</li>
+</ol>
+<p>   <img src="https://image.white-than-wood.zone/homebrew/ipaddress.png"></p>
+<ol start="2">
+<li>使用switchHosts修改mac的hosts文件.</li>
+</ol>
+<p>   <img src="https://image.white-than-wood.zone/homebrew/switchhosts.png"></p>
+<p>   PS: 使用switchHosts无法对原有的hosts文件进行修改,只能添加新的hosts文件对原有的hosts文件进行合并覆盖,添加好后,将其配置的switch开关打开,允许其合并覆盖.</p>
+<blockquote>
+<p>次生问题</p>
+</blockquote>
+<p>  再次下载,被拒绝的情况不存在了,但是出现了新的异常情况.</p>
+<pre><code>curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to raw.githubusercontent.com:443
+</code></pre>
+<blockquote>
+<p>次生原因</p>
+</blockquote>
+<p>  其根本原因,在于国内网络环境对于境外服务器的种种限制,只用解决这一问题才能真正意义上解决下载homebrew网络错误的问题.</p>
+<blockquote>
+<p>次生方案</p>
+</blockquote>
+<p>  所以我查找到了一条可以彻底解决的路,使用国内镜像,就跟npm的淘宝镜像相同,homebrew在国内也有多条镜像途径.</p>
+<ul>
+<li>步骤.</li>
+</ul>
+<ol>
+<li>首先下载homebrew国内镜像.</li>
+</ol>
+<pre><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
+</code></pre>
+<p>  <img src="https://image.white-than-wood.zone/homebrew/homebrew_mirror.png"></p>
+<ol start="2">
+<li>选择任意一个镜像进行下载,最好是用’梯子’🐶.有时候用’梯子’也下载的非常慢,好在重新进行下载时,会在原来downloaded的基础之上进行下载.下载好之后,重启终端命令行工具,或者执行一下source .bash_profile,使得配置文件在修改了环境变等配置的情况下进行重置.</li>
+</ol>
+<blockquote>
+<p>brew install</p>
+</blockquote>
+<p>   <img src="https://image.white-than-wood.zone/homebrew/homebrew_install_git.png"></p>
+<p>   这样就可以愉快快捷的下载任意在homebrew上的资源了!PS: 每下载完一次资源,还是最好执行一下source ~&#x2F;.bash_profile,使得配置文件在修改了环境变量等配置的情况下进行重置.</p>
+<blockquote>
+<p>异常</p>
+</blockquote>
+<pre><code>fatal: not in a git directory
+Error: Command failed with exit 128: git
+</code></pre>
+<p>   当出现这种异常时,就说明本地与远程并没有建立关联,并没有添加origin句柄简称映射远程的镜像或者github链接,所以我们需要重新设置一下.</p>
+<ul>
+<li>Bash终端配置</li>
+</ul>
+<pre><code># 替换brew.git:
+cd &quot;$(brew --repo)&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+
+# 替换homebrew-core.git:
+cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+
+# 应用生效
+brew update
+
+# 替换homebrew-bottles:
+echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+</code></pre>
+<ul>
+<li>Zsh终端配置</li>
+</ul>
+<pre><code># 替换brew.git:
+cd &quot;$(brew --repo)&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+# 替换homebrew-core.git:
+cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+# 应用生效
+brew update
+# 替换homebrew-bottles:
+echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.zshrc
+source ~/.zshrc
+</code></pre>
+<p>   这样就可解决本地与远程并没有建立关联的问题.</p>
+]]></content>
+      <categories>
+        <category>homebrew</category>
+      </categories>
+      <tags>
+        <tag>homebrew</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>think of postcss</title>
+    <url>/2022/05/25/thinkofpostcss/</url>
+    <content><![CDATA[<h1 id="postcss配置"><a href="#postcss配置" class="headerlink" title="postcss配置"></a>postcss配置</h1><blockquote>
+<p>介绍</p>
+</blockquote>
+<p>  postcss在概念上主要是为了使新的css样式以及特性在更多种类的浏览器上得到兼容.</p>
+<ul>
+<li>css新样式.</li>
+</ul>
+  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*经过postcss转译之前*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">  user-select: none;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*经过postcss转译之后*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">    -webkit-user-select:none;</span><br><span class="line">    -moz-user-select:none;</span><br><span class="line">    -ms-user-select:none;</span><br><span class="line">    user-select:none </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>css新特性.</li>
+</ul>
+  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*经过postcss转译之前*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#12345678</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*经过postcss转译之后*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="built_in">rgba</span>(<span class="number">18</span>,<span class="number">52</span>,<span class="number">86</span>,.<span class="number">471</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>工具</p>
+</blockquote>
+<p>  现阶段postcss转译的工具使用率比较多的有两种: autoprefixer以及postcss-preset-env.</p>
+<ul>
+<li><p>autoprefixer.</p>
+<p>autoprefixer是将css的新样式在更多种类的浏览器中兼容.</p>
+<ul>
+<li><p>步骤.</p>
+<p>首先下载npm依赖包postcss-loader和autoprefixer.</p>
+<pre><code>npm install autoprefixer postcss-loader -D
+</code></pre>
+<p>之后创建postcss.config.js文件,配置使用插件.</p>
+<pre><code>touch postcss.config.js
+</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="built_in">require</span>(<span class="string">&#x27;autoprefixer&#x27;</span>)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>配置webpack构建打包postcss-loader.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [&#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/.css$/</span>,</span><br><span class="line">      <span class="attr">use</span>: [&#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;style-loader&#x27;</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">importLoaders</span>: <span class="number">1</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span></span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]			</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>当然也可以直接不创建postcss.config.js文件,在webpack构建打包postcss-loader配置.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [&#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/.css$/</span>,</span><br><span class="line">      <span class="attr">use</span>: [&#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;style-loader&#x27;</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">importLoaders</span>: <span class="number">1</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">options</span>: &#123;</span><br><span class="line">          <span class="attr">postcssOptions</span>: &#123;</span><br><span class="line">            <span class="attr">plugins</span>: [</span><br><span class="line">              <span class="built_in">require</span>(<span class="string">&#x27;autoprefixer&#x27;</span>)</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]			</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>配置package.json -&gt; browserslist属性,也就是postcss这种扩展兼容操作要选择适用哪些种类浏览器的版本,这一部分我们会拿出来在后续部分细讲.</p>
+</li>
+<li><p>缺点.</p>
+<p>只是对css的新样式在更多种类的浏览器上做兼容,新特性被排除在外,所以autoprefixer所做出的扩展兼容是不完整的.</p>
+</li>
+</ul>
+</li>
+<li><p>postcss-preset-env.</p>
+<p>postcss-preset-env是将css的新样式以及新特性在更多种类的浏览器中兼容,内置autoprefixer,含有autoprefixer的功能.</p>
+<ul>
+<li><p>步骤.</p>
+<p>首先下载npm依赖包postcss-preset-env和postcss-loader.</p>
+<pre><code>npm install postcss-preset-env postcss-loader -D
+</code></pre>
+<p>之后创建postcss.config.js文件,配置使用插件.</p>
+<pre><code>touch postcss.config.js
+</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="built_in">require</span>(<span class="string">&#x27;postcss-preset-env&#x27;</span>)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>配置webpack构建打包postcss-loader.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [&#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/.css$/</span>,</span><br><span class="line">      <span class="attr">use</span>: [&#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;style-loader&#x27;</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">importLoaders</span>: <span class="number">1</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span></span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]			</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>当然也可以直接不创建postcss.config.js文件,在webpack构建打包postcss-loader配置.</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [&#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/.css$/</span>,</span><br><span class="line">      <span class="attr">use</span>: [&#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;style-loader&#x27;</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">importLoaders</span>: <span class="number">1</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">options</span>: &#123;</span><br><span class="line">          <span class="attr">postcssOptions</span>: &#123;</span><br><span class="line">            <span class="attr">plugins</span>: [</span><br><span class="line">              <span class="built_in">require</span>(<span class="string">&#x27;postcss-preset-env&#x27;</span>)</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]			</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>配置package.json -&gt; browserslist属性,也就是postcss这种扩展兼容操作要选择适用哪些种类浏览器的版本,这一部分我们会拿出来在后续部分细讲.</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>browserslist</p>
+</blockquote>
+<p>  postcss对css新样式以及新特性要选择适用哪些种类浏览器的版本所对应的属性.推荐在package.json文件里直接进行配置.</p>
+<ul>
+<li><p>默认配置.</p>
+<p>默认配置[“defaults”]实际上的含义是[“&gt; 2%”,”last 2 versions”,”not dead”],是这三种筛选适用浏览器版本的方式的并集,这三种方式具体的含义在下一部分会具体介绍.</p>
+</li>
+</ul>
+  <figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;browserslist&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;defaults&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>筛选适用浏览器版本方式枚举.</p>
+<ul>
+<li>[“&gt; n%”]: 选择用户比例大于n%的所有种类的浏览器版本.</li>
+<li>[“last n versions”]: 选择所有种类的浏览器的最近n个版本.</li>
+<li>[“not dead”]: 选择官方并没有舍弃删除掉的所有种类的浏览器版本.</li>
+</ul>
+<p>所以[“defaults”]的含义就是选择用户比例大于2%的、官方并没有舍弃删除掉的、所有种类的浏览器的最近2个版本的并集.</p>
+</li>
+<li><p>其他配置.</p>
+<ul>
+<li>[“&gt; 2% and last 2 versions and not dead”]: and表示”且”也就是交集,此🌰的含义为选择用户比例大于2%的、官方并没有舍弃删除掉的、所有种类的浏览器的最近2个版本的交集.</li>
+<li>[“&gt; 2% or last 2 versions or not dead”]: 除了”,”之外,”or”也可以表示交集.跟[“defaults”]的含义相同.</li>
+<li>[“not &gt; 2%”]: “not”代表”非”也就是非集,此🌰的含义为选择用户比例小于等于2%的所有种类的浏览器的版本.</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>postcss</category>
+      </categories>
+      <tags>
+        <tag>postcss</tag>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>think of webpack</title>
+    <url>/2022/05/23/thinkofwebpack/</url>
+    <content><![CDATA[<h1 id="webpack配置"><a href="#webpack配置" class="headerlink" title="webpack配置"></a>webpack配置</h1><h2 id="output"><a href="#output" class="headerlink" title="output"></a>output</h2><blockquote>
+<p>问题1</p>
+</blockquote>
+<p>   近期在配置webpack时,发现output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’}打包构建导出的模块无法实行TreeShaking.</p>
+<blockquote>
+<p>介绍</p>
+</blockquote>
+<p>   在配置webpack的输出output时,都会遇到输出模块的配置,也就是webpack 4中的libraryType以及webpack 5中的libraryType(未删但新特性不更新) and library: {type: ‘xxx’},首先解释一下这几个属性的含义,libraryType指的是每个chunk模块以怎样的模块形式构建打包输出,而library: {type: ‘xxx’}在webpack 5中属于对libraryType的复写,跟libraryType是一个含义.</p>
+<ul>
+<li>libraryType的值枚举</li>
+</ul>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="comment">//值枚举</span></span><br><span class="line">  <span class="comment">//&#x27;commonjs&#x27; | &#x27;commonjs2&#x27; | &#x27;amd&#x27; | &#x27;umd&#x27; | &#x27;this&#x27; | &#x27;var&#x27; | &#x27;global&#x27; | &#x27;module&#x27;</span></span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">libraryType</span>: <span class="string">&#x27;commonjs&#x27;</span> </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>libraryType中包含模块导入导出的值枚举</li>
+</ul>
+<p>   ‘commonjs’ | ‘commonjs2’ | ‘amd’ | ‘umd’ | ‘module’ 这五个值枚举代表了模块导入导出历史的发展轨迹,由最初的commonjs到最终方案esm,关于它们的含义以及对比,这里把它放在了<a href='https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E5%8E%86%E5%8F%B2'>think of JsModule#模块导入导出的历史</a>中,这部分非常重要,是为后续下文的理解做铺垫.</p>
+<ul>
+<li>TreeShaking</li>
+</ul>
+<p>   TreeShaking最初是<a href='https://rollupjs.org/guide/en/'>RollUp</a>团队推出的一个方案,以esm模块导入导出模式的静态分析为依赖基础,在编译时对项目代码进行瘦身,将无用、空引入的代码模块不构建进打出的包中,减少代码体积,减少项目冗余,提高项目运行速度的模式.</p>
+<ul>
+<li>import umd</li>
+</ul>
+<p>   对于umd的esm import导入,在commonjs、NodeJS环境下都可以实现,但是必须注意 <a href='https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E5%8E%86%E5%8F%B2'>esm(ecmascript module)</a> NodeJS ESM部分.</p>
+<blockquote>
+<p>结论</p>
+</blockquote>
+<p>   由于上述umd所兼容的所有模块导入导出模式不能实现静态分析,包括import配合module.exports(使用esm import导入commonjs2值枚举导出的模块),而TreeShaking又是以esm模块导入导出模式的静态分析为依赖基础的,所以umd模块导入导出模式不能实行TreeShaking.</p>
+]]></content>
+      <categories>
+        <category>webpack</category>
+      </categories>
+      <tags>
+        <tag>webpack</tag>
+        <tag>javascript module</tag>
       </tags>
   </entry>
   <entry>
@@ -815,164 +967,12 @@ count: 5
         <category>javascript module</category>
       </categories>
       <tags>
+        <tag>javascript module</tag>
         <tag>commonjs</tag>
         <tag>esm</tag>
         <tag>amd</tag>
         <tag>cmd</tag>
         <tag>umd</tag>
-        <tag>javascript module</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>think of webpack</title>
-    <url>/2022/05/23/thinkofwebpack/</url>
-    <content><![CDATA[<h1 id="webpack配置"><a href="#webpack配置" class="headerlink" title="webpack配置"></a>webpack配置</h1><h2 id="output"><a href="#output" class="headerlink" title="output"></a>output</h2><blockquote>
-<p>问题1</p>
-</blockquote>
-<p>   近期在配置webpack时,发现output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’}打包构建导出的模块无法实行TreeShaking.</p>
-<blockquote>
-<p>介绍</p>
-</blockquote>
-<p>   在配置webpack的输出output时,都会遇到输出模块的配置,也就是webpack 4中的libraryType以及webpack 5中的libraryType(未删但新特性不更新) and library: {type: ‘xxx’},首先解释一下这几个属性的含义,libraryType指的是每个chunk模块以怎样的模块形式构建打包输出,而library: {type: ‘xxx’}在webpack 5中属于对libraryType的复写,跟libraryType是一个含义.</p>
-<ul>
-<li>libraryType的值枚举</li>
-</ul>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="comment">//值枚举</span></span><br><span class="line">  <span class="comment">//&#x27;commonjs&#x27; | &#x27;commonjs2&#x27; | &#x27;amd&#x27; | &#x27;umd&#x27; | &#x27;this&#x27; | &#x27;var&#x27; | &#x27;global&#x27; | &#x27;module&#x27;</span></span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">libraryType</span>: <span class="string">&#x27;commonjs&#x27;</span> </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>libraryType中包含模块导入导出的值枚举</li>
-</ul>
-<p>   ‘commonjs’ | ‘commonjs2’ | ‘amd’ | ‘umd’ | ‘module’ 这五个值枚举代表了模块导入导出历史的发展轨迹,由最初的commonjs到最终方案esm,关于它们的含义以及对比,这里把它放在了<a href='https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E5%8E%86%E5%8F%B2'>think of JsModule#模块导入导出的历史</a>中,这部分非常重要,是为后续下文的理解做铺垫.</p>
-<ul>
-<li>TreeShaking</li>
-</ul>
-<p>   TreeShaking最初是<a href='https://rollupjs.org/guide/en/'>RollUp</a>团队推出的一个方案,以esm模块导入导出模式的静态分析为依赖基础,在编译时对项目代码进行瘦身,将无用、空引入的代码模块不构建进打出的包中,减少代码体积,减少项目冗余,提高项目运行速度的模式.</p>
-<ul>
-<li>import umd</li>
-</ul>
-<p>   对于umd的esm import导入,在commonjs、NodeJS环境下都可以实现,但是必须注意 <a href='https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E5%8E%86%E5%8F%B2'>esm(ecmascript module)</a> NodeJS ESM部分.</p>
-<blockquote>
-<p>结论</p>
-</blockquote>
-<p>   由于上述umd所兼容的所有模块导入导出模式不能实现静态分析,包括import配合module.exports(使用esm import导入commonjs2值枚举导出的模块),而TreeShaking又是以esm模块导入导出模式的静态分析为依赖基础的,所以umd模块导入导出模式不能实行TreeShaking.</p>
-]]></content>
-      <categories>
-        <category>webpack</category>
-      </categories>
-      <tags>
-        <tag>javascript module</tag>
-        <tag>webpack</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>think of postcss</title>
-    <url>/2022/05/25/thinkofpostcss/</url>
-    <content><![CDATA[<h1 id="postcss配置"><a href="#postcss配置" class="headerlink" title="postcss配置"></a>postcss配置</h1><blockquote>
-<p>介绍</p>
-</blockquote>
-<p>  postcss在概念上主要是为了使新的css样式以及特性在更多种类的浏览器上得到兼容.</p>
-<ul>
-<li>css新样式.</li>
-</ul>
-  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*经过postcss转译之前*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">  user-select: none;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*经过postcss转译之后*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">    -webkit-user-select:none;</span><br><span class="line">    -moz-user-select:none;</span><br><span class="line">    -ms-user-select:none;</span><br><span class="line">    user-select:none </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>css新特性.</li>
-</ul>
-  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*经过postcss转译之前*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#12345678</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-  <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*经过postcss转译之后*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="built_in">rgba</span>(<span class="number">18</span>,<span class="number">52</span>,<span class="number">86</span>,.<span class="number">471</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>工具</p>
-</blockquote>
-<p>  现阶段postcss转译的工具使用率比较多的有两种: autoprefixer以及postcss-preset-env.</p>
-<ul>
-<li><p>autoprefixer.</p>
-<p>autoprefixer是将css的新样式在更多种类的浏览器中兼容.</p>
-<ul>
-<li><p>步骤.</p>
-<p>首先下载npm依赖包postcss-loader和autoprefixer.</p>
-<pre><code>npm install autoprefixer postcss-loader -D
-</code></pre>
-<p>之后创建postcss.config.js文件,配置使用插件.</p>
-<pre><code>touch postcss.config.js
-</code></pre>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="built_in">require</span>(<span class="string">&#x27;autoprefixer&#x27;</span>)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>配置webpack构建打包postcss-loader.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [&#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/.css$/</span>,</span><br><span class="line">      <span class="attr">use</span>: [&#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;style-loader&#x27;</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">importLoaders</span>: <span class="number">1</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span></span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]			</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>当然也可以直接不创建postcss.config.js文件,在webpack构建打包postcss-loader配置.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [&#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/.css$/</span>,</span><br><span class="line">      <span class="attr">use</span>: [&#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;style-loader&#x27;</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">importLoaders</span>: <span class="number">1</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">options</span>: &#123;</span><br><span class="line">          <span class="attr">postcssOptions</span>: &#123;</span><br><span class="line">            <span class="attr">plugins</span>: [</span><br><span class="line">              <span class="built_in">require</span>(<span class="string">&#x27;autoprefixer&#x27;</span>)</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]			</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>配置package.json -&gt; browserslist属性,也就是postcss这种扩展兼容操作要选择适用哪些种类浏览器的版本,这一部分我们会拿出来在后续部分细讲.</p>
-</li>
-<li><p>缺点.</p>
-<p>只是对css的新样式在更多种类的浏览器上做兼容,新特性被排除在外,所以autoprefixer所做出的扩展兼容是不完整的.</p>
-</li>
-</ul>
-</li>
-<li><p>postcss-preset-env.</p>
-<p>postcss-preset-env是将css的新样式以及新特性在更多种类的浏览器中兼容,内置autoprefixer,含有autoprefixer的功能.</p>
-<ul>
-<li><p>步骤.</p>
-<p>首先下载npm依赖包postcss-preset-env和postcss-loader.</p>
-<pre><code>npm install postcss-preset-env postcss-loader -D
-</code></pre>
-<p>之后创建postcss.config.js文件,配置使用插件.</p>
-<pre><code>touch postcss.config.js
-</code></pre>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="built_in">require</span>(<span class="string">&#x27;postcss-preset-env&#x27;</span>)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>配置webpack构建打包postcss-loader.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [&#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/.css$/</span>,</span><br><span class="line">      <span class="attr">use</span>: [&#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;style-loader&#x27;</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">importLoaders</span>: <span class="number">1</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span></span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]			</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>当然也可以直接不创建postcss.config.js文件,在webpack构建打包postcss-loader配置.</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [&#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/.css$/</span>,</span><br><span class="line">      <span class="attr">use</span>: [&#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;style-loader&#x27;</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">importLoaders</span>: <span class="number">1</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">options</span>: &#123;</span><br><span class="line">          <span class="attr">postcssOptions</span>: &#123;</span><br><span class="line">            <span class="attr">plugins</span>: [</span><br><span class="line">              <span class="built_in">require</span>(<span class="string">&#x27;postcss-preset-env&#x27;</span>)</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]			</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>配置package.json -&gt; browserslist属性,也就是postcss这种扩展兼容操作要选择适用哪些种类浏览器的版本,这一部分我们会拿出来在后续部分细讲.</p>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>browserslist</p>
-</blockquote>
-<p>  postcss对css新样式以及新特性要选择适用哪些种类浏览器的版本所对应的属性.推荐在package.json文件里直接进行配置.</p>
-<ul>
-<li><p>默认配置.</p>
-<p>默认配置[“defaults”]实际上的含义是[“&gt; 2%”,”last 2 versions”,”not dead”],是这三种筛选适用浏览器版本的方式的并集,这三种方式具体的含义在下一部分会具体介绍.</p>
-</li>
-</ul>
-  <figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;browserslist&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;defaults&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>筛选适用浏览器版本方式枚举.</p>
-<ul>
-<li>[“&gt; n%”]: 选择用户比例大于n%的所有种类的浏览器版本.</li>
-<li>[“last n versions”]: 选择所有种类的浏览器的最近n个版本.</li>
-<li>[“not dead”]: 选择官方并没有舍弃删除掉的所有种类的浏览器版本.</li>
-</ul>
-<p>所以[“defaults”]的含义就是选择用户比例大于2%的、官方并没有舍弃删除掉的、所有种类的浏览器的最近2个版本的并集.</p>
-</li>
-<li><p>其他配置.</p>
-<ul>
-<li>[“&gt; 2% and last 2 versions and not dead”]: and表示”且”也就是交集,此🌰的含义为选择用户比例大于2%的、官方并没有舍弃删除掉的、所有种类的浏览器的最近2个版本的交集.</li>
-<li>[“&gt; 2% or last 2 versions or not dead”]: 除了”,”之外,”or”也可以表示交集.跟[“defaults”]的含义相同.</li>
-<li>[“not &gt; 2%”]: “not”代表”非”也就是非集,此🌰的含义为选择用户比例小于等于2%的所有种类的浏览器的版本.</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>postcss</category>
-      </categories>
-      <tags>
-        <tag>webpack</tag>
-        <tag>postcss</tag>
       </tags>
   </entry>
   <entry>
@@ -1013,8 +1013,8 @@ count: 5
         <category>typescript</category>
       </categories>
       <tags>
-        <tag>javascript module</tag>
         <tag>webpack</tag>
+        <tag>javascript module</tag>
         <tag>typescript</tag>
       </tags>
   </entry>
@@ -1031,40 +1031,36 @@ count: 5
 <li><p>Browser Testing.</p>
 <p>可在线自由搭配不同的浏览器种类、版本、操作系统以及分辨率对线上网站进行实时交互式跨浏览器测试,每次真实浏览器sessions可测试10分钟,在测试期间可切换之前自由搭配的所有配置选项、可录屏、可标记bug(编辑bug截图、下载bug截图以及上传到lambdaTest衍生的SLACK、JIRA和ASANA项目管理系统).</p>
 <ul>
-<li>配置.</li>
+<li><p>配置.</p>
+<p><img src="https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_home.png"></p>
+</li>
+<li><p>测试.</p>
+<p><img src="https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_testing.png"></p>
+</li>
+<li><p>Debug.</p>
+<p><img src="https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_debug.png"></p>
+</li>
+<li><p>录屏.</p>
+<p><img src="https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_video.png"></p>
+</li>
 </ul>
-<p> <img src="https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_home.png"></p>
-<ul>
-<li>测试.</li>
-</ul>
-<p> <img src="https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_testing.png"></p>
-<ul>
-<li>Debug.</li>
-</ul>
-<p> <img src="https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_debug.png"></p>
-<ul>
-<li>录屏.</li>
-</ul>
-<p> <img src="https://image.white-than-wood.zone/lambdaTest/Manual/browser/Manual_video.png"></p>
 </li>
 <li><p>App Testing.</p>
 <p>可在线自由搭配不同的品牌手机、版本、Android系统以及IOS系统对App包或者App Url进行实时交互式跨真机测试,每次真实真机测试sessions可测试10分钟,在测试期间可切换之前自由搭配的所有配置选项、可录屏、可标记bug(编辑bug截图、下载bug截图以及上传到lambdaTest衍生的SLACK、JIRA和ASANA项目管理系统).</p>
 <ul>
-<li>配置.</li>
-</ul>
-<p> <img src="https://image.white-than-wood.zone/lambdaTest/Manual/app/Manual_home.png"></p>
-<ul>
-<li>测试.</li>
-</ul>
+<li><p>配置.</p>
+<p><img src="https://image.white-than-wood.zone/lambdaTest/Manual/app/Manual_home.png"></p>
+</li>
+<li><p>测试.</p>
 <p><img src="https://image.white-than-wood.zone/lambdaTest/Manual/app/Manual_testing.png"></p>
-<ul>
-<li>Debug.</li>
+</li>
+<li><p>Debug.</p>
+<p><img src="https://image.white-than-wood.zone/lambdaTest/Manual/app/Manual_debug.png"></p>
+</li>
+<li><p>录屏.</p>
+<p><img src="https://image.white-than-wood.zone/lambdaTest/Manual/app/Manual_video.png"></p>
+</li>
 </ul>
-<p> <img src="https://image.white-than-wood.zone/lambdaTest/Manual/app/Manual_debug.png"></p>
-<ul>
-<li>录屏.</li>
-</ul>
-<p> <img src="https://image.white-than-wood.zone/lambdaTest/Manual/app/Manual_video.png"></p>
 </li>
 <li><p>Browser Testing开发环境在线测试.</p>
 <p>可配合lambdaTest桌面应用(LT_Windows or LT_Macs)配合在线网站进行开发环境在线测试.</p>
