@@ -41,7 +41,7 @@ categories: testing
 
   - App Testing.
 
-    可在线自由搭配不同的品牌手机、版本设备对App包或者App Url进行实时交互式跨真机测试,每次真实真机测试sessions可测试10分钟,在测试期间可切换配置品牌手机以及版本设备、可录屏(录屏可下载)、可标记bug(编辑bug截图、下载bug截图以及上传到lambdaTest衍生的SLACK、JIRA和ASANA项目管理系统).
+    可在线自由搭配不同的品牌手机、版本设备对App包或者App Url进行实时交互式测试,每次真机测试sessions可测试10分钟,在测试期间可切换配置品牌手机以及版本设备、可录屏(录屏可下载)、可标记bug(编辑bug截图、下载bug截图以及上传到lambdaTest衍生的SLACK、JIRA和ASANA项目管理系统).
 
     - 配置.
 
