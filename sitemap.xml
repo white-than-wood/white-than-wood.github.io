@@ -2,108 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
-        <loc>https://white-than-wood.github.io/2022/05/28/thinkoftesting/</loc>
-        
-        <lastmod>2022-05-29T06:36:19.667Z</lastmod>
-        
-        <date>1653738734000</date>
-        <title>think of testing | WTW's Frontend</title>
-        
-        <desc>测试(testing)跨终端自动化测试 在介绍自动化测试之前,先来说一下跨终端测试工具,基于全方位测试需求的考虑,跨终端测试应该是最重要的类型之一.如今,各种类型的浏览器、操作系统、品牌手机以及设备可谓是琳琅满目.因此,需要确保用户在通过不同种类的浏览器、操作系统、品牌手机以及设备访问平台服务时,不会产生较大的体验落差. 在市面上,诸如LambdaTest之类的在线工具,就能够帮助以一种轻松互动的</desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/26/thinkoftypescript/</loc>
-        
-        <lastmod>2022-05-27T07:34:27.676Z</lastmod>
-        
-        <date>1653575965000</date>
-        <title>think of typescript | WTW's Frontend</title>
-        
-        <desc>typescript配置{“module”: “umd”} 问题1 近期在配置typescript配合webpack构建打包项目时发现,tsconfig.json里配置模块导入导出模式为{“module”:”umd”},webpack使用ts-loader来处理,导入导出的模块模式同样使用{libraryTarget: ‘umd’} or output -&gt; library: {type: </desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/</loc>
-        
-        <lastmod>2022-05-27T07:34:27.671Z</lastmod>
-        
-        <date>1653238104000</date>
-        <title>think of JsModule | WTW's Frontend</title>
-        
-        <desc>模块导入导出的历史 JsModule的演化经历 下面这张图可以清晰的看出,javascript module演化的历史,由最初的commonjs到最终方案esm,而现在正处于umd -&gt; esm阶段. commonjs commonjs的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.</desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/18/thinkofhomebrew/</loc>
-        
-        <lastmod>2022-05-27T07:34:27.665Z</lastmod>
-        
-        <date>1652885650000</date>
-        <title>think of homebrew | WTW's Frontend</title>
-        
-        <desc>download homebrew 问题 最近在下载homebrew时,发现其总是出现连接被拒绝的情况. curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused 原因 后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些</desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/15/thinkofgit/</loc>
-        
-        <lastmod>2022-05-27T07:33:49.923Z</lastmod>
-        
-        <date>1652564405000</date>
-        <title>think of git | WTW's Frontend</title>
-        
-        <desc>git命令 git remote add origin &#x67;&#105;&#116;&#64;&#103;&#x69;&#116;&#x68;&#x75;&#x62;&#x2e;&#x63;&#111;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程</desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</loc>
-        
-        <lastmod>2022-05-27T07:33:41.786Z</lastmod>
-        
-        <date>1652473823000</date>
-        <title>hexo搭建next博客 | WTW's Frontend</title>
-        
-        <desc>引言 此博客用于搭建hexo的工具博客.基本不会探索深究配置的原因,敬请知悉~ hexo安装 首先要用npm外部依赖包管理工具安装全局命令hexo-cli npm install hexo-cli -g 然后使用hexo初始化博客目录,比如blog目录,目录名要与后续自己建立的github上hexo托管代码的repository同名</desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/23/thinkofwebpack/</loc>
-        
-        <lastmod>2022-05-26T15:16:46.181Z</lastmod>
-        
-        <date>1653237961000</date>
-        <title>think of webpack | WTW's Frontend</title>
-        
-        <desc>webpack配置output 问题1 近期在配置webpack时,发现output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’}打包构建导出的模块无法实行TreeShaking. 介绍 在配置webpack的输出output时,都会遇到输出模块的配置,也就是webpack 4中的libraryType以及webpa</desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/25/thinkofpostcss/</loc>
-        
-        <lastmod>2022-05-26T14:51:17.341Z</lastmod>
-        
-        <date>1653477087000</date>
-        <title>think of postcss | WTW's Frontend</title>
-        
-        <desc>postcss配置 介绍 postcss在概念上主要是为了使新的css样式以及特性在更多种类的浏览器上得到兼容. css新样式. 1234/*经过postcss转译之前*/.dom &#123; user-select: none; &#125; 1234567/*经过postcss转译之后*/.dom &#123; -webkit-user-select:none; -moz-user-sele</desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/archives/index.html</loc>
-        
-        <lastmod>2022-05-23T15:47:43.889Z</lastmod>
-        
-        <date>1652472553000</date>
-        <title>归档 | WTW's Frontend</title>
-        
-        <desc></desc>
-    </url>
-    
-    <url>
         <loc>https://white-than-wood.github.io/tags/index.html</loc>
         
-        <lastmod>2022-05-23T15:47:34.370Z</lastmod>
+        <lastmod>2022-05-29T07:30:25.585Z</lastmod>
         
         <date>1652472525000</date>
         <title>标签 | WTW's Frontend</title>
@@ -114,7 +15,7 @@
     <url>
         <loc>https://white-than-wood.github.io/categories/index.html</loc>
         
-        <lastmod>2022-05-23T15:47:34.360Z</lastmod>
+        <lastmod>2022-05-29T07:30:25.584Z</lastmod>
         
         <date>1652472563000</date>
         <title>分类 | WTW's Frontend</title>
@@ -123,14 +24,113 @@
     </url>
     
     <url>
+        <loc>https://white-than-wood.github.io/archives/index.html</loc>
+        
+        <lastmod>2022-05-29T07:30:25.583Z</lastmod>
+        
+        <date>1652472553000</date>
+        <title>归档 | WTW's Frontend</title>
+        
+        <desc></desc>
+    </url>
+    
+    <url>
         <loc>https://white-than-wood.github.io/about/index.html</loc>
         
-        <lastmod>2022-05-23T15:47:16.674Z</lastmod>
+        <lastmod>2022-05-29T07:30:25.582Z</lastmod>
         
         <date>1652472544000</date>
         <title>关于White-Than-Wood | WTW's Frontend</title>
         
         <desc></desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/28/thinkoftesting/</loc>
+        
+        <lastmod>2022-05-29T07:30:25.581Z</lastmod>
+        
+        <date>1653738734000</date>
+        <title>think of testing | WTW's Frontend</title>
+        
+        <desc>测试(testing)跨终端自动化测试 在介绍自动化测试之前,先来说一下跨终端测试工具,基于全方位测试需求的考虑,跨终端测试应该是最重要的类型之一.如今,各种类型的浏览器、操作系统、品牌手机以及设备可谓是琳琅满目.因此,需要确保用户在通过不同种类的浏览器、操作系统、品牌手机以及设备访问平台服务时,不会产生较大的体验落差. 在市面上,诸如LambdaTest之类的在线工具,就能够帮助以一种轻松互动的</desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/25/thinkofpostcss/</loc>
+        
+        <lastmod>2022-05-29T07:30:25.580Z</lastmod>
+        
+        <date>1653477087000</date>
+        <title>think of postcss | WTW's Frontend</title>
+        
+        <desc>postcss配置 介绍 postcss在概念上主要是为了使新的css样式以及特性在更多种类的浏览器上得到兼容. css新样式. 1234/*经过postcss转译之前*/.dom &#123; user-select: none; &#125; 1234567/*经过postcss转译之后*/.dom &#123; -webkit-user-select:none; -moz-user-sele</desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/26/thinkoftypescript/</loc>
+        
+        <lastmod>2022-05-29T07:30:25.580Z</lastmod>
+        
+        <date>1653575965000</date>
+        <title>think of typescript | WTW's Frontend</title>
+        
+        <desc>typescript配置{“module”: “umd”} 问题1 近期在配置typescript配合webpack构建打包项目时发现,tsconfig.json里配置模块导入导出模式为{“module”:”umd”},webpack使用ts-loader来处理,导入导出的模块模式同样使用{libraryTarget: ‘umd’} or output -&gt; library: {type: </desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/23/thinkofwebpack/</loc>
+        
+        <lastmod>2022-05-29T07:30:25.579Z</lastmod>
+        
+        <date>1653237961000</date>
+        <title>think of webpack | WTW's Frontend</title>
+        
+        <desc>webpack配置output 问题1 近期在配置webpack时,发现output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’}打包构建导出的模块无法实行TreeShaking. 介绍 在配置webpack的输出output时,都会遇到输出模块的配置,也就是webpack 4中的libraryType以及webpa</desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/</loc>
+        
+        <lastmod>2022-05-29T07:30:25.578Z</lastmod>
+        
+        <date>1653238104000</date>
+        <title>think of JsModule | WTW's Frontend</title>
+        
+        <desc>模块导入导出的历史 JsModule的演化经历 下面这张图可以清晰的看出,javascript module演化的历史,由最初的commonjs到最终方案esm,而现在正处于umd -&gt; esm阶段. commonjs commonjs的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.</desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/18/thinkofhomebrew/</loc>
+        
+        <lastmod>2022-05-29T07:30:25.577Z</lastmod>
+        
+        <date>1652885650000</date>
+        <title>think of homebrew | WTW's Frontend</title>
+        
+        <desc>download homebrew 问题 最近在下载homebrew时,发现其总是出现连接被拒绝的情况. curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused 原因 后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些</desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/15/thinkofgit/</loc>
+        
+        <lastmod>2022-05-29T07:30:25.576Z</lastmod>
+        
+        <date>1652564405000</date>
+        <title>think of git | WTW's Frontend</title>
+        
+        <desc>git命令 git remote add origin &#x67;&#105;&#x74;&#64;&#103;&#105;&#116;&#x68;&#117;&#98;&#x2e;&#x63;&#111;&#109;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句</desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</loc>
+        
+        <lastmod>2022-05-29T07:30:25.575Z</lastmod>
+        
+        <date>1652473823000</date>
+        <title>hexo搭建next博客 | WTW's Frontend</title>
+        
+        <desc>引言 此博客用于搭建hexo的工具博客.基本不会探索深究配置的原因,敬请知悉~ hexo安装 首先要用npm外部依赖包管理工具安装全局命令hexo-cli npm install hexo-cli -g 然后使用hexo初始化博客目录,比如blog目录,目录名要与后续自己建立的github上hexo托管代码的repository同名</desc>
     </url>
     
 </urlset>
