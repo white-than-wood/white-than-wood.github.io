@@ -161,7 +161,7 @@ categories: testing
     
     - selenium-webdriver.
 
-      浏览器自动化库,它提供了许多浏览器自动化接口,用于测试web应用.除了通过npm安装selenium-webdriver之外,还需要安装浏览器相应的驱动.其相应的api和用法<a href='https://www.selenium.dev/selenium/docs/api/javascript/'>selenium-webdriver</a>.
+      浏览器自动化库,提供了许多浏览器自动化接口,用于测试web应用.除了通过npm安装selenium-webdriver之外,还需要安装浏览器相应的驱动.其相应的api和用法<a href='https://www.selenium.dev/selenium/docs/api/javascript/'>selenium-webdriver</a>.
 
       在new一个WebDriver的过程中,selenium首先会确认浏览器的native component是否存在可用而且匹配的版本,然后就在目标浏览器里启动一整套Web Service,这套Web Service使用了selenium自己设计定义的协议,名字叫做The WebDriver Wire Protocol.这套协议非常之强大,几乎可以操作浏览器做任何事情,包括打开、关闭、最大化、最小化、元素定位、元素点击、上传文件等等.其配合Jest写测试用例再搭配lambdaTest,可自定义各种测试套件在不同的浏览器版本以及操作系统上实现定制且容易理解的自动化测试.
     
