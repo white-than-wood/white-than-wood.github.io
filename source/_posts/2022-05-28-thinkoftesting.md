@@ -83,6 +83,12 @@ categories: testing
 
     WebDriver是W3C的一个标准,是一个远程控制协议,它提供了跨平台和跨语言的方式来远程操控浏览器,它提供了一系列接口来访问和操作DOM,进而控制浏览器的行为.它使得web开发者能写一些自动化脚本来测试网页.后续的Selenium、Appium都是基于WebDriver协议并进行了扩展.
 
+    - WebDriver的工作过程.
+
+      浏览器在启动后会在某一个端口启动基于WebDriver协议的Web Service,接下来我们调用WebDriver的任何api时,都需要借助一个CommandExecutor发送一个命令(也就是给监听端口上的Web Service发送一个http请求),这个命令会告诉浏览器接下来要做什么.
+
+      ![](https://image.white-than-wood.zone/lambdaTest/Automatic/Automatic_webdriver.png)
+
   - 浏览器自动化测试工具.
 
     - Selenium.
