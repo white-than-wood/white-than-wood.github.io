@@ -4,12 +4,12 @@
     <url>
         <loc>https://white-than-wood.github.io/2022/05/28/thinkoftesting/</loc>
         
-        <lastmod>2022-05-29T05:08:15.262Z</lastmod>
+        <lastmod>2022-05-29T05:17:49.996Z</lastmod>
         
         <date>1653738734000</date>
         <title>think of testing | WTW's Frontend</title>
         
-        <desc>测试(testing)跨终端自动化测试 在介绍自动化测试之前,我们先来说一下跨终端测试工具,基于全方位测试需求的考虑,跨终端测试应该是最重要的类型之一.如今,各种类型的浏览器、操作系统、品牌手机以及设备可谓是琳琅满目.因此,需要确保用户在通过不同种类的浏览器、操作系统、品牌手机以及设备访问平台服务时,不会产生较大的体验落差. 在市面上,诸如LambdaTest之类的在线工具,就能够帮助以一种轻松互</desc>
+        <desc>测试(testing)跨终端自动化测试 在介绍自动化测试之前,先来说一下跨终端测试工具,基于全方位测试需求的考虑,跨终端测试应该是最重要的类型之一.如今,各种类型的浏览器、操作系统、品牌手机以及设备可谓是琳琅满目.因此,需要确保用户在通过不同种类的浏览器、操作系统、品牌手机以及设备访问平台服务时,不会产生较大的体验落差. 在市面上,诸如LambdaTest之类的在线工具,就能够帮助以一种轻松互动的</desc>
     </url>
     
     <url>
@@ -53,7 +53,7 @@
         <date>1652564405000</date>
         <title>think of git | WTW's Frontend</title>
         
-        <desc>git命令 git remote add origin &#x67;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#104;&#117;&#98;&#x2e;&#99;&#111;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程句</desc>
+        <desc>git命令 git remote add origin &#x67;&#105;&#x74;&#x40;&#103;&#x69;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#111;&#109;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于git remote的定义来看,意思是列出本地拥有的每个指定远程</desc>
     </url>
     
     <url>
