@@ -83,7 +83,7 @@ categories: git
      
          使用此方法是有比较多的问题的,首先就是重启ssh-agent或者电脑之后,ssh-agent中的高速缓存会重置,也就是会被清空掉.再就是对于同一个ssh域名下的链接建立ssh安全关联时,ssh-agent会选择高速缓存列表中的一个缓存私钥来建立通信.举个🌰:
        
-             #这两个github库有着同样的域名别名,也就是@github.com,在建立通信时,如果将两个账号下生成的私钥都放入ssh-agent高速缓存中,ssh-agent会默认选择高速缓存列表中先放入的ssh私钥进行通信.
+             #这两个github库有着同样的域名别称,也就是@github.com,在建立通信时,如果将两个账号下生成的私钥都放入ssh-agent高速缓存中,ssh-agent会默认选择高速缓存列表中先放入的ssh私钥进行通信.
              #只有在切换不同的账号项目开发时,将ssh-agent重启,并且将当前项目所对应的ssh私钥放入ssh-agent高速缓存中才可以建立ssh安全关联并且实行通信.
              git@github.com:white-than-wood/white-than-wood.github.io.git
              git@github.com:dreamthen/webpack-rebuild.github.io.git
