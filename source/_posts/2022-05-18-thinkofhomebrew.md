@@ -9,13 +9,13 @@ categories: homebrew
 
 > 问题
 
-  最近在下载homebrew时,发现其总是出现连接被拒绝的情况.
+  最近在下载 homebrew 时,发现其总是出现连接被拒绝的情况.
 
     curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
 
 > 原因
 
-  后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的 DNS 解析被污染，导致 DNS 解析过程无法通过域名取得正确的IP地址.
+  后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的DNS解析被污染，导致 DNS 解析过程无法通过域名取得正确的IP地址.
 
 > 方案
 
