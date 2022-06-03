@@ -626,7 +626,7 @@ gitalk:
   admin_user: white-than-wood # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
   distraction_free_mode: true # Facebook-like distraction free mode
   # When the official proxy is not available, you can change it to your own proxy address
-  proxy: https://shielded-brushlands-08810.herokuapp.com/https://github.com/login/oauth/access_token
+  proxy: /login/oauth/access_token
   # proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token # This is official proxy address
   # Gitalk's display language depends on user's browser or system environment
   # If you want everyone visiting your site to see a uniform language, you can set a force language value
@@ -680,7 +680,7 @@ google_analytics:
 
 # Baidu Analytics
 # See: https://tongji.baidu.com
-baidu_analytics: 31f07c2ec80d10375ec28e8ffa5ddc3a
+baidu_analytics: e6e912cbe27a71bb7c2d2622a6c5a855
 
 # Growingio Analytics
 # See: https://www.growingio.com
