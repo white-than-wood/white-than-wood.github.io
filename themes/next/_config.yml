@@ -621,8 +621,8 @@ gitalk:
   enable: true
   github_id: white-than-wood # GitHub repo owner
   repo: white-than-wood.github.io # Repository name to store issues
-  client_id: 11715b5591585c1aab05 # GitHub Application Client ID
-  client_secret: 8d2cbbbac0ae1230064d1f907a3648b08b42c13a # GitHub Application Client Secret
+  client_id: 48bd160d71f6e7ee8c69 # GitHub Application Client ID
+  client_secret: 8cb9eb9838461653fc24ca35611bc07359cc25a3 # GitHub Application Client Secret
   admin_user: white-than-wood # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
   distraction_free_mode: true # Facebook-like distraction free mode
   # When the official proxy is not available, you can change it to your own proxy address
