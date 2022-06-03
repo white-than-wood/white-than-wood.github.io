@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://white-than-wood.github.io/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</loc>
+        
+        <lastmod>2022-06-03T11:22:29.768Z</lastmod>
+        
+        <date>1652473823000</date>
+        <title>hexo搭建next博客 | WTW's Frontend</title>
+        
+        <desc>引言 此博客用于搭建 hexo 的工具博客.基本不会探索深究配置的原因,敬请知悉~ hexo 安装 步骤 首先要用 npm 依赖资源管理工具安装全局命令 hexo-cli. npm install hexo-cli -g</desc>
+    </url>
+    
+    <url>
         <loc>https://white-than-wood.github.io/2022/05/18/thinkofhomebrew/</loc>
         
         <lastmod>2022-06-03T11:09:34.339Z</lastmod>
@@ -13,17 +24,6 @@
     </url>
     
     <url>
-        <loc>https://white-than-wood.github.io/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</loc>
-        
-        <lastmod>2022-06-03T10:35:45.327Z</lastmod>
-        
-        <date>1652473823000</date>
-        <title>hexo搭建next博客 | WTW's Frontend</title>
-        
-        <desc>引言 此博客用于搭建 hexo 的工具博客.基本不会探索深究配置的原因,敬请知悉~ hexo 安装 步骤 首先要用 npm 依赖资源管理工具安装全局命令 hexo-cli. npm install hexo-cli -g</desc>
-    </url>
-    
-    <url>
         <loc>https://white-than-wood.github.io/2022/05/15/thinkofgit/</loc>
         
         <lastmod>2022-06-03T06:40:56.916Z</lastmod>
@@ -31,7 +31,7 @@
         <date>1652564405000</date>
         <title>think of git | WTW's Frontend</title>
         
-        <desc>git命令 git remote add origin &#x67;&#x69;&#116;&#64;&#x67;&#x69;&#x74;&#104;&#x75;&#98;&#46;&#99;&#x6f;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远程句</desc>
+        <desc>git命令 git remote add origin &#x67;&#x69;&#116;&#x40;&#x67;&#x69;&#x74;&#104;&#x75;&#x62;&#46;&#99;&#x6f;&#109;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远</desc>
     </url>
     
     <url>
