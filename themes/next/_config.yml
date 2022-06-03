@@ -626,7 +626,7 @@ gitalk:
   admin_user: white-than-wood # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
   distraction_free_mode: true # Facebook-like distraction free mode
   # When the official proxy is not available, you can change it to your own proxy address
-  proxy: https://white-than-wood.zone/https://github.com/login/oauth/access_token
+  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
   # proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token # This is official proxy address
   # Gitalk's display language depends on user's browser or system environment
   # If you want everyone visiting your site to see a uniform language, you can set a force language value
