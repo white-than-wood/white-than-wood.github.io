@@ -9,7 +9,7 @@
         <date>1652564405000</date>
         <title>think of git | WTW's Frontend</title>
         
-        <desc>git命令 git remote add origin &#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#117;&#98;&#46;&#99;&#x6f;&#109;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远程</desc>
+        <desc>git命令 git remote add origin &#x67;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#x68;&#117;&#x62;&#46;&#x63;&#111;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定</desc>
     </url>
     
     <url>
@@ -131,6 +131,17 @@
         <title>think of JsModule | WTW's Frontend</title>
         
         <desc>模块导入导出的历史 JsModule的演化经历 下面这张图可以清晰的看出,javascript module演化的历史,由最初的commonjs到最终方案esm,而现在正处于umd -&gt; esm阶段. commonjs commonjs的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.</desc>
+    </url>
+    
+    <url>
+        <loc>https://white-than-wood.github.io/README.html</loc>
+        
+        <lastmod>2022-05-29T07:30:25.574Z</lastmod>
+        
+        <date>1653809425574</date>
+        <title> | WTW's Frontend</title>
+        
+        <desc>White-Than-Wood.github.io 前端领域内所不知道的为什么都探索于此!此领域是用于解决互联网前端领域内小伙伴们的求知欲而建. 👽请记住: 💪🏻道阻且长,行则将至. PS: 查看的领域分为两个版本:github、blog website,小伙伴们择喜而食. testing github * think of testing blog website * think of t</desc>
     </url>
     
 </urlset>
