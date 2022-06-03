@@ -33,8 +33,9 @@
 <meta property="og:image" content="https://image.white-than-wood.zone/hexo/github_auth_register.png">
 <meta property="og:image" content="https://image.white-than-wood.zone/hexo/developer_settings.png">
 <meta property="og:image" content="https://image.white-than-wood.zone/hexo/access_tokens.png">
+<meta property="og:image" content="https://image.white-than-wood.zone/hexo/gitalk_403.png">
 <meta property="article:published_time" content="2022-05-13T20:30:23.000Z">
-<meta property="article:modified_time" content="2022-06-03T11:42:21.026Z">
+<meta property="article:modified_time" content="2022-06-03T17:48:20.051Z">
 <meta property="article:author" content="WTW(比木白)">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="blog">
@@ -267,7 +268,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-03 19:42:21" itemprop="dateModified" datetime="2022-06-03T19:42:21+08:00">2022-06-03</time>
+      <time title="修改时间：2022-06-04 01:48:20" itemprop="dateModified" datetime="2022-06-04T01:48:20+08:00">2022-06-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -544,7 +545,7 @@ gitalk:
 <ul>
 <li>client_id 与 client_secret 是 Github 的 OAuth 认证(下一个部分会介绍).</li>
 <li>github_id 与 admin_user 这里建议填一样,填成自己的 github 账号名(不是邮箱,也不是用户名).</li>
-<li>proxy 默认即是上面的地址,它其实会回调到这里<a target="_blank" rel="noopener" href='https://github.com/login/oauth/access_token'>https://github.com/login/oauth/access_token</a>来,出403的问题,主要是由于跨域.</li>
+<li>proxy 默认即是上面的地址,它其实会回调到这里<a target="_blank" rel="noopener" href='https://github.com/login/oauth/access_token'>https://github.com/login/oauth/access_token</a>,403的问题,主要是由于跨域.</li>
 </ul>
 <p>   Github 的 OAuth 认证.</p>
    <p style="background-color: #f3f3f3;padding: 10px;font-size: 0.875em;font-family: 'PingFang SC', 'Microsoft YaHei';">前提是自己得有一个 github 账号,才能注册 OAuth application ,这是<a target="_blank" rel="noopener" href='https://github.com/settings/applications/new'> OAuth 应用注册地址</a>.</p>
@@ -636,6 +637,10 @@ sitemap:
 <p>比如这个 <a target="_blank" rel="noopener" href='https://github.com/gitalk/gitalk/issues/429#issuecomment-778291781'>issues</a> 介绍到的:</p>
 <pre><code> proxy: https://shielded-brushlands-08810.herokuapp.com/https://github.com/login/oauth/access_token
 </code></pre>
+</li>
+<li><p>更新 gitalk 版本至1.7.2.</p>
+<p>据gitalk issue<a target="_blank" rel="noopener" href='https://github.com/gitalk/gitalk/issues/433'> gitalk 授权登录后报错403</a>,直接将gitalk版本升级至1.7.2就可解决 403 forbidden 的问题.</p>
+<p><img src="https://image.white-than-wood.zone/hexo/gitalk_403.png"></p>
 </li>
 </ul>
 <h4 id="hexo-其他配置"><a href="#hexo-其他配置" class="headerlink" title="hexo 其他配置"></a>hexo 其他配置</h4><blockquote>
