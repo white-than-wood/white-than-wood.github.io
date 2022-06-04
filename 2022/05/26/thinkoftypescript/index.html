@@ -21,16 +21,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"white-than-wood.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2},"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="typescript配置{“module”: “umd”} 问题1    近期在配置typescript配合webpack构建打包项目时发现,tsconfig.json里配置模块导入导出模式为{“module”:”umd”},webpack使用ts-loader来处理,导入导出的模块模式同样使用{libraryTarget: ‘umd’} or output -&gt; library: {typ">
+    <meta name="description" content="typescript 配置{“module”: “umd”} 问题1    近期在配置 typescript 配合 webpack 构建打包项目时发现,tsconfig.json 里配置模块导入导出模式为 {“module”:”umd”},webpack 使用 ts-loader 来处理,导入导出的模块模式同样使用 {libraryTarget: ‘umd’} or output -&gt; li">
 <meta property="og:type" content="article">
 <meta property="og:title" content="think of typescript">
 <meta property="og:url" content="https://white-than-wood.github.io/2022/05/26/thinkoftypescript/index.html">
 <meta property="og:site_name" content="WTW&#39;s Frontend">
-<meta property="og:description" content="typescript配置{“module”: “umd”} 问题1    近期在配置typescript配合webpack构建打包项目时发现,tsconfig.json里配置模块导入导出模式为{“module”:”umd”},webpack使用ts-loader来处理,导入导出的模块模式同样使用{libraryTarget: ‘umd’} or output -&gt; library: {typ">
+<meta property="og:description" content="typescript 配置{“module”: “umd”} 问题1    近期在配置 typescript 配合 webpack 构建打包项目时发现,tsconfig.json 里配置模块导入导出模式为 {“module”:”umd”},webpack 使用 ts-loader 来处理,导入导出的模块模式同样使用 {libraryTarget: ‘umd’} or output -&gt; li">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://image.white-than-wood.zone/typescript/typescript_module_umd.png">
 <meta property="article:published_time" content="2022-05-26T14:39:25.000Z">
-<meta property="article:modified_time" content="2022-05-29T07:30:25.580Z">
+<meta property="article:modified_time" content="2022-06-04T15:28:50.017Z">
 <meta property="article:author" content="WTW(比木白)">
 <meta property="article:tag" content="javascript module">
 <meta property="article:tag" content="webpack">
@@ -151,7 +151,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#typescript%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">typescript配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%9Cmodule%E2%80%9D-%E2%80%9Cumd%E2%80%9D"><span class="nav-number">1.1.</span> <span class="nav-text">{“module”: “umd”}</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#typescript-%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">typescript 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%9Cmodule%E2%80%9D-%E2%80%9Cumd%E2%80%9D"><span class="nav-number">1.1.</span> <span class="nav-text">{“module”: “umd”}</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -263,7 +263,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-29 15:30:25" itemprop="dateModified" datetime="2022-05-29T15:30:25+08:00">2022-05-29</time>
+      <time title="修改时间：2022-06-04 23:28:50" itemprop="dateModified" datetime="2022-06-04T23:28:50+08:00">2022-06-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -285,15 +285,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="typescript配置"><a href="#typescript配置" class="headerlink" title="typescript配置"></a>typescript配置</h1><h2 id="“module”-“umd”"><a href="#“module”-“umd”" class="headerlink" title="{“module”: “umd”}"></a>{“module”: “umd”}</h2><blockquote>
+        <h1 id="typescript-配置"><a href="#typescript-配置" class="headerlink" title="typescript 配置"></a>typescript 配置</h1><h2 id="“module”-“umd”"><a href="#“module”-“umd”" class="headerlink" title="{“module”: “umd”}"></a>{“module”: “umd”}</h2><blockquote>
 <p>问题1</p>
 </blockquote>
-<p>  近期在配置typescript配合webpack构建打包项目时发现,tsconfig.json里配置模块导入导出模式为{“module”:”umd”},webpack使用ts-loader来处理,导入导出的模块模式同样使用{libraryTarget: ‘umd’} or output -&gt; library: {type: ‘umd’},构建打包出来的模块竟然不识别(下图就是模块不识别的异常)……反之,我配置为{“module”:”commonjs”},webpack采用同样的配置,构建打包出来的模块就是可以识别的,并且运行很正常.</p>
+<p>  近期在配置 typescript 配合 webpack 构建打包项目时发现,tsconfig.json 里配置模块导入导出模式为 {“module”:”umd”},webpack 使用 ts-loader 来处理,导入导出的模块模式同样使用 {libraryTarget: ‘umd’} or output -&gt; library: {type: ‘umd’},构建打包出来的模块竟然不识别(下图就是模块不识别的异常)……反之,我配置为 {“module”:”commonjs”},webpack 采用同样的配置,构建打包出来的模块就是可以识别的,并且运行很正常.</p>
 <ul>
 <li><p>奇事.</p>
 <ul>
-<li>标准”umd”中不是包含”commonjs”吗?</li>
-<li>webpack为啥在模块导入导出模式中会出现只识别typescript {“module”:”commonjs”},而不识别typescript {“module”:”umd”}呢？</li>
+<li>标准 “umd” 中不是包含 “commonjs” 吗?</li>
+<li>webpack 为啥在模块导入导出模式中会出现只识别 typescript {“module”:”commonjs”},而不识别 typescript {“module”:”umd”} 呢？</li>
 </ul>
 </li>
 <li><p>异常.</p>
@@ -302,9 +302,9 @@
 <p>  <img src="https://image.white-than-wood.zone/typescript/typescript_module_umd.png"></p>
 <ul>
 <li><p>原因.</p>
-<p>其根本原因,是typescript的对于模块导入导出的”umd”模式并没有遵从统一的”umd”标准来.</p>
+<p>其根本原因,是 typescript 的对于模块导入导出的 “umd” 模式并没有遵从统一的 “umd” 标准来.</p>
 <ul>
-<li><p>“umd”标准.</p>
+<li><p>“umd” 标准.</p>
 <p><a href='https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E5%8E%86%E5%8F%B2'>think of JsModule -&gt; 模块导入导出的历史 -&gt; “umd”部分</a></p>
 </li>
 <li><p>typescript “umd”.</p>
@@ -312,7 +312,7 @@
 </ul>
 </li>
 <li><p>结论.</p>
-<p>通过两套”umd”配置可以看出,没有标准”umd”条件中的第三种处理,允许导出到window.namesapace &#x3D; export;因此,当大量开发人员需要同时支持所有这三个时,当前的typescript {“module”:”umd”}模块导入导出机制是非常糟糕的,webpack也是基于typescript {“module”:”umd”}产生的这种问题,对typescript {“module”:”umd”}模块导入导出模式是不支持的,所以会出现只识别typescript {“module”:”commonjs”},不识别typescript {“module”:”umd”}的奇事发生.</p>
+<p>通过两套 “umd” 配置可以看出,没有标准 “umd” 条件中的第三种处理,允许导出到 window.namesapace &#x3D; export; 因此,当大量开发人员需要同时支持所有这三个时,当前的 typescript {“module”:”umd”} 模块导入导出机制是非常糟糕的,webpack也是基于 typescript {“module”:”umd”} 产生的这种问题,对 typescript {“module”:”umd”} 模块导入导出模式是不支持的,所以会出现只识别 typescript {“module”:”commonjs”},不识别 typescript {“module”:”umd”} 的奇事发生.</p>
 </li>
 </ul>
 

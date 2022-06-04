@@ -487,9 +487,9 @@ fancybox: true
     <title>think of git</title>
     <url>/2022/05/15/thinkofgit/</url>
     <content><![CDATA[<h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote>
-<p>git remote add origin <a href="mailto:&#x67;&#x69;&#x74;&#64;&#103;&#x69;&#x74;&#104;&#117;&#x62;&#x2e;&#99;&#111;&#x6d;">&#x67;&#x69;&#x74;&#64;&#103;&#x69;&#x74;&#104;&#117;&#x62;&#x2e;&#99;&#111;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
+<p>git remote add origin <a href="mailto:&#x67;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;">&#x67;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
 </blockquote>
-<p>   从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的 git 项目时,势必要与远程 git 库建立联系(远程 git 库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在本地建立一个句柄简称与远程链接 <a href="mailto:&#x67;&#105;&#116;&#x40;&#x67;&#x69;&#116;&#x68;&#x75;&#98;&#46;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#116;&#x40;&#x67;&#x69;&#116;&#x68;&#x75;&#98;&#46;&#x63;&#x6f;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git 进行关联,实行通信,不需要再去 copy 使用 github 远程库上面的链接.</p>
+<p>   从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的 git 项目时,势必要与远程 git 库建立联系(远程 git 库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在本地建立一个句柄简称与远程链接 <a href="mailto:&#x67;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#x62;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#x62;&#x2e;&#x63;&#x6f;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git 进行关联,实行通信,不需要再去 copy 使用 github 远程库上面的链接.</p>
 <blockquote>
 <p>git push –set-upstream origin master</p>
 </blockquote>
@@ -521,7 +521,7 @@ ssh-keygen -t rsa -b 4096 -C &#39;15866369958@qq.com&#39;
    <img src="https://image.white-than-wood.zone/git/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>
    <div style="clear: both;display: block;"></div>
 
-<p>   添加成功之后,我们测试一下,将远程 github 库(‘<a href="mailto:&#103;&#105;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#x62;&#46;&#99;&#111;&#x6d;">&#103;&#105;&#116;&#64;&#x67;&#105;&#x74;&#x68;&#117;&#x62;&#46;&#99;&#111;&#x6d;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明 ssh-keygen 设置与 github 远程仓库 ssh 安全关联生效.</p>
+<p>   添加成功之后,我们测试一下,将远程 github 库(‘<a href="mailto:&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#x6d;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明 ssh-keygen 设置与 github 远程仓库 ssh 安全关联生效.</p>
 <p>  本地设置多个 ssh 私钥与多个 github 账号远程仓库建立安全关联.</p>
 <blockquote>
 <p>示例</p>
@@ -623,6 +623,115 @@ ssh -T git@github.com-dreamthen
       <tags>
         <tag>git</tag>
         <tag>github</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>think of homebrew</title>
+    <url>/2022/05/18/thinkofhomebrew/</url>
+    <content><![CDATA[<h1 id="download-homebrew"><a href="#download-homebrew" class="headerlink" title="download homebrew"></a>download homebrew</h1><blockquote>
+<p>问题</p>
+</blockquote>
+<p>  最近在下载 homebrew 时,发现其总是出现连接被拒绝的情况.</p>
+<pre><code>curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
+</code></pre>
+<blockquote>
+<p>原因</p>
+</blockquote>
+<p>  后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的DNS解析被污染，导致 DNS 解析过程无法通过域名取得正确的 IP 地址.</p>
+<blockquote>
+<p>方案</p>
+</blockquote>
+<p>  使用修改本机 hosts 文件,建立域名与 IP 的映射关系,当访问 hosts 文件列表中的域名时,依次尝试在其映射的 IP 进行请求,绕过 DNS.</p>
+<ul>
+<li>步骤.</li>
+</ul>
+<ol>
+<li>使用<a href='https://www.ipaddress.com/'>https://www.ipaddress.com/</a>查找域名所对应的 IP 地址.</li>
+</ol>
+<p>   <img src="https://image.white-than-wood.zone/homebrew/ipaddress.png"></p>
+<ol start="2">
+<li>使用 switchHosts 修改 mac 的 hosts 文件.</li>
+</ol>
+<p>   <img src="https://image.white-than-wood.zone/homebrew/switchhosts.png"></p>
+<p>   PS: 使用 switchHosts 无法对原有的 hosts 文件进行修改,只能添加新的 hosts 文件对原有的 hosts 文件进行合并覆盖,添加好后,将其配置的 switch 开关打开,允许其合并覆盖.</p>
+<blockquote>
+<p>次生问题</p>
+</blockquote>
+<p>  再次下载,被拒绝的情况不存在了,但是出现了新的异常情况.</p>
+<pre><code>curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to raw.githubusercontent.com:443
+</code></pre>
+<blockquote>
+<p>次生原因</p>
+</blockquote>
+<p>  其根本原因,在于国内网络环境对于境外服务器的种种限制,只用解决这一问题才能真正意义上解决下载 homebrew 网络错误的问题.</p>
+<blockquote>
+<p>次生方案</p>
+</blockquote>
+<p>  所以我查找到了一条可以彻底解决的路,使用国内镜像,就跟 npm 的淘宝镜像相同,homebrew 在国内也有多条镜像途径.</p>
+<ul>
+<li>步骤.</li>
+</ul>
+<ol>
+<li>首先下载 homebrew 国内镜像.</li>
+</ol>
+<pre><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
+</code></pre>
+<p>  <img src="https://image.white-than-wood.zone/homebrew/homebrew_mirror.png"></p>
+<ol start="2">
+<li>选择任意一个镜像进行下载,最好是用’梯子’🐶.有时候用’梯子’也下载的非常慢,好在重新进行下载时,会在原来 downloaded 的基础之上进行下载.下载好之后,重启终端命令行工具,或者执行一下 source .bash_profile,使得配置文件在修改了环境变等配置的情况下进行重置.</li>
+</ol>
+<blockquote>
+<p>brew install</p>
+</blockquote>
+<p>   <img src="https://image.white-than-wood.zone/homebrew/homebrew_install_git.png"></p>
+<p>   这样就可以愉快快捷的下载任意在 homebrew 上的资源了! PS: 每下载完一次资源,还是最好执行一下 source ~&#x2F;.bash_profile,使得配置文件在修改了环境变量等配置的情况下进行重置.</p>
+<blockquote>
+<p>异常</p>
+</blockquote>
+<pre><code>fatal: not in a git directory
+Error: Command failed with exit 128: git
+</code></pre>
+<p>   当出现这种异常时,就说明本地与远程并没有建立关联,并没有添加 origin 句柄简称映射远程的镜像或者 github 链接,所以我们需要重新设置一下.</p>
+<ul>
+<li>Bash 终端配置</li>
+</ul>
+<pre><code># 替换 brew.git:
+cd &quot;$(brew --repo)&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+
+# 替换homebrew-core.git:
+cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+
+# 应用生效
+brew update
+
+# 替换homebrew-bottles:
+echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+</code></pre>
+<ul>
+<li>Zsh 终端配置</li>
+</ul>
+<pre><code># 替换 brew.git:
+cd &quot;$(brew --repo)&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+# 替换homebrew-core.git:
+cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+# 应用生效
+brew update
+# 替换homebrew-bottles:
+echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.zshrc
+source ~/.zshrc
+</code></pre>
+<p>   这样就可解决本地与远程并没有建立关联的问题.</p>
+]]></content>
+      <categories>
+        <category>homebrew</category>
+      </categories>
+      <tags>
+        <tag>homebrew</tag>
       </tags>
   </entry>
   <entry>
@@ -797,7 +906,7 @@ count: 5
   <entry>
     <title>think of webpack</title>
     <url>/2022/05/23/thinkofwebpack/</url>
-    <content><![CDATA[<h1 id="webpack配置"><a href="#webpack配置" class="headerlink" title="webpack配置"></a>webpack配置</h1><h2 id="output"><a href="#output" class="headerlink" title="output"></a>output</h2><blockquote>
+    <content><![CDATA[<h1 id="webpack-配置"><a href="#webpack-配置" class="headerlink" title="webpack 配置"></a>webpack 配置</h1><h2 id="output"><a href="#output" class="headerlink" title="output"></a>output</h2><blockquote>
 <p>问题1</p>
 </blockquote>
 <p>   近期在配置 webpack 时,发现 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’} 打包构建导出的模块无法实行 TreeShaking.</p>
@@ -836,118 +945,9 @@ count: 5
       </tags>
   </entry>
   <entry>
-    <title>think of homebrew</title>
-    <url>/2022/05/18/thinkofhomebrew/</url>
-    <content><![CDATA[<h1 id="download-homebrew"><a href="#download-homebrew" class="headerlink" title="download homebrew"></a>download homebrew</h1><blockquote>
-<p>问题</p>
-</blockquote>
-<p>  最近在下载 homebrew 时,发现其总是出现连接被拒绝的情况.</p>
-<pre><code>curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused
-</code></pre>
-<blockquote>
-<p>原因</p>
-</blockquote>
-<p>  后续是发现其脚本需要到 raw.githubusercontent.com 上拉取代码,原因是 github 的一些域名的DNS解析被污染，导致 DNS 解析过程无法通过域名取得正确的 IP 地址.</p>
-<blockquote>
-<p>方案</p>
-</blockquote>
-<p>  使用修改本机 hosts 文件,建立域名与 IP 的映射关系,当访问 hosts 文件列表中的域名时,依次尝试在其映射的 IP 进行请求,绕过 DNS.</p>
-<ul>
-<li>步骤.</li>
-</ul>
-<ol>
-<li>使用<a href='https://www.ipaddress.com/'>https://www.ipaddress.com/</a>查找域名所对应的 IP 地址.</li>
-</ol>
-<p>   <img src="https://image.white-than-wood.zone/homebrew/ipaddress.png"></p>
-<ol start="2">
-<li>使用 switchHosts 修改 mac 的 hosts 文件.</li>
-</ol>
-<p>   <img src="https://image.white-than-wood.zone/homebrew/switchhosts.png"></p>
-<p>   PS: 使用 switchHosts 无法对原有的 hosts 文件进行修改,只能添加新的 hosts 文件对原有的 hosts 文件进行合并覆盖,添加好后,将其配置的 switch 开关打开,允许其合并覆盖.</p>
-<blockquote>
-<p>次生问题</p>
-</blockquote>
-<p>  再次下载,被拒绝的情况不存在了,但是出现了新的异常情况.</p>
-<pre><code>curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to raw.githubusercontent.com:443
-</code></pre>
-<blockquote>
-<p>次生原因</p>
-</blockquote>
-<p>  其根本原因,在于国内网络环境对于境外服务器的种种限制,只用解决这一问题才能真正意义上解决下载 homebrew 网络错误的问题.</p>
-<blockquote>
-<p>次生方案</p>
-</blockquote>
-<p>  所以我查找到了一条可以彻底解决的路,使用国内镜像,就跟 npm 的淘宝镜像相同,homebrew 在国内也有多条镜像途径.</p>
-<ul>
-<li>步骤.</li>
-</ul>
-<ol>
-<li>首先下载 homebrew 国内镜像.</li>
-</ol>
-<pre><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
-</code></pre>
-<p>  <img src="https://image.white-than-wood.zone/homebrew/homebrew_mirror.png"></p>
-<ol start="2">
-<li>选择任意一个镜像进行下载,最好是用’梯子’🐶.有时候用’梯子’也下载的非常慢,好在重新进行下载时,会在原来 downloaded 的基础之上进行下载.下载好之后,重启终端命令行工具,或者执行一下 source .bash_profile,使得配置文件在修改了环境变等配置的情况下进行重置.</li>
-</ol>
-<blockquote>
-<p>brew install</p>
-</blockquote>
-<p>   <img src="https://image.white-than-wood.zone/homebrew/homebrew_install_git.png"></p>
-<p>   这样就可以愉快快捷的下载任意在 homebrew 上的资源了! PS: 每下载完一次资源,还是最好执行一下 source ~&#x2F;.bash_profile,使得配置文件在修改了环境变量等配置的情况下进行重置.</p>
-<blockquote>
-<p>异常</p>
-</blockquote>
-<pre><code>fatal: not in a git directory
-Error: Command failed with exit 128: git
-</code></pre>
-<p>   当出现这种异常时,就说明本地与远程并没有建立关联,并没有添加 origin 句柄简称映射远程的镜像或者 github 链接,所以我们需要重新设置一下.</p>
-<ul>
-<li>Bash 终端配置</li>
-</ul>
-<pre><code># 替换 brew.git:
-cd &quot;$(brew --repo)&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
-
-# 替换homebrew-core.git:
-cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
-
-# 应用生效
-brew update
-
-# 替换homebrew-bottles:
-echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.bash_profile
-source ~/.bash_profile
-</code></pre>
-<ul>
-<li>Zsh 终端配置</li>
-</ul>
-<pre><code># 替换 brew.git:
-cd &quot;$(brew --repo)&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
-# 替换homebrew-core.git:
-cd &quot;$(brew --repo)/Library/Taps/homebrew/homebrew-core&quot;
-git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
-# 应用生效
-brew update
-# 替换homebrew-bottles:
-echo &#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39; &gt;&gt; ~/.zshrc
-source ~/.zshrc
-</code></pre>
-<p>   这样就可解决本地与远程并没有建立关联的问题.</p>
-]]></content>
-      <categories>
-        <category>homebrew</category>
-      </categories>
-      <tags>
-        <tag>homebrew</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>think of postcss</title>
     <url>/2022/05/25/thinkofpostcss/</url>
-    <content><![CDATA[<h1 id="postcss配置"><a href="#postcss配置" class="headerlink" title="postcss配置"></a>postcss配置</h1><blockquote>
+    <content><![CDATA[<h1 id="postcss-配置"><a href="#postcss-配置" class="headerlink" title="postcss 配置"></a>postcss 配置</h1><blockquote>
 <p>介绍</p>
 </blockquote>
 <p>  postcss 在概念上主要是为了使新的 css 样式以及特性在更多种类的浏览器上得到兼容.</p>
@@ -1058,15 +1058,15 @@ source ~/.zshrc
   <entry>
     <title>think of typescript</title>
     <url>/2022/05/26/thinkoftypescript/</url>
-    <content><![CDATA[<h1 id="typescript配置"><a href="#typescript配置" class="headerlink" title="typescript配置"></a>typescript配置</h1><h2 id="“module”-“umd”"><a href="#“module”-“umd”" class="headerlink" title="{“module”: “umd”}"></a>{“module”: “umd”}</h2><blockquote>
+    <content><![CDATA[<h1 id="typescript-配置"><a href="#typescript-配置" class="headerlink" title="typescript 配置"></a>typescript 配置</h1><h2 id="“module”-“umd”"><a href="#“module”-“umd”" class="headerlink" title="{“module”: “umd”}"></a>{“module”: “umd”}</h2><blockquote>
 <p>问题1</p>
 </blockquote>
-<p>  近期在配置typescript配合webpack构建打包项目时发现,tsconfig.json里配置模块导入导出模式为{“module”:”umd”},webpack使用ts-loader来处理,导入导出的模块模式同样使用{libraryTarget: ‘umd’} or output -&gt; library: {type: ‘umd’},构建打包出来的模块竟然不识别(下图就是模块不识别的异常)……反之,我配置为{“module”:”commonjs”},webpack采用同样的配置,构建打包出来的模块就是可以识别的,并且运行很正常.</p>
+<p>  近期在配置 typescript 配合 webpack 构建打包项目时发现,tsconfig.json 里配置模块导入导出模式为 {“module”:”umd”},webpack 使用 ts-loader 来处理,导入导出的模块模式同样使用 {libraryTarget: ‘umd’} or output -&gt; library: {type: ‘umd’},构建打包出来的模块竟然不识别(下图就是模块不识别的异常)……反之,我配置为 {“module”:”commonjs”},webpack 采用同样的配置,构建打包出来的模块就是可以识别的,并且运行很正常.</p>
 <ul>
 <li><p>奇事.</p>
 <ul>
-<li>标准”umd”中不是包含”commonjs”吗?</li>
-<li>webpack为啥在模块导入导出模式中会出现只识别typescript {“module”:”commonjs”},而不识别typescript {“module”:”umd”}呢？</li>
+<li>标准 “umd” 中不是包含 “commonjs” 吗?</li>
+<li>webpack 为啥在模块导入导出模式中会出现只识别 typescript {“module”:”commonjs”},而不识别 typescript {“module”:”umd”} 呢？</li>
 </ul>
 </li>
 <li><p>异常.</p>
@@ -1075,9 +1075,9 @@ source ~/.zshrc
 <p>  <img src="https://image.white-than-wood.zone/typescript/typescript_module_umd.png"></p>
 <ul>
 <li><p>原因.</p>
-<p>其根本原因,是typescript的对于模块导入导出的”umd”模式并没有遵从统一的”umd”标准来.</p>
+<p>其根本原因,是 typescript 的对于模块导入导出的 “umd” 模式并没有遵从统一的 “umd” 标准来.</p>
 <ul>
-<li><p>“umd”标准.</p>
+<li><p>“umd” 标准.</p>
 <p><a href='https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E5%8E%86%E5%8F%B2'>think of JsModule -&gt; 模块导入导出的历史 -&gt; “umd”部分</a></p>
 </li>
 <li><p>typescript “umd”.</p>
@@ -1085,7 +1085,7 @@ source ~/.zshrc
 </ul>
 </li>
 <li><p>结论.</p>
-<p>通过两套”umd”配置可以看出,没有标准”umd”条件中的第三种处理,允许导出到window.namesapace &#x3D; export;因此,当大量开发人员需要同时支持所有这三个时,当前的typescript {“module”:”umd”}模块导入导出机制是非常糟糕的,webpack也是基于typescript {“module”:”umd”}产生的这种问题,对typescript {“module”:”umd”}模块导入导出模式是不支持的,所以会出现只识别typescript {“module”:”commonjs”},不识别typescript {“module”:”umd”}的奇事发生.</p>
+<p>通过两套 “umd” 配置可以看出,没有标准 “umd” 条件中的第三种处理,允许导出到 window.namesapace &#x3D; export; 因此,当大量开发人员需要同时支持所有这三个时,当前的 typescript {“module”:”umd”} 模块导入导出机制是非常糟糕的,webpack也是基于 typescript {“module”:”umd”} 产生的这种问题,对 typescript {“module”:”umd”} 模块导入导出模式是不支持的,所以会出现只识别 typescript {“module”:”commonjs”},不识别 typescript {“module”:”umd”} 的奇事发生.</p>
 </li>
 </ul>
 ]]></content>

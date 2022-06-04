@@ -2,25 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://white-than-wood.github.io/2022/05/26/thinkoftypescript/</loc>
+        
+        <lastmod>2022-06-04T15:28:50.017Z</lastmod>
+        
+        <date>1653575965000</date>
+        <title>think of typescript | WTW's Frontend</title>
+        
+        <desc>typescript 配置{“module”: “umd”} 问题1 近期在配置 typescript 配合 webpack 构建打包项目时发现,tsconfig.json 里配置模块导入导出模式为 {“module”:”umd”},webpack 使用 ts-loader 来处理,导入导出的模块模式同样使用 {libraryTarget: ‘umd’} or output -&gt; libra</desc>
+    </url>
+    
+    <url>
         <loc>https://white-than-wood.github.io/2022/05/25/thinkofpostcss/</loc>
         
-        <lastmod>2022-06-04T15:25:13.639Z</lastmod>
+        <lastmod>2022-06-04T15:27:51.094Z</lastmod>
         
         <date>1653477087000</date>
         <title>think of postcss | WTW's Frontend</title>
         
-        <desc>postcss配置 介绍 postcss 在概念上主要是为了使新的 css 样式以及特性在更多种类的浏览器上得到兼容. css 新样式. 1234/*经过 postcss 转译之前*/.dom &#123; user-select: none; &#125; 1234567/*经过 postcss 转译之后*/.dom &#123; -webkit-user-select:none; -moz-u</desc>
+        <desc>postcss 配置 介绍 postcss 在概念上主要是为了使新的 css 样式以及特性在更多种类的浏览器上得到兼容. css 新样式. 1234/*经过 postcss 转译之前*/.dom &#123; user-select: none; &#125; 1234567/*经过 postcss 转译之后*/.dom &#123; -webkit-user-select:none; -moz-</desc>
     </url>
     
     <url>
         <loc>https://white-than-wood.github.io/2022/05/23/thinkofwebpack/</loc>
         
-        <lastmod>2022-06-04T15:11:31.734Z</lastmod>
+        <lastmod>2022-06-04T15:27:51.087Z</lastmod>
         
         <date>1653237961000</date>
         <title>think of webpack | WTW's Frontend</title>
         
-        <desc>webpack配置output 问题1 近期在配置 webpack 时,发现 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’} 打包构建导出的模块无法实行 TreeShaking. 介绍 在配置 webpack 的输出 output 时,都会遇到输出模块的配置,也就是 webpack4 中的 library</desc>
+        <desc>webpack 配置output 问题1 近期在配置 webpack 时,发现 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’} 打包构建导出的模块无法实行 TreeShaking. 介绍 在配置 webpack 的输出 output 时,都会遇到输出模块的配置,也就是 webpack4 中的 librar</desc>
     </url>
     
     <url>
@@ -64,7 +75,7 @@
         <date>1652564405000</date>
         <title>think of git | WTW's Frontend</title>
         
-        <desc>git命令 git remote add origin &#x67;&#x69;&#x74;&#64;&#103;&#x69;&#x74;&#104;&#117;&#x62;&#x2e;&#99;&#111;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远</desc>
+        <desc>git命令 git remote add origin &#x67;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远</desc>
     </url>
     
     <url>
@@ -120,17 +131,6 @@
         <title>think of testing | WTW's Frontend</title>
         
         <desc>测试(testing)跨终端自动化测试 在介绍自动化测试之前,先来说一下跨终端测试工具,基于全方位测试需求的考虑,跨终端测试应该是最重要的类型之一.如今,各种类型的浏览器、操作系统、品牌手机以及设备可谓是琳琅满目.因此,需要确保用户在通过不同种类的浏览器、操作系统、品牌手机以及设备访问平台服务时,不会产生较大的体验落差. 在市面上,诸如LambdaTest之类的在线工具,就能够帮助以一种轻松互动的</desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/26/thinkoftypescript/</loc>
-        
-        <lastmod>2022-05-29T07:30:25.580Z</lastmod>
-        
-        <date>1653575965000</date>
-        <title>think of typescript | WTW's Frontend</title>
-        
-        <desc>typescript配置{“module”: “umd”} 问题1 近期在配置typescript配合webpack构建打包项目时发现,tsconfig.json里配置模块导入导出模式为{“module”:”umd”},webpack使用ts-loader来处理,导入导出的模块模式同样使用{libraryTarget: ‘umd’} or output -&gt; library: {type: </desc>
     </url>
     
 </urlset>
