@@ -63,6 +63,7 @@ categories: javascript module
              - 导入比较灵活;
              - NodeJS 模块导入导出完全采用 commonjs 模式,npm 上绝大部分的依赖库都会兼容 commonjs 模块导入导出,适用范围很广泛;
              - 同步模块加载;
+             - 良好的团队维护,完备的社区/论坛;
 
         - 劣势: 
      
@@ -85,6 +86,7 @@ categories: javascript module
             - 受限于第三方库的环境依赖;
             - 写法上很不友好;
             - 适用范围很窄,没有类 NodeJS、npm 以及 ECMAScript 标准这种受众面很广泛的'推手'推动;
+            - 社区/论坛不成熟,维护一般;
 
 > umd
 
@@ -263,6 +265,7 @@ categories: javascript module
      
              - 支持静态分析,静态分析所带来的一系列福利都可接收;
              - 可实行异步模块加载;支持动态导入 import();
+             - 良好的团队维护,完备的社区/论坛;
    
         - 劣势:
      
