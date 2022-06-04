@@ -1,148 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>think of git</title>
-    <url>/2022/05/15/thinkofgit/</url>
-    <content><![CDATA[<h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote>
-<p>git remote add origin <a href="mailto:&#x67;&#x69;&#116;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#98;&#46;&#x63;&#x6f;&#109;">&#x67;&#x69;&#116;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#98;&#46;&#x63;&#x6f;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
-</blockquote>
-<p>   从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的 git 项目时,势必要与远程 git 库建立联系(远程 git 库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在本地建立一个句柄简称与远程链接 <a href="mailto:&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#98;&#46;&#99;&#111;&#x6d;">&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#116;&#x68;&#x75;&#98;&#46;&#99;&#111;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git 进行关联,实行通信,不需要再去 copy 使用 github 远程库上面的链接.</p>
-<blockquote>
-<p>git push –set-upstream origin master</p>
-</blockquote>
-<p>   在本地句柄简称 origin 建立了与远程代码库的关联之后,首次推送同步代码,需要设置推送、同步代码的上游远程分支,当首次设置之后,后续无需设置. –set-upstream origin master 就是设置推送、同步代码的本地 origin 句柄简称的上游分支为 master.</p>
-<blockquote>
-<p>git merge master –allow-unrelated-histories</p>
-</blockquote>
-<p>   当同一个仓库存在多个独立的分支并没有公共的上游交集父分支时,会出现无法合并的情况(多出现于本地 git 初始化时默认主分支为 master,而远程 github 默认主分支为 main ).</p>
-<pre><code>fatal: refusing to merge unrelated histories
-</code></pre>
-<p>   故此我们需要在人为确认合并分支安全的情况下,将多个独立的分支进行允许强制合并,也就是 –allow-unrelated-histories.</p>
-<blockquote>
-<p>git remote set-url origin <a href="https://mirrors.aliyun.com/homebrew/brew.git">https://mirrors.aliyun.com/homebrew/brew.git</a></p>
-</blockquote>
-<p>   修改本地句柄简称列表中 origin 所对应的远程仓库链接为 <a href="https://mirrors.aliyun.com/homebrew/brew.git">https://mirrors.aliyun.com/homebrew/brew.git</a>.</p>
-<h1 id="SSH公私钥安全关联"><a href="#SSH公私钥安全关联" class="headerlink" title="SSH公私钥安全关联"></a>SSH公私钥安全关联</h1><p>  本地设置与 github 远程仓库的 ssh 安全关联.</p>
-<blockquote>
-<p>步骤</p>
-</blockquote>
-<p>   只有持有账号私钥的情况下才可以推送、同步代码到拥有公钥的 github 远程仓库,使用 ssh 命令产生公私钥.我这里用的是 rsa 的加解密方式,小伙伴们也可以选择自己喜欢的加密方式.</p>
-<pre><code>#使用自己的 github 账号来作为 rsa 加解密的注释
-#-t: type,选用 rsa 的密钥类型
-#-b: byte,公私钥的长度大小4096比特
-#-C: comments,添加公私钥生成的注释
-ssh-keygen -t rsa -b 4096 -C &#39;15866369958@qq.com&#39;
-</code></pre>
-<p>   在 mac 下,生成之后,前往自己账号目录下查询 .ssh&#x2F;id_rsa.pub,将 id_rsa.pub 文件里面的内容复制添加到 github 的账号 settings 设置下的 SSH and GPG keys.</p>
-   <img src="https://image.white-than-wood.zone/git/ssh_settings.png" style="width: 160px;float: left;"/>
-   <img src="https://image.white-than-wood.zone/git/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>
-   <div style="clear: both;display: block;"></div>
-
-<p>   添加成功之后,我们测试一下,将远程 github 库(‘<a href="mailto:&#x67;&#x69;&#116;&#x40;&#103;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#99;&#x6f;&#109;">&#x67;&#x69;&#116;&#x40;&#103;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#99;&#x6f;&#109;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明 ssh-keygen 设置与 github 远程仓库 ssh 安全关联生效.</p>
-<p>  本地设置多个 ssh 私钥与多个 github 账号远程仓库建立安全关联.</p>
-<blockquote>
-<p>示例</p>
-</blockquote>
-<ul>
-<li><p>ssh-add 交与 ssh-agent 代理高速缓存管理.</p>
-<ul>
-<li><p>ssh-agent.</p>
-<p>ssh-agent 实际上是一个本地的高速缓存代理机制,可以在用户不输入任何密码短语的情况下,将 session 缓存中的私钥与远程仓库建立 ssh 安全关联并实行通信.</p>
-</li>
-<li><p>ssh-add.</p>
-<p>ssh-add 是将指定的 ssh 私钥置于 ssh-agent 的高速缓存中,执行时会在 ssh-agent 建立一个 session,并将 ssh 私钥放入其中.注意,此行为是一次性行为,也就是临时性行为,重启 ssh-agent 之后,会重置.</p>
-<pre><code>#可用于查看 ssh-agent 的高速缓存中的私钥列表.
-ssh-add list
-#清空 ssh-agent 的高速缓存中的私钥列表.
-ssh-add -D
-#重启 ssh-agent.
-eval $(ssh-agent)
-</code></pre>
-</li>
-<li><p>步骤.</p>
-<p>使用 ssh-keygen 与 ssh-add 联合使用.</p>
-<pre><code>ssh-keygen -t rsa -b 4096 -C &#39;dreamthen.99@gmail.com&#39;
-#这时会出现需要你设置进行保存公私钥的文件名,默认还是为id_rsa
-Generating public/private rsa key pair.
-Enter file in which to save the key (/Users/yinwk/.ssh/id_rsa): id_rsa_ano
-#设置过后,公私钥就会以id_rsa_ano.pub以及id_rsa_ano文件进行保存
-</code></pre>
-<p>一系列操作结束后,我们还需要将新生成的私钥交与 ssh-agent 代理高速缓存管理.</p>
-<pre><code>ssh-add ~/.ssh/id_rsa_ano
-</code></pre>
-<p>在成功交与 ssh-agent 管理后,我们重复上一个部分中’本地设置与 github 远程仓库的 ssh 安全关联’的后续操作即可.</p>
-</li>
-<li><p>问题.</p>
-<p>使用此方法是有比较多的问题的,首先就是重启 ssh-agent 或者电脑之后,ssh-agent 中的高速缓存会重置,也就是会被清空掉.再就是对于同一个 ssh 域名下的链接建立 ssh 安全关联时,ssh-agent 会选择高速缓存列表中的一个缓存私钥来建立通信.举个🌰:</p>
-<pre><code>#这两个 github 库有着同样的域名别称,也就是 @github.com,在建立通信时,如果将两个账号下生成的私钥都放入 ssh-agent 高速缓存中,ssh-agent 会默认选择高速缓存列表中先放入的 ssh 私钥进行通信.
-#只有在切换不同的账号项目开发时,将 ssh-agent 重启,并且将当前项目所对应的 ssh 私钥放入 ssh-agent 高速缓存中才可以建立 ssh 安全关联并且实行通信.
-git@github.com:white-than-wood/white-than-wood.github.io.git
-git@github.com:dreamthen/webpack-rebuild.github.io.git
-</code></pre>
-</li>
-<li><p>结论.</p>
-<p>ssh-add 交与 ssh-agent 代理高速缓存管理这种方法,本质也不是为了让多个 ssh 公私钥与多个 github 远程仓库建立安全关联而产生的,作用是为了避免每次与远程建立 ssh 安全关联时必须填写密码短语.并且我们在生成 ssh 密钥时,一般也是不设置密码短语的,都是直接回车(密码短语为空).这种每次必须手动向高速缓存中添加私钥的行为,不仅麻烦,而且是临时性的、不合理的.</p>
-</li>
-</ul>
-</li>
-<li><p>配置 .ssh&#x2F;config 文件使不同本地项目 ssh 私钥永久性与远程不同 github 账号仓库建立安全关联.</p>
-<ul>
-<li><p>.ssh&#x2F;config.</p>
-<p>通过配置 config 文件来辅助管理 ssh,通常 .ssh&#x2F;config 文件是不存在的,需要自己创建配置.</p>
-<pre><code>touch ~/.ssh/config
-</code></pre>
-</li>
-<li><p>步骤.</p>
-<ul>
-<li><p>配置config.</p>
-<p>配置多个域名对应不同的ssh私钥,与本地自定义的域名别称建立联系.</p>
-<pre><code>vim ~/.ssh/config
-</code></pre>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">#github</span><br><span class="line">Host github.com-white-than-wood</span><br><span class="line">     HostName github.com</span><br><span class="line">     User white-than-wood</span><br><span class="line">     IdentityFile &quot;~/.ssh/id_rsa&quot;</span><br><span class="line">     IdentitiesOnly yes</span><br><span class="line">       </span><br><span class="line">#github</span><br><span class="line">Host github.com-dreamthen</span><br><span class="line">     HostName github.com</span><br><span class="line">     User dreamthen</span><br><span class="line">     IdentityFile &quot;~/.ssh/id_rsa_ano&quot;</span><br><span class="line">     IdentitiesOnly yes</span><br><span class="line">       </span><br><span class="line">#Host: 自定义的域名别称,要与本地不同账号的项目域名关联</span><br><span class="line">#HostName: 对应的代码存储/协同网站域名,如 github.com,不同公司的 gitlab 域名不同</span><br><span class="line">#User: 对应的不同代码存储/协同网站域名账号名称</span><br><span class="line">#IdentityFile: 对应的不同代码存储/协同网站域名账号下的 ssh 私钥</span><br><span class="line">#IdentitiesOnly: 只能通过指定的 IdentityFile 来与远程建立 ssh 安全关联并实行通信</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置本地不同账号的项目域名、账号名称以及 email 地址.</p>
-<p>进入不同github账号的项目下,修改 .git&#x2F;config 文件,注意自定义的域名别称要与 .ssh&#x2F;config 中的 Host 对应,因为每次建立 ssh 安全关联实行通信都会通过 .ssh&#x2F;config 文件进行辅助管理.</p>
-<pre><code>vim .git/config
-</code></pre>
-  <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">#white-than-wood 账号下的项目</span><br><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">        url = git@github.com-white-than-wood:white-than-wood/white-than-wood.github.io.git</span><br><span class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">        </span><br><span class="line">[user]</span><br><span class="line">        name = white-than-wood</span><br><span class="line">        email = 1309777341@qq.com </span><br><span class="line"></span><br><span class="line">#dreamthen 账号下的项目</span><br><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">        url = git@github.com-dreamthen:dreamthen/webpack-rebuild.github.io.git</span><br><span class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">        </span><br><span class="line">[user]</span><br><span class="line">        name = dreamthen</span><br><span class="line">        email = dreamthen.00@gmail.com</span><br></pre></td></tr></table></figure>
-
-<p>也可以直接使用命令来进行修改 .git&#x2F;config 中的内容.</p>
-<pre><code>#white-than-wood 账号下的项目
-git remote set-url origin git@github.com-white-than-wood:white-than-wood/white-than-wood.github.io.git
-git config user.name &#39;white-than-wood&#39;
-git config user.email &#39;1309777341@qq.com&#39;
-
-#dreamthen 账号下的项目
-git remote set-url origin git@github.com-dreamthen:dreamthen/webpack-rebuild.github.io.git
-git config user.name &#39;dreamthen&#39;
-git config user.email &#39;dreamthen.00@gmail.com&#39;
-</code></pre>
-</li>
-</ul>
-</li>
-<li><p>测试自定义域名别称.</p>
-<pre><code># 若 Hi white-than-wood! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 说明测试与远程建立 ssh 安全关联实行通信身份验证通过.
-ssh -T git@github.com-white-than-wood
-# 若 Hi dreamthen! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 说明测试与远程建立 ssh 安全关联实行通信身份验证通过.
-ssh -T git@github.com-dreamthen
-</code></pre>
-</li>
-<li><p>结论</p>
-<p>此方法永久性的解决了不同的 github 账号下本地项目 ssh 私钥与远程建立安全关联并实行通信的问题.</p>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-        <tag>github</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>hexo搭建next博客</title>
     <url>/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>   <b>此博客用于搭建 hexo 的工具博客.基本不会探索深究配置的原因,敬请知悉~</b></p>
@@ -582,7 +440,7 @@ sitemap:
 
 <p>  或者在 Github Page 个人配置下设置自定义域名,Github 会自动添加 CNAME 文件.</p>
 <p>  <img src="https://image.white-than-wood.zone/hexo/website_host_github_cname.png"></p>
-<p>  我这两种方式全部使用.全部搞定之后,就可以通过 white-than-wood.zone 访问 white-than-wood.github.io GitHub Page 个人网站. </p>
+<p>  这两种方式我这边是全部使用的.全部搞定之后,就可以通过 white-than-wood.zone 访问 white-than-wood.github.io GitHub Page 个人网站. </p>
 <blockquote>
 <p>延伸</p>
 </blockquote>
@@ -732,6 +590,148 @@ source ~/.zshrc
       </categories>
       <tags>
         <tag>homebrew</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>think of git</title>
+    <url>/2022/05/15/thinkofgit/</url>
+    <content><![CDATA[<h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote>
+<p>git remote add origin <a href="mailto:&#x67;&#105;&#116;&#64;&#x67;&#105;&#116;&#104;&#x75;&#x62;&#x2e;&#99;&#111;&#x6d;">&#x67;&#105;&#116;&#64;&#x67;&#105;&#116;&#104;&#x75;&#x62;&#x2e;&#99;&#111;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
+</blockquote>
+<p>   从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的 git 项目时,势必要与远程 git 库建立联系(远程 git 库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在本地建立一个句柄简称与远程链接 <a href="mailto:&#x67;&#x69;&#x74;&#64;&#x67;&#x69;&#x74;&#x68;&#117;&#98;&#46;&#x63;&#111;&#x6d;">&#x67;&#x69;&#x74;&#64;&#x67;&#x69;&#x74;&#x68;&#117;&#98;&#46;&#x63;&#111;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git 进行关联,实行通信,不需要再去 copy 使用 github 远程库上面的链接.</p>
+<blockquote>
+<p>git push –set-upstream origin master</p>
+</blockquote>
+<p>   在本地句柄简称 origin 建立了与远程代码库的关联之后,首次推送同步代码,需要设置推送、同步代码的上游远程分支,当首次设置之后,后续无需设置. –set-upstream origin master 就是设置推送、同步代码的本地 origin 句柄简称的上游分支为 master.</p>
+<blockquote>
+<p>git merge master –allow-unrelated-histories</p>
+</blockquote>
+<p>   当同一个仓库存在多个独立的分支并没有公共的上游交集父分支时,会出现无法合并的情况(多出现于本地 git 初始化时默认主分支为 master,而远程 github 默认主分支为 main ).</p>
+<pre><code>fatal: refusing to merge unrelated histories
+</code></pre>
+<p>   故此我们需要在人为确认合并分支安全的情况下,将多个独立的分支进行允许强制合并,也就是 –allow-unrelated-histories.</p>
+<blockquote>
+<p>git remote set-url origin <a href="https://mirrors.aliyun.com/homebrew/brew.git">https://mirrors.aliyun.com/homebrew/brew.git</a></p>
+</blockquote>
+<p>   修改本地句柄简称列表中 origin 所对应的远程仓库链接为 <a href="https://mirrors.aliyun.com/homebrew/brew.git">https://mirrors.aliyun.com/homebrew/brew.git</a>.</p>
+<h1 id="SSH公私钥安全关联"><a href="#SSH公私钥安全关联" class="headerlink" title="SSH公私钥安全关联"></a>SSH公私钥安全关联</h1><p>  本地设置与 github 远程仓库的 ssh 安全关联.</p>
+<blockquote>
+<p>步骤</p>
+</blockquote>
+<p>   只有持有账号私钥的情况下才可以推送、同步代码到拥有公钥的 github 远程仓库,使用 ssh 命令产生公私钥.我这里用的是 rsa 的加解密方式,小伙伴们也可以选择自己喜欢的加密方式.</p>
+<pre><code>#使用自己的 github 账号来作为 rsa 加解密的注释
+#-t: type,选用 rsa 的密钥类型
+#-b: byte,公私钥的长度大小4096比特
+#-C: comments,添加公私钥生成的注释
+ssh-keygen -t rsa -b 4096 -C &#39;15866369958@qq.com&#39;
+</code></pre>
+<p>   在 mac 下,生成之后,前往自己账号目录下查询 .ssh&#x2F;id_rsa.pub,将 id_rsa.pub 文件里面的内容复制添加到 github 的账号 settings 设置下的 SSH and GPG keys.</p>
+   <img src="https://image.white-than-wood.zone/git/ssh_settings.png" style="width: 160px;float: left;"/>
+   <img src="https://image.white-than-wood.zone/git/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>
+   <div style="clear: both;display: block;"></div>
+
+<p>   添加成功之后,我们测试一下,将远程 github 库(‘<a href="mailto:&#x67;&#x69;&#116;&#64;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#99;&#x6f;&#109;">&#x67;&#x69;&#116;&#64;&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#99;&#x6f;&#109;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明 ssh-keygen 设置与 github 远程仓库 ssh 安全关联生效.</p>
+<p>  本地设置多个 ssh 私钥与多个 github 账号远程仓库建立安全关联.</p>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<ul>
+<li><p>ssh-add 交与 ssh-agent 代理高速缓存管理.</p>
+<ul>
+<li><p>ssh-agent.</p>
+<p>ssh-agent 实际上是一个本地的高速缓存代理机制,可以在用户不输入任何密码短语的情况下,将 session 缓存中的私钥与远程仓库建立 ssh 安全关联并实行通信.</p>
+</li>
+<li><p>ssh-add.</p>
+<p>ssh-add 是将指定的 ssh 私钥置于 ssh-agent 的高速缓存中,执行时会在 ssh-agent 建立一个 session,并将 ssh 私钥放入其中.注意,此行为是一次性行为,也就是临时性行为,重启 ssh-agent 之后,会重置.</p>
+<pre><code>#可用于查看 ssh-agent 的高速缓存中的私钥列表.
+ssh-add list
+#清空 ssh-agent 的高速缓存中的私钥列表.
+ssh-add -D
+#重启 ssh-agent.
+eval $(ssh-agent)
+</code></pre>
+</li>
+<li><p>步骤.</p>
+<p>使用 ssh-keygen 与 ssh-add 联合使用.</p>
+<pre><code>ssh-keygen -t rsa -b 4096 -C &#39;dreamthen.99@gmail.com&#39;
+#这时会出现需要你设置进行保存公私钥的文件名,默认还是为id_rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/yinwk/.ssh/id_rsa): id_rsa_ano
+#设置过后,公私钥就会以id_rsa_ano.pub以及id_rsa_ano文件进行保存
+</code></pre>
+<p>一系列操作结束后,我们还需要将新生成的私钥交与 ssh-agent 代理高速缓存管理.</p>
+<pre><code>ssh-add ~/.ssh/id_rsa_ano
+</code></pre>
+<p>在成功交与 ssh-agent 管理后,我们重复上一个部分中’本地设置与 github 远程仓库的 ssh 安全关联’的后续操作即可.</p>
+</li>
+<li><p>问题.</p>
+<p>使用此方法是有比较多的问题的,首先就是重启 ssh-agent 或者电脑之后,ssh-agent 中的高速缓存会重置,也就是会被清空掉.再就是对于同一个 ssh 域名下的链接建立 ssh 安全关联时,ssh-agent 会选择高速缓存列表中的一个缓存私钥来建立通信.举个🌰:</p>
+<pre><code>#这两个 github 库有着同样的域名别称,也就是 @github.com,在建立通信时,如果将两个账号下生成的私钥都放入 ssh-agent 高速缓存中,ssh-agent 会默认选择高速缓存列表中先放入的 ssh 私钥进行通信.
+#只有在切换不同的账号项目开发时,将 ssh-agent 重启,并且将当前项目所对应的 ssh 私钥放入 ssh-agent 高速缓存中才可以建立 ssh 安全关联并且实行通信.
+git@github.com:white-than-wood/white-than-wood.github.io.git
+git@github.com:dreamthen/webpack-rebuild.github.io.git
+</code></pre>
+</li>
+<li><p>结论.</p>
+<p>ssh-add 交与 ssh-agent 代理高速缓存管理这种方法,本质也不是为了让多个 ssh 公私钥与多个 github 远程仓库建立安全关联而产生的,作用是为了避免每次与远程建立 ssh 安全关联时必须填写密码短语.并且我们在生成 ssh 密钥时,一般也是不设置密码短语的,都是直接回车(密码短语为空).这种每次必须手动向高速缓存中添加私钥的行为,不仅麻烦,而且是临时性的、不合理的.</p>
+</li>
+</ul>
+</li>
+<li><p>配置 .ssh&#x2F;config 文件使不同本地项目 ssh 私钥永久性与远程不同 github 账号仓库建立安全关联.</p>
+<ul>
+<li><p>.ssh&#x2F;config.</p>
+<p>通过配置 config 文件来辅助管理 ssh,通常 .ssh&#x2F;config 文件是不存在的,需要自己创建配置.</p>
+<pre><code>touch ~/.ssh/config
+</code></pre>
+</li>
+<li><p>步骤.</p>
+<ul>
+<li><p>配置config.</p>
+<p>配置多个域名对应不同的ssh私钥,与本地自定义的域名别称建立联系.</p>
+<pre><code>vim ~/.ssh/config
+</code></pre>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">#github</span><br><span class="line">Host github.com-white-than-wood</span><br><span class="line">     HostName github.com</span><br><span class="line">     User white-than-wood</span><br><span class="line">     IdentityFile &quot;~/.ssh/id_rsa&quot;</span><br><span class="line">     IdentitiesOnly yes</span><br><span class="line">       </span><br><span class="line">#github</span><br><span class="line">Host github.com-dreamthen</span><br><span class="line">     HostName github.com</span><br><span class="line">     User dreamthen</span><br><span class="line">     IdentityFile &quot;~/.ssh/id_rsa_ano&quot;</span><br><span class="line">     IdentitiesOnly yes</span><br><span class="line">       </span><br><span class="line">#Host: 自定义的域名别称,要与本地不同账号的项目域名关联</span><br><span class="line">#HostName: 对应的代码存储/协同网站域名,如 github.com,不同公司的 gitlab 域名不同</span><br><span class="line">#User: 对应的不同代码存储/协同网站域名账号名称</span><br><span class="line">#IdentityFile: 对应的不同代码存储/协同网站域名账号下的 ssh 私钥</span><br><span class="line">#IdentitiesOnly: 只能通过指定的 IdentityFile 来与远程建立 ssh 安全关联并实行通信</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置本地不同账号的项目域名、账号名称以及 email 地址.</p>
+<p>进入不同github账号的项目下,修改 .git&#x2F;config 文件,注意自定义的域名别称要与 .ssh&#x2F;config 中的 Host 对应,因为每次建立 ssh 安全关联实行通信都会通过 .ssh&#x2F;config 文件进行辅助管理.</p>
+<pre><code>vim .git/config
+</code></pre>
+  <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">#white-than-wood 账号下的项目</span><br><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">        url = git@github.com-white-than-wood:white-than-wood/white-than-wood.github.io.git</span><br><span class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">        </span><br><span class="line">[user]</span><br><span class="line">        name = white-than-wood</span><br><span class="line">        email = 1309777341@qq.com </span><br><span class="line"></span><br><span class="line">#dreamthen 账号下的项目</span><br><span class="line">[remote &quot;origin&quot;]</span><br><span class="line">        url = git@github.com-dreamthen:dreamthen/webpack-rebuild.github.io.git</span><br><span class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">        </span><br><span class="line">[user]</span><br><span class="line">        name = dreamthen</span><br><span class="line">        email = dreamthen.00@gmail.com</span><br></pre></td></tr></table></figure>
+
+<p>也可以直接使用命令来进行修改 .git&#x2F;config 中的内容.</p>
+<pre><code>#white-than-wood 账号下的项目
+git remote set-url origin git@github.com-white-than-wood:white-than-wood/white-than-wood.github.io.git
+git config user.name &#39;white-than-wood&#39;
+git config user.email &#39;1309777341@qq.com&#39;
+
+#dreamthen 账号下的项目
+git remote set-url origin git@github.com-dreamthen:dreamthen/webpack-rebuild.github.io.git
+git config user.name &#39;dreamthen&#39;
+git config user.email &#39;dreamthen.00@gmail.com&#39;
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>测试自定义域名别称.</p>
+<pre><code># 若 Hi white-than-wood! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 说明测试与远程建立 ssh 安全关联实行通信身份验证通过.
+ssh -T git@github.com-white-than-wood
+# 若 Hi dreamthen! You&#39;ve successfully authenticated, but GitHub does not provide shell access. 说明测试与远程建立 ssh 安全关联实行通信身份验证通过.
+ssh -T git@github.com-dreamthen
+</code></pre>
+</li>
+<li><p>结论</p>
+<p>此方法永久性的解决了不同的 github 账号下本地项目 ssh 私钥与远程建立安全关联并实行通信的问题.</p>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+        <tag>github</tag>
       </tags>
   </entry>
   <entry>
