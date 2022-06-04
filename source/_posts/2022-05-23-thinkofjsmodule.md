@@ -7,19 +7,19 @@ categories: javascript module
 
 # 模块导入导出的历史
 
-> JsModule的演化经历
+> JsModule 的演化经历
 
-   下面这张图可以清晰的看出,javascript module演化的历史,由最初的commonjs到最终方案esm,而现在正处于umd -> esm阶段.
+   下面这张图可以清晰的看出,javascript module 演化的历史,由最初的 commonjs 到最终方案 esm,而现在正处于 umd -> esm 阶段.
 
    ![](https://image.white-than-wood.zone/jsmodule/js_module_history.png)
 
 > commonjs
 
-   commonjs的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.
+   commonjs 的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.
 
    * 动态导入.
 
-   下面这段js代码完美诠释了此含义,在此判断为true的情况下的commonjs,才会导入selectivizr,并实行selectivizr中的脚本.
+   下面这段 js 代码完美诠释了此含义,在此判断为 true 的情况下的 commonjs,才会导入 selectivizr,并实行 selectivizr 中的脚本.
 
    ```javascript
     if(browser.desktop && browser.msie && browser.versionNumber < 9){
@@ -49,42 +49,42 @@ categories: javascript module
    console.log('count:', count);	 
    ```
 
-   上面这两段js代码完美诠释了此含义,其结果为:
+   上面这两段 js 代码完美诠释了此含义,其结果为:
 
     count: 4
     count: 4
 
-   可以看出commonjs对于导出的变量以及函数都是代码执行时直接复制其值,而不是连同引用一起导出,导致通过模块内部修改变量的值之后,在外部导入模块变量并没有发现其值发生变化.
+   可以看出 commonjs 对于导出的变量以及函数都是代码执行时直接复制其值,而不是连同引用一起导出,导致通过模块内部修改变量的值之后,在外部导入模块变量并没有发现其值发生变化.
 
    - 优势和劣势.
 
         - 优势: 
 
              - 导入比较灵活;
-             - NodeJS模块导入导出完全采用commonjs模式,npm上绝大部分的依赖库都会兼容commonjs模块导入导出,适用范围很广泛;
+             - NodeJS 模块导入导出完全采用 commonjs 模式,npm 上绝大部分的依赖库都会兼容 commonjs 模块导入导出,适用范围很广泛;
              - 同步模块加载;
 
         - 劣势: 
      
-             - 不支持静态分析,静态分析所带来的一系列福利不能在commonjs模块导入导出模式下实行;
+             - 不支持静态分析,静态分析所带来的一系列福利不能在 commonjs 模块导入导出模式下实行;
              - 不能实行异步模块加载;
 
 > amd(cmd)
 
-   amd(cmd)的适用范围很窄,受众面也远远没有commonjs和esm广泛,因为受限于第三方库的环境依赖(无论是SeaJS,还是RequireJS都需要事先下载依赖).
+   amd(cmd) 的适用范围很窄,受众面也远远没有 commonjs 和 esm 广泛,因为受限于第三方库的环境依赖(无论是 SeaJS,还是 RequireJS 都需要事先下载依赖).
 
    - 优势和劣势.
 
         - 优势: 
      
-            - 支持同步/异步模块加载,amd近似于同步模块导入导出(与commonjs同步模块加载有着本质的不同),cmd异步模块导入导出;
+            - 支持同步/异步模块加载,amd 近似于同步模块导入导出(与 commonjs 同步模块加载有着本质的不同),cmd 异步模块导入导出(与 esm 异步模块加载也有着本质的不同);
 
         - 劣势: 
      
-            - 不支持静态分析,静态分析所带来的一系列福利不能在amd(cmd)模块导入导出模式下实行;
+            - 不支持静态分析,静态分析所带来的一系列福利不能在 amd(cmd) 模块导入导出模式下实行;
             - 受限于第三方库的环境依赖;
             - 写法上很不友好;
-            - 适用范围很窄,没有类NodeJS、npm以及ECMAScript标准这种受众面很广泛的'推手'推动;
+            - 适用范围很窄,没有类 NodeJS、npm 以及 ECMAScript 标准这种受众面很广泛的'推手'推动;
 
 > umd
 
@@ -174,7 +174,7 @@ categories: javascript module
     }));
    ```
 
-   从源码中可以看出umd是对于commonjs、Node(webpack中值枚举为commonjs2)、amd以及Browser globals的并集,是实行兼容的一种模块导入导出模式.
+   从源码中可以看出 umd 是对于 commonjs、Node(webpack中值枚举为commonjs2)、amd 以及 Browser globals 的并集,是实行兼容的一种模块导入导出模式.
 
    - 优势和劣势.
 
@@ -186,23 +186,23 @@ categories: javascript module
    
         - 劣势: 
      
-             - 不支持静态分析,静态分析所带来的一系列福利也不能在umd模块导入导出模式下实行;
+             - 不支持静态分析,静态分析所带来的一系列福利也不能在 umd 模块导入导出模式下实行;
              - 不能实行异步模块加载;
 
 > esm(ecmascript module)
 
-   模块导入导出的最终方案模式,也是现在NodeJS、npm以及ECMAScript标准这些受众面很广泛的'推手'主要推动的模块导入导出模式. 其导入是在编译器编译阶段,由此特性也导致了两个特点: 静态分析和赋值引用,与commonjs的特性与特点完全相反.
+   模块导入导出的最终方案模式,也是现在 NodeJS、npm 以及 ECMAScript 标准这些受众面很广泛的'推手'主要推动的模块导入导出模式. 其导入是在编译器编译阶段,由此特性也导致了两个特点: 静态分析和赋值引用,与 commonjs 的特性与特点完全相反.
    
    * NodeJS ESM.
 
-   混用阶段,也就是import配合module.exports,require配合export. 
+   混用阶段,也就是 import 配合 module.exports,require 配合 export. 
    
-   注意在import配合module.export这部分,import必须导入module.exports导出的模块,不能导入exports导出的模块,由于还是以commonjs模块导出,那么esm导入就不能实行静态分析,只能整体导入.
+   注意在 import 配合 module.export 这部分,import 必须导入 module.exports 导出的模块,不能导入 exports 导出的模块,由于还是以commonjs模块导出,那么esm导入就不能实行静态分析,只能整体导入.
    
    ```javascript
    //module.js
    const count = 4;
-   //NodeJS ESM必须使用module.exports导出
+   //NodeJS ESM 必须使用 module.exports 导出
    module.exports = {
      count	 
    };
@@ -210,7 +210,7 @@ categories: javascript module
 
    ```javascript
    //index.js
-   //以commonjs模块导出,esm导入不能实行静态分析,只能整体导入.
+   //以 commonjs 模块导出,esm 导入不能实行静态分析,只能整体导入.
    //import {count} from './module.js';
    import module from './module.js';
    console.log(module.count);
@@ -250,20 +250,20 @@ categories: javascript module
    console.log('count:', count);
    ```
 
-   上面这两段js代码与commonjs赋值复制部分是同一个🌰,但是执行结果却是不相同的,其结果为:
+   上面这两段 js 代码与 commonjs 赋值复制部分是同一个🌰,但是执行结果却是不相同的,其结果为:
 
     count: 4
     count: 5
 
-   可以看出esm对于导出的变量以及函数都是编译器编译时连同引用一起导出,导致通过模块内部修改变量的值之后,在外部导入模块变量的值也发生了改变.
+   可以看出 esm 对于导出的变量以及函数都是编译器编译时连同引用一起导出,导致通过模块内部修改变量的值之后,在外部导入模块变量的值也发生了改变.
 
    - 优势和劣势.
 
         - 优势: 
      
              - 支持静态分析,静态分析所带来的一系列福利都可接收;
-             - 可实行异步模块加载;支持动态导入import();
+             - 可实行异步模块加载;支持动态导入 import();
    
         - 劣势:
      
-             - 现阶段NodeJS、npm以及ECMAScript标准这些受众面很广泛的'推手'因历史、兼容、底层改动大等问题,实现的都不成熟,还需要Webpack/Babel等工具进行转译;
+             - 现阶段 NodeJS、npm 以及 ECMAScript 标准这些受众面很广泛的'推手'因历史、兼容、底层改动大等问题,实现的都不成熟,还需要 Webpack/Babel 等工具进行转译;
