@@ -484,12 +484,222 @@ fancybox: true
       </tags>
   </entry>
   <entry>
+    <title>think of JsModule</title>
+    <url>/2022/05/23/thinkofjsmodule/</url>
+    <content><![CDATA[<h1 id="模块导入导出的历史"><a href="#模块导入导出的历史" class="headerlink" title="模块导入导出的历史"></a>模块导入导出的历史</h1><blockquote>
+<p>JsModule 的演化经历</p>
+</blockquote>
+<p>   下面这张图可以清晰的看出,javascript module 演化的历史,由最初的 commonjs 到最终方案 esm,而现在正处于 umd -&gt; esm 阶段.</p>
+<p>   <img src="https://image.white-than-wood.zone/jsmodule/js_module_history.png"></p>
+<blockquote>
+<p>commonjs</p>
+</blockquote>
+<p>   commonjs 的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.</p>
+<ul>
+<li>动态导入.</li>
+</ul>
+<p>   下面这段 js 代码完美诠释了此含义,在此判断为 true 的情况下的 commonjs,才会导入 selectivizr,并实行 selectivizr 中的脚本.</p>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(browser.<span class="property">desktop</span> &amp;&amp; browser.<span class="property">msie</span> &amp;&amp; browser.<span class="property">versionNumber</span> &lt; <span class="number">9</span>)&#123;</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">&#x27;selectivizr&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>赋值复制.</li>
+</ul>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// module.js</span></span><br><span class="line"><span class="keyword">let</span> count = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params"></span>) &#123;</span><br><span class="line">  count++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  count,</span><br><span class="line">  add</span><br><span class="line">&#125;;	 </span><br></pre></td></tr></table></figure>
+
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> &#123;count, add&#125; = <span class="built_in">require</span>(<span class="string">&#x27;./module.js&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);</span><br><span class="line"><span class="title function_">add</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);	 </span><br></pre></td></tr></table></figure>
+
+<p>   上面这两段 js 代码完美诠释了此含义,其结果为:</p>
+<pre><code>count: 4
+count: 4
+</code></pre>
+<p>   可以看出 commonjs 对于导出的变量以及函数都是代码执行时直接复制其值,而不是连同引用一起导出,导致通过模块内部修改变量的值之后,在外部导入模块变量并没有发现其值发生变化.</p>
+<ul>
+<li><p>优势和劣势.</p>
+<ul>
+<li><p>优势: </p>
+<ul>
+<li>导入比较灵活;</li>
+<li>NodeJS 模块导入导出完全采用 commonjs 模式,npm 上绝大部分的依赖库都会兼容 commonjs 模块导入导出,适用范围很广泛;</li>
+<li>同步模块加载;</li>
+</ul>
+</li>
+<li><p>劣势: </p>
+<ul>
+<li>不支持静态分析,静态分析所带来的一系列福利不能在 commonjs 模块导入导出模式下实行;</li>
+<li>不能实行异步模块加载;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>amd(cmd)</p>
+</blockquote>
+<p>   amd(cmd) 的适用范围很窄,受众面也远远没有 commonjs 和 esm 广泛,因为受限于第三方库的环境依赖(无论是 SeaJS,还是 RequireJS 都需要事先下载依赖).</p>
+<ul>
+<li><p>优势和劣势.</p>
+<ul>
+<li><p>优势: </p>
+<ul>
+<li>支持同步&#x2F;异步模块加载,amd 近似于同步模块导入导出(与 commonjs 同步模块加载有着本质的不同),cmd 异步模块导入导出(与 esm 异步模块加载也有着本质的不同);</li>
+</ul>
+</li>
+<li><p>劣势: </p>
+<ul>
+<li>不支持静态分析,静态分析所带来的一系列福利不能在 amd(cmd) 模块导入导出模式下实行;</li>
+<li>受限于第三方库的环境依赖;</li>
+<li>写法上很不友好;</li>
+<li>适用范围很窄,没有类 NodeJS、npm 以及 ECMAScript 标准这种受众面很广泛的’推手’推动;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>umd</p>
+</blockquote>
+<p>   umd,全称: Universal Module Definition,其标准为: <a href='https://github.com/umdjs/umd/blob/master/templates/commonjsStrictGlobal.js'>commonjsStrictGlobal</a>以及<a href='https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js'>returnExportsGlobal</a>.</p>
+<ul>
+<li>commonjsStrictGlobal.</li>
+</ul>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Uses CommonJS, AMD or browser globals to create a module. This example</span></span><br><span class="line"><span class="comment">// creates a global even when AMD is used. This is useful if you have some</span></span><br><span class="line"><span class="comment">// scripts that are loaded by an AMD loader, but they still want access to</span></span><br><span class="line"><span class="comment">// globals. If you do not need to export a global for the AMD case, see</span></span><br><span class="line"><span class="comment">// commonjsStrict.js.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// If you just want to support Node, or other CommonJS-like environments that</span></span><br><span class="line"><span class="comment">// support module.exports, and you are not creating a module that has a</span></span><br><span class="line"><span class="comment">// circular dependency, then see returnExportsGlobal.js instead. It will allow</span></span><br><span class="line"><span class="comment">// you to export a function as the module value.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Defines a module &quot;commonJsStrictGlobal&quot; that depends another module called</span></span><br><span class="line"><span class="comment">// &quot;b&quot;. Note that the name of the module is implied by the file name. It is</span></span><br><span class="line"><span class="comment">// best if the file name and the exported global have matching names.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// If the &#x27;b&#x27; module also uses this type of boilerplate, then</span></span><br><span class="line"><span class="comment">// in the browser, it will create a global .b that is used below.</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span> (<span class="params">root, factory</span>) &#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">&#x27;function&#x27;</span> &amp;&amp; define.<span class="property">amd</span>) &#123;</span><br><span class="line">      <span class="comment">// AMD. Register as an anonymous module.</span></span><br><span class="line">      <span class="title function_">define</span>([<span class="string">&#x27;exports&#x27;</span>, <span class="string">&#x27;b&#x27;</span>], <span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, b</span>) &#123;</span><br><span class="line">         <span class="title function_">factory</span>((root.<span class="property">commonJsStrictGlobal</span> = <span class="built_in">exports</span>), b);</span><br><span class="line">      &#125;);</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">exports</span> === <span class="string">&#x27;object&#x27;</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">exports</span>.<span class="property">nodeName</span> !== <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">      <span class="comment">// CommonJS</span></span><br><span class="line">      <span class="title function_">factory</span>(<span class="built_in">exports</span>, <span class="built_in">require</span>(<span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// Browser globals</span></span><br><span class="line">      <span class="title function_">factory</span>((root.<span class="property">commonJsStrictGlobal</span> = &#123;&#125;), root.<span class="property">b</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;(<span class="keyword">typeof</span> self !== <span class="string">&#x27;undefined&#x27;</span> ? self : <span class="variable language_">this</span>, <span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, b</span>) &#123;</span><br><span class="line">   <span class="comment">// Use b in some fashion.</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// attach properties to the exports object to define</span></span><br><span class="line">   <span class="comment">// the exported module properties.</span></span><br><span class="line">   <span class="built_in">exports</span>.<span class="property">action</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>returnExportsGlobal.</li>
+</ul>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Uses CommonJS, AMD or browser globals to create a module.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// If you just want to support Node, or other CommonJS-like environments that</span></span><br><span class="line"><span class="comment">// support module.exports, and you are not creating a module that has a</span></span><br><span class="line"><span class="comment">// circular dependency, then see returnExports.js instead. It will allow</span></span><br><span class="line"><span class="comment">// you to export a function as the module value.</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// Defines a module &quot;commonJsStrict&quot; that depends another module called &quot;b&quot;.</span></span><br><span class="line"><span class="comment">// Note that the name of the module is implied by the file name. It is best</span></span><br><span class="line"><span class="comment">// if the file name and the exported global have matching names.</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// If the &#x27;b&#x27; module also uses this type of boilerplate, then</span></span><br><span class="line"><span class="comment">// in the browser, it will create a global .b that is used below.</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// If you do not want to support the browser global path, then you</span></span><br><span class="line"><span class="comment">// can remove the `root` use and the passing `this` as the first arg to</span></span><br><span class="line"><span class="comment">// the top function.</span></span><br><span class="line">   </span><br><span class="line">(<span class="keyword">function</span> (<span class="params">root, factory</span>) &#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">&#x27;function&#x27;</span> &amp;&amp; define.<span class="property">amd</span>) &#123;</span><br><span class="line">      <span class="comment">// AMD. Register as an anonymous module.</span></span><br><span class="line">      <span class="title function_">define</span>([<span class="string">&#x27;exports&#x27;</span>, <span class="string">&#x27;b&#x27;</span>], factory);</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">exports</span> === <span class="string">&#x27;object&#x27;</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">exports</span>.<span class="property">nodeName</span> !== <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">      <span class="comment">// CommonJS</span></span><br><span class="line">      <span class="title function_">factory</span>(<span class="built_in">exports</span>, <span class="built_in">require</span>(<span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// Browser globals</span></span><br><span class="line">      <span class="title function_">factory</span>((root.<span class="property">commonJsStrict</span> = &#123;&#125;), root.<span class="property">b</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;(<span class="keyword">typeof</span> self !== <span class="string">&#x27;undefined&#x27;</span> ? self : <span class="variable language_">this</span>, <span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, b</span>) &#123;</span><br><span class="line">   <span class="comment">// Use b in some fashion.</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// attach properties to the exports object to define</span></span><br><span class="line">   <span class="comment">// the exported module properties.</span></span><br><span class="line">   <span class="built_in">exports</span>.<span class="property">action</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+<p>   从源码中可以看出 umd 是对于 commonjs、Node(webpack中值枚举为commonjs2)、amd 以及 Browser globals 的并集,是实行兼容的一种模块导入导出模式.</p>
+<ul>
+<li><p>优势和劣势.</p>
+<ul>
+<li><p>优势: </p>
+<ul>
+<li>兼容的这几种模块导入导出都支持同步模块加载;</li>
+<li>导入比较灵活;</li>
+<li>导出的类型更丰富;</li>
+</ul>
+</li>
+<li><p>劣势: </p>
+<ul>
+<li>不支持静态分析,静态分析所带来的一系列福利也不能在 umd 模块导入导出模式下实行;</li>
+<li>不能实行异步模块加载;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>esm(ecmascript module)</p>
+</blockquote>
+<p>   模块导入导出的最终方案模式,也是现在 NodeJS、npm 以及 ECMAScript 标准这些受众面很广泛的’推手’主要推动的模块导入导出模式. 其导入是在编译器编译阶段,由此特性也导致了两个特点: 静态分析和赋值引用,与 commonjs 的特性与特点完全相反.</p>
+<ul>
+<li>NodeJS ESM.</li>
+</ul>
+<p>   混用阶段,也就是 import 配合 module.exports,require 配合 export. </p>
+<p>   注意在 import 配合 module.export 这部分,import 必须导入 module.exports 导出的模块,不能导入 exports 导出的模块,由于还是以commonjs模块导出,那么esm导入就不能实行静态分析,只能整体导入.</p>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line"><span class="keyword">const</span> count = <span class="number">4</span>;</span><br><span class="line"><span class="comment">//NodeJS ESM 必须使用 module.exports 导出</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  count	 </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="comment">//以 commonjs 模块导出,esm 导入不能实行静态分析,只能整体导入.</span></span><br><span class="line"><span class="comment">//import &#123;count&#125; from &#x27;./module.js&#x27;;</span></span><br><span class="line"><span class="keyword">import</span> <span class="variable language_">module</span> <span class="keyword">from</span> <span class="string">&#x27;./module.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">module</span>.<span class="property">count</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>静态分析.</li>
+</ul>
+<p>   其导入是在编译器编译阶段,所以需要将所使用的模块都在所要导入文件的头部进行导入.可对其引入的值、函数或者模块可进行静态分析.</p>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> count = <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="comment">//对其引入的值、函数或者模块可进行静态分析</span></span><br><span class="line"><span class="keyword">import</span> &#123;count&#125; <span class="keyword">from</span> <span class="string">&#x27;./module.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(count);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>赋值引用.</li>
+</ul>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> count = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">add</span>(<span class="params"></span>) &#123;</span><br><span class="line">  count++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;count, add&#125; <span class="keyword">from</span> <span class="string">&#x27;./module.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);</span><br><span class="line"><span class="title function_">add</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);</span><br></pre></td></tr></table></figure>
+
+<p>   上面这两段 js 代码与 commonjs 赋值复制部分是同一个🌰,但是执行结果却是不相同的,其结果为:</p>
+<pre><code>count: 4
+count: 5
+</code></pre>
+<p>   可以看出 esm 对于导出的变量以及函数都是编译器编译时连同引用一起导出,导致通过模块内部修改变量的值之后,在外部导入模块变量的值也发生了改变.</p>
+<ul>
+<li><p>优势和劣势.</p>
+<ul>
+<li><p>优势: </p>
+<ul>
+<li>支持静态分析,静态分析所带来的一系列福利都可接收;</li>
+<li>可实行异步模块加载;支持动态导入 import();</li>
+</ul>
+</li>
+<li><p>劣势:</p>
+<ul>
+<li>现阶段 NodeJS、npm 以及 ECMAScript 标准这些受众面很广泛的’推手’因历史、兼容、底层改动大等问题,实现的都不成熟,还需要 Webpack&#x2F;Babel 等工具进行转译;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>javascript module</category>
+      </categories>
+      <tags>
+        <tag>commonjs</tag>
+        <tag>esm</tag>
+        <tag>amd</tag>
+        <tag>cmd</tag>
+        <tag>umd</tag>
+        <tag>javascript module</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>think of webpack</title>
+    <url>/2022/05/23/thinkofwebpack/</url>
+    <content><![CDATA[<h1 id="webpack-配置"><a href="#webpack-配置" class="headerlink" title="webpack 配置"></a>webpack 配置</h1><h2 id="output"><a href="#output" class="headerlink" title="output"></a>output</h2><blockquote>
+<p>问题1</p>
+</blockquote>
+<p>   近期在配置 webpack 时,发现 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’} 打包构建导出的模块无法实行 TreeShaking.</p>
+<blockquote>
+<p>介绍</p>
+</blockquote>
+<p>   在配置 webpack 的输出 output 时,都会遇到输出模块的配置,也就是 webpack4 中的 libraryType 以及 webpack5 中的 libraryType(未删但新特性不更新) and library: {type: ‘xxx’},首先解释一下这几个属性的含义,libraryType 指的是每个 chunk 模块以怎样的模块形式构建打包输出,而 library: {type: ‘xxx’} 在webpack5 中属于对 libraryType 的复写,跟 libraryType 是一个含义.</p>
+<ul>
+<li>libraryType 的值枚举</li>
+</ul>
+   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="comment">//值枚举</span></span><br><span class="line">  <span class="comment">//&#x27;commonjs&#x27; | &#x27;commonjs2&#x27; | &#x27;amd&#x27; | &#x27;umd&#x27; | &#x27;this&#x27; | &#x27;var&#x27; | &#x27;global&#x27; | &#x27;module&#x27;</span></span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">libraryType</span>: <span class="string">&#x27;commonjs&#x27;</span> </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>libraryType 中包含模块导入导出的值枚举</li>
+</ul>
+<p>   ‘commonjs’ | ‘commonjs2’ | ‘amd’ | ‘umd’ | ‘module’ 这五个值枚举代表了模块导入导出历史的发展轨迹,由最初的 commonjs 到最终方案 esm,关于它们的含义以及对比,这里把它放在了<a href='https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E5%8E%86%E5%8F%B2'>think of JsModule#模块导入导出的历史</a>中,这部分非常重要,是为后续下文的理解做铺垫.</p>
+<ul>
+<li>TreeShaking</li>
+</ul>
+<p>   TreeShaking 最初是 <a href='https://rollupjs.org/guide/en/'>RollUp</a> 团队推出的一个方案,以 esm 模块导入导出模式的静态分析为依赖基础,在编译时对项目代码进行瘦身,将无用、空引入的代码模块不构建进打出的包中,减少代码体积,减少项目冗余,提高项目运行速度的模式.</p>
+<ul>
+<li>import umd</li>
+</ul>
+<p>   对于 umd 的 esm import 导入,在 commonjs、NodeJS 环境下都可以实现,但是必须注意 <a href='https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E5%8E%86%E5%8F%B2'>esm(ecmascript module)</a> NodeJS ESM部分.</p>
+<blockquote>
+<p>结论</p>
+</blockquote>
+<p>   由于上述 umd 所兼容的所有模块导入导出模式不能实现静态分析,包括 import 配合 module.exports (使用 esm import 导入 commonjs2 值枚举导出的模块),而 TreeShaking 又是以 esm 模块导入导出模式的静态分析为依赖基础的,所以 umd 模块导入导出模式不能实行 TreeShaking.</p>
+]]></content>
+      <categories>
+        <category>webpack</category>
+      </categories>
+      <tags>
+        <tag>javascript module</tag>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>think of git</title>
     <url>/2022/05/15/thinkofgit/</url>
     <content><![CDATA[<h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote>
-<p>git remote add origin <a href="mailto:&#x67;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;">&#x67;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#x75;&#x62;&#46;&#x63;&#111;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
+<p>git remote add origin <a href="mailto:&#103;&#105;&#x74;&#x40;&#103;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#109;">&#103;&#105;&#x74;&#x40;&#103;&#x69;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
 </blockquote>
-<p>   从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的 git 项目时,势必要与远程 git 库建立联系(远程 git 库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在本地建立一个句柄简称与远程链接 <a href="mailto:&#x67;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#x62;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#117;&#x62;&#x2e;&#x63;&#x6f;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git 进行关联,实行通信,不需要再去 copy 使用 github 远程库上面的链接.</p>
+<p>   从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的 git 项目时,势必要与远程 git 库建立联系(远程 git 库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在本地建立一个句柄简称与远程链接 <a href="mailto:&#103;&#105;&#x74;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#x62;&#x2e;&#x63;&#111;&#109;">&#103;&#105;&#x74;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#x62;&#x2e;&#x63;&#111;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git 进行关联,实行通信,不需要再去 copy 使用 github 远程库上面的链接.</p>
 <blockquote>
 <p>git push –set-upstream origin master</p>
 </blockquote>
@@ -521,7 +731,7 @@ ssh-keygen -t rsa -b 4096 -C &#39;15866369958@qq.com&#39;
    <img src="https://image.white-than-wood.zone/git/ssh_settings_SSHKeys.png" style="width: calc(100% - 180px);float: left;margin-left: 20px;"/>
    <div style="clear: both;display: block;"></div>
 
-<p>   添加成功之后,我们测试一下,将远程 github 库(‘<a href="mailto:&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#x74;&#x68;&#x75;&#x62;&#x2e;&#x63;&#x6f;&#x6d;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明 ssh-keygen 设置与 github 远程仓库 ssh 安全关联生效.</p>
+<p>   添加成功之后,我们测试一下,将远程 github 库(‘<a href="mailto:&#x67;&#x69;&#x74;&#64;&#103;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#x74;&#64;&#103;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#99;&#x6f;&#x6d;</a>‘开头链接)克隆到本地,如果可以拉取到本地,那就说明 ssh-keygen 设置与 github 远程仓库 ssh 安全关联生效.</p>
 <p>  本地设置多个 ssh 私钥与多个 github 账号远程仓库建立安全关联.</p>
 <blockquote>
 <p>示例</p>
@@ -735,216 +945,6 @@ source ~/.zshrc
       </tags>
   </entry>
   <entry>
-    <title>think of JsModule</title>
-    <url>/2022/05/23/thinkofjsmodule/</url>
-    <content><![CDATA[<h1 id="模块导入导出的历史"><a href="#模块导入导出的历史" class="headerlink" title="模块导入导出的历史"></a>模块导入导出的历史</h1><blockquote>
-<p>JsModule 的演化经历</p>
-</blockquote>
-<p>   下面这张图可以清晰的看出,javascript module 演化的历史,由最初的 commonjs 到最终方案 esm,而现在正处于 umd -&gt; esm 阶段.</p>
-<p>   <img src="https://image.white-than-wood.zone/jsmodule/js_module_history.png"></p>
-<blockquote>
-<p>commonjs</p>
-</blockquote>
-<p>   commonjs 的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.</p>
-<ul>
-<li>动态导入.</li>
-</ul>
-<p>   下面这段 js 代码完美诠释了此含义,在此判断为 true 的情况下的 commonjs,才会导入 selectivizr,并实行 selectivizr 中的脚本.</p>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(browser.<span class="property">desktop</span> &amp;&amp; browser.<span class="property">msie</span> &amp;&amp; browser.<span class="property">versionNumber</span> &lt; <span class="number">9</span>)&#123;</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">&#x27;selectivizr&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>赋值复制.</li>
-</ul>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// module.js</span></span><br><span class="line"><span class="keyword">let</span> count = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params"></span>) &#123;</span><br><span class="line">  count++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  count,</span><br><span class="line">  add</span><br><span class="line">&#125;;	 </span><br></pre></td></tr></table></figure>
-
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> &#123;count, add&#125; = <span class="built_in">require</span>(<span class="string">&#x27;./module.js&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);</span><br><span class="line"><span class="title function_">add</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);	 </span><br></pre></td></tr></table></figure>
-
-<p>   上面这两段 js 代码完美诠释了此含义,其结果为:</p>
-<pre><code>count: 4
-count: 4
-</code></pre>
-<p>   可以看出 commonjs 对于导出的变量以及函数都是代码执行时直接复制其值,而不是连同引用一起导出,导致通过模块内部修改变量的值之后,在外部导入模块变量并没有发现其值发生变化.</p>
-<ul>
-<li><p>优势和劣势.</p>
-<ul>
-<li><p>优势: </p>
-<ul>
-<li>导入比较灵活;</li>
-<li>NodeJS 模块导入导出完全采用 commonjs 模式,npm 上绝大部分的依赖库都会兼容 commonjs 模块导入导出,适用范围很广泛;</li>
-<li>同步模块加载;</li>
-</ul>
-</li>
-<li><p>劣势: </p>
-<ul>
-<li>不支持静态分析,静态分析所带来的一系列福利不能在 commonjs 模块导入导出模式下实行;</li>
-<li>不能实行异步模块加载;</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>amd(cmd)</p>
-</blockquote>
-<p>   amd(cmd) 的适用范围很窄,受众面也远远没有 commonjs 和 esm 广泛,因为受限于第三方库的环境依赖(无论是 SeaJS,还是 RequireJS 都需要事先下载依赖).</p>
-<ul>
-<li><p>优势和劣势.</p>
-<ul>
-<li><p>优势: </p>
-<ul>
-<li>支持同步&#x2F;异步模块加载,amd 近似于同步模块导入导出(与 commonjs 同步模块加载有着本质的不同),cmd 异步模块导入导出(与 esm 异步模块加载也有着本质的不同);</li>
-</ul>
-</li>
-<li><p>劣势: </p>
-<ul>
-<li>不支持静态分析,静态分析所带来的一系列福利不能在 amd(cmd) 模块导入导出模式下实行;</li>
-<li>受限于第三方库的环境依赖;</li>
-<li>写法上很不友好;</li>
-<li>适用范围很窄,没有类 NodeJS、npm 以及 ECMAScript 标准这种受众面很广泛的’推手’推动;</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>umd</p>
-</blockquote>
-<p>   umd,全称: Universal Module Definition,其标准为: <a href='https://github.com/umdjs/umd/blob/master/templates/commonjsStrictGlobal.js'>commonjsStrictGlobal</a>以及<a href='https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js'>returnExportsGlobal</a>.</p>
-<ul>
-<li>commonjsStrictGlobal.</li>
-</ul>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Uses CommonJS, AMD or browser globals to create a module. This example</span></span><br><span class="line"><span class="comment">// creates a global even when AMD is used. This is useful if you have some</span></span><br><span class="line"><span class="comment">// scripts that are loaded by an AMD loader, but they still want access to</span></span><br><span class="line"><span class="comment">// globals. If you do not need to export a global for the AMD case, see</span></span><br><span class="line"><span class="comment">// commonjsStrict.js.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// If you just want to support Node, or other CommonJS-like environments that</span></span><br><span class="line"><span class="comment">// support module.exports, and you are not creating a module that has a</span></span><br><span class="line"><span class="comment">// circular dependency, then see returnExportsGlobal.js instead. It will allow</span></span><br><span class="line"><span class="comment">// you to export a function as the module value.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Defines a module &quot;commonJsStrictGlobal&quot; that depends another module called</span></span><br><span class="line"><span class="comment">// &quot;b&quot;. Note that the name of the module is implied by the file name. It is</span></span><br><span class="line"><span class="comment">// best if the file name and the exported global have matching names.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// If the &#x27;b&#x27; module also uses this type of boilerplate, then</span></span><br><span class="line"><span class="comment">// in the browser, it will create a global .b that is used below.</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span> (<span class="params">root, factory</span>) &#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">&#x27;function&#x27;</span> &amp;&amp; define.<span class="property">amd</span>) &#123;</span><br><span class="line">      <span class="comment">// AMD. Register as an anonymous module.</span></span><br><span class="line">      <span class="title function_">define</span>([<span class="string">&#x27;exports&#x27;</span>, <span class="string">&#x27;b&#x27;</span>], <span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, b</span>) &#123;</span><br><span class="line">         <span class="title function_">factory</span>((root.<span class="property">commonJsStrictGlobal</span> = <span class="built_in">exports</span>), b);</span><br><span class="line">      &#125;);</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">exports</span> === <span class="string">&#x27;object&#x27;</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">exports</span>.<span class="property">nodeName</span> !== <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">      <span class="comment">// CommonJS</span></span><br><span class="line">      <span class="title function_">factory</span>(<span class="built_in">exports</span>, <span class="built_in">require</span>(<span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// Browser globals</span></span><br><span class="line">      <span class="title function_">factory</span>((root.<span class="property">commonJsStrictGlobal</span> = &#123;&#125;), root.<span class="property">b</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;(<span class="keyword">typeof</span> self !== <span class="string">&#x27;undefined&#x27;</span> ? self : <span class="variable language_">this</span>, <span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, b</span>) &#123;</span><br><span class="line">   <span class="comment">// Use b in some fashion.</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// attach properties to the exports object to define</span></span><br><span class="line">   <span class="comment">// the exported module properties.</span></span><br><span class="line">   <span class="built_in">exports</span>.<span class="property">action</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>returnExportsGlobal.</li>
-</ul>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Uses CommonJS, AMD or browser globals to create a module.</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// If you just want to support Node, or other CommonJS-like environments that</span></span><br><span class="line"><span class="comment">// support module.exports, and you are not creating a module that has a</span></span><br><span class="line"><span class="comment">// circular dependency, then see returnExports.js instead. It will allow</span></span><br><span class="line"><span class="comment">// you to export a function as the module value.</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// Defines a module &quot;commonJsStrict&quot; that depends another module called &quot;b&quot;.</span></span><br><span class="line"><span class="comment">// Note that the name of the module is implied by the file name. It is best</span></span><br><span class="line"><span class="comment">// if the file name and the exported global have matching names.</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// If the &#x27;b&#x27; module also uses this type of boilerplate, then</span></span><br><span class="line"><span class="comment">// in the browser, it will create a global .b that is used below.</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// If you do not want to support the browser global path, then you</span></span><br><span class="line"><span class="comment">// can remove the `root` use and the passing `this` as the first arg to</span></span><br><span class="line"><span class="comment">// the top function.</span></span><br><span class="line">   </span><br><span class="line">(<span class="keyword">function</span> (<span class="params">root, factory</span>) &#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">&#x27;function&#x27;</span> &amp;&amp; define.<span class="property">amd</span>) &#123;</span><br><span class="line">      <span class="comment">// AMD. Register as an anonymous module.</span></span><br><span class="line">      <span class="title function_">define</span>([<span class="string">&#x27;exports&#x27;</span>, <span class="string">&#x27;b&#x27;</span>], factory);</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">exports</span> === <span class="string">&#x27;object&#x27;</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">exports</span>.<span class="property">nodeName</span> !== <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">      <span class="comment">// CommonJS</span></span><br><span class="line">      <span class="title function_">factory</span>(<span class="built_in">exports</span>, <span class="built_in">require</span>(<span class="string">&#x27;b&#x27;</span>));</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// Browser globals</span></span><br><span class="line">      <span class="title function_">factory</span>((root.<span class="property">commonJsStrict</span> = &#123;&#125;), root.<span class="property">b</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;(<span class="keyword">typeof</span> self !== <span class="string">&#x27;undefined&#x27;</span> ? self : <span class="variable language_">this</span>, <span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span>, b</span>) &#123;</span><br><span class="line">   <span class="comment">// Use b in some fashion.</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// attach properties to the exports object to define</span></span><br><span class="line">   <span class="comment">// the exported module properties.</span></span><br><span class="line">   <span class="built_in">exports</span>.<span class="property">action</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;;</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
-
-<p>   从源码中可以看出 umd 是对于 commonjs、Node(webpack中值枚举为commonjs2)、amd 以及 Browser globals 的并集,是实行兼容的一种模块导入导出模式.</p>
-<ul>
-<li><p>优势和劣势.</p>
-<ul>
-<li><p>优势: </p>
-<ul>
-<li>兼容的这几种模块导入导出都支持同步模块加载;</li>
-<li>导入比较灵活;</li>
-<li>导出的类型更丰富;</li>
-</ul>
-</li>
-<li><p>劣势: </p>
-<ul>
-<li>不支持静态分析,静态分析所带来的一系列福利也不能在 umd 模块导入导出模式下实行;</li>
-<li>不能实行异步模块加载;</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>esm(ecmascript module)</p>
-</blockquote>
-<p>   模块导入导出的最终方案模式,也是现在 NodeJS、npm 以及 ECMAScript 标准这些受众面很广泛的’推手’主要推动的模块导入导出模式. 其导入是在编译器编译阶段,由此特性也导致了两个特点: 静态分析和赋值引用,与 commonjs 的特性与特点完全相反.</p>
-<ul>
-<li>NodeJS ESM.</li>
-</ul>
-<p>   混用阶段,也就是 import 配合 module.exports,require 配合 export. </p>
-<p>   注意在 import 配合 module.export 这部分,import 必须导入 module.exports 导出的模块,不能导入 exports 导出的模块,由于还是以commonjs模块导出,那么esm导入就不能实行静态分析,只能整体导入.</p>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line"><span class="keyword">const</span> count = <span class="number">4</span>;</span><br><span class="line"><span class="comment">//NodeJS ESM 必须使用 module.exports 导出</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  count	 </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="comment">//以 commonjs 模块导出,esm 导入不能实行静态分析,只能整体导入.</span></span><br><span class="line"><span class="comment">//import &#123;count&#125; from &#x27;./module.js&#x27;;</span></span><br><span class="line"><span class="keyword">import</span> <span class="variable language_">module</span> <span class="keyword">from</span> <span class="string">&#x27;./module.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">module</span>.<span class="property">count</span>);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>静态分析.</li>
-</ul>
-<p>   其导入是在编译器编译阶段,所以需要将所使用的模块都在所要导入文件的头部进行导入.可对其引入的值、函数或者模块可进行静态分析.</p>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> count = <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
-
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="comment">//对其引入的值、函数或者模块可进行静态分析</span></span><br><span class="line"><span class="keyword">import</span> &#123;count&#125; <span class="keyword">from</span> <span class="string">&#x27;./module.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(count);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>赋值引用.</li>
-</ul>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//module.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> count = <span class="number">4</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">add</span>(<span class="params"></span>) &#123;</span><br><span class="line">  count++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;count, add&#125; <span class="keyword">from</span> <span class="string">&#x27;./module.js&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);</span><br><span class="line"><span class="title function_">add</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;count:&#x27;</span>, count);</span><br></pre></td></tr></table></figure>
-
-<p>   上面这两段 js 代码与 commonjs 赋值复制部分是同一个🌰,但是执行结果却是不相同的,其结果为:</p>
-<pre><code>count: 4
-count: 5
-</code></pre>
-<p>   可以看出 esm 对于导出的变量以及函数都是编译器编译时连同引用一起导出,导致通过模块内部修改变量的值之后,在外部导入模块变量的值也发生了改变.</p>
-<ul>
-<li><p>优势和劣势.</p>
-<ul>
-<li><p>优势: </p>
-<ul>
-<li>支持静态分析,静态分析所带来的一系列福利都可接收;</li>
-<li>可实行异步模块加载;支持动态导入 import();</li>
-</ul>
-</li>
-<li><p>劣势:</p>
-<ul>
-<li>现阶段 NodeJS、npm 以及 ECMAScript 标准这些受众面很广泛的’推手’因历史、兼容、底层改动大等问题,实现的都不成熟,还需要 Webpack&#x2F;Babel 等工具进行转译;</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>javascript module</category>
-      </categories>
-      <tags>
-        <tag>commonjs</tag>
-        <tag>esm</tag>
-        <tag>amd</tag>
-        <tag>cmd</tag>
-        <tag>umd</tag>
-        <tag>javascript module</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>think of webpack</title>
-    <url>/2022/05/23/thinkofwebpack/</url>
-    <content><![CDATA[<h1 id="webpack-配置"><a href="#webpack-配置" class="headerlink" title="webpack 配置"></a>webpack 配置</h1><h2 id="output"><a href="#output" class="headerlink" title="output"></a>output</h2><blockquote>
-<p>问题1</p>
-</blockquote>
-<p>   近期在配置 webpack 时,发现 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’} 打包构建导出的模块无法实行 TreeShaking.</p>
-<blockquote>
-<p>介绍</p>
-</blockquote>
-<p>   在配置 webpack 的输出 output 时,都会遇到输出模块的配置,也就是 webpack4 中的 libraryType 以及 webpack5 中的 libraryType(未删但新特性不更新) and library: {type: ‘xxx’},首先解释一下这几个属性的含义,libraryType 指的是每个 chunk 模块以怎样的模块形式构建打包输出,而 library: {type: ‘xxx’} 在webpack5 中属于对 libraryType 的复写,跟 libraryType 是一个含义.</p>
-<ul>
-<li>libraryType 的值枚举</li>
-</ul>
-   <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="comment">//值枚举</span></span><br><span class="line">  <span class="comment">//&#x27;commonjs&#x27; | &#x27;commonjs2&#x27; | &#x27;amd&#x27; | &#x27;umd&#x27; | &#x27;this&#x27; | &#x27;var&#x27; | &#x27;global&#x27; | &#x27;module&#x27;</span></span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">libraryType</span>: <span class="string">&#x27;commonjs&#x27;</span> </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>libraryType 中包含模块导入导出的值枚举</li>
-</ul>
-<p>   ‘commonjs’ | ‘commonjs2’ | ‘amd’ | ‘umd’ | ‘module’ 这五个值枚举代表了模块导入导出历史的发展轨迹,由最初的 commonjs 到最终方案 esm,关于它们的含义以及对比,这里把它放在了<a href='https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E5%8E%86%E5%8F%B2'>think of JsModule#模块导入导出的历史</a>中,这部分非常重要,是为后续下文的理解做铺垫.</p>
-<ul>
-<li>TreeShaking</li>
-</ul>
-<p>   TreeShaking 最初是 <a href='https://rollupjs.org/guide/en/'>RollUp</a> 团队推出的一个方案,以 esm 模块导入导出模式的静态分析为依赖基础,在编译时对项目代码进行瘦身,将无用、空引入的代码模块不构建进打出的包中,减少代码体积,减少项目冗余,提高项目运行速度的模式.</p>
-<ul>
-<li>import umd</li>
-</ul>
-<p>   对于 umd 的 esm import 导入,在 commonjs、NodeJS 环境下都可以实现,但是必须注意 <a href='https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E5%8E%86%E5%8F%B2'>esm(ecmascript module)</a> NodeJS ESM部分.</p>
-<blockquote>
-<p>结论</p>
-</blockquote>
-<p>   由于上述 umd 所兼容的所有模块导入导出模式不能实现静态分析,包括 import 配合 module.exports (使用 esm import 导入 commonjs2 值枚举导出的模块),而 TreeShaking 又是以 esm 模块导入导出模式的静态分析为依赖基础的,所以 umd 模块导入导出模式不能实行 TreeShaking.</p>
-]]></content>
-      <categories>
-        <category>webpack</category>
-      </categories>
-      <tags>
-        <tag>javascript module</tag>
-        <tag>webpack</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>think of postcss</title>
     <url>/2022/05/25/thinkofpostcss/</url>
     <content><![CDATA[<h1 id="postcss-配置"><a href="#postcss-配置" class="headerlink" title="postcss 配置"></a>postcss 配置</h1><blockquote>
@@ -1102,8 +1102,8 @@ count: 5
     <title>think of testing</title>
     <url>/2022/05/28/thinkoftesting/</url>
     <content><![CDATA[<h1 id="测试-testing"><a href="#测试-testing" class="headerlink" title="测试(testing)"></a>测试(testing)</h1><h2 id="跨终端自动化测试"><a href="#跨终端自动化测试" class="headerlink" title="跨终端自动化测试"></a>跨终端自动化测试</h2><p>  在介绍自动化测试之前,先来说一下跨终端测试工具,基于全方位测试需求的考虑,跨终端测试应该是最重要的类型之一.如今,各种类型的浏览器、操作系统、品牌手机以及设备可谓是琳琅满目.因此,需要确保用户在通过不同种类的浏览器、操作系统、品牌手机以及设备访问平台服务时,不会产生较大的体验落差.</p>
-<p>  在市面上,诸如LambdaTest之类的在线工具,就能够帮助以一种轻松互动的方式,解决此方面的问题.LambdaTest是一种非常流行的在线工具,可以通过它对超过3000多个真正的浏览器、操作系统、品牌手机以及设备进行跨终端式的测试.测试人员甚至可以使用该工具来自动捕捉屏幕上的截图,以加速对于目标平台网络布局的测试.另外,其他同类型比较流行的测试工具还有:Browserstack和Saucelabs.</p>
-<h3 id="lambdaTest"><a href="#lambdaTest" class="headerlink" title="lambdaTest"></a>lambdaTest</h3><p>  lambdaTest能够为3000多种浏览器、不同的Web应用操作系统、品牌手机以及设备的组合提供支持,可以在线执行手动测试(Manual testing)、自动化测试(Automatic testing)以及真机测试Real Device testing).</p>
+<p>  在市面上,诸如 LambdaTest 之类的在线工具,就能够帮助以一种轻松互动的方式,解决此方面的问题.LambdaTest 是一种非常流行的在线工具,可以通过它对超过3000多个真正的浏览器、操作系统、品牌手机以及设备进行跨终端式的测试.测试人员甚至可以使用该工具来自动捕捉屏幕上的截图,以加速对于目标平台网络布局的测试.另外,其他同类型比较流行的测试工具还有:Browserstack 和 Saucelabs.</p>
+<h3 id="lambdaTest"><a href="#lambdaTest" class="headerlink" title="lambdaTest"></a>lambdaTest</h3><p>  lambdaTest 能够为3000多种浏览器、不同的 Web 应用操作系统、品牌手机以及设备的组合提供支持,可以在线执行手动测试(Manual testing)、自动化测试(Automatic testing)以及真机测试(Real Device testing).</p>
 <blockquote>
 <p>手动测试(Manual testing)</p>
 </blockquote>
