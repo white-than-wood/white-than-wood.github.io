@@ -21,15 +21,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"white-than-wood.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2},"disqus":{"text":"Load Disqus","order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="postcss配置 介绍    postcss在概念上主要是为了使新的css样式以及特性在更多种类的浏览器上得到兼容.  css新样式.    1234&#x2F;*经过postcss转译之前*&#x2F;.dom &amp;#123;  user-select: none;  &amp;#125;    1234567&#x2F;*经过postcss转译之后*&#x2F;.dom &amp;#123;    -webkit-user-select:none;">
+    <meta name="description" content="postcss配置 介绍    postcss 在概念上主要是为了使新的 css 样式以及特性在更多种类的浏览器上得到兼容.  css 新样式.    1234&#x2F;*经过 postcss 转译之前*&#x2F;.dom &amp;#123;  user-select: none;  &amp;#125;    1234567&#x2F;*经过 postcss 转译之后*&#x2F;.dom &amp;#123;    -webkit-user-sele">
 <meta property="og:type" content="article">
 <meta property="og:title" content="think of postcss">
 <meta property="og:url" content="https://white-than-wood.github.io/2022/05/25/thinkofpostcss/index.html">
 <meta property="og:site_name" content="WTW&#39;s Frontend">
-<meta property="og:description" content="postcss配置 介绍    postcss在概念上主要是为了使新的css样式以及特性在更多种类的浏览器上得到兼容.  css新样式.    1234&#x2F;*经过postcss转译之前*&#x2F;.dom &amp;#123;  user-select: none;  &amp;#125;    1234567&#x2F;*经过postcss转译之后*&#x2F;.dom &amp;#123;    -webkit-user-select:none;">
+<meta property="og:description" content="postcss配置 介绍    postcss 在概念上主要是为了使新的 css 样式以及特性在更多种类的浏览器上得到兼容.  css 新样式.    1234&#x2F;*经过 postcss 转译之前*&#x2F;.dom &amp;#123;  user-select: none;  &amp;#125;    1234567&#x2F;*经过 postcss 转译之后*&#x2F;.dom &amp;#123;    -webkit-user-sele">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-25T11:11:27.000Z">
-<meta property="article:modified_time" content="2022-05-29T07:30:25.580Z">
+<meta property="article:modified_time" content="2022-06-04T15:25:13.639Z">
 <meta property="article:author" content="WTW(比木白)">
 <meta property="article:tag" content="webpack">
 <meta property="article:tag" content="postcss">
@@ -260,7 +260,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-29 15:30:25" itemprop="dateModified" datetime="2022-05-29T15:30:25+08:00">2022-05-29</time>
+      <time title="修改时间：2022-06-04 23:25:13" itemprop="dateModified" datetime="2022-06-04T23:25:13+08:00">2022-06-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -285,70 +285,70 @@
         <h1 id="postcss配置"><a href="#postcss配置" class="headerlink" title="postcss配置"></a>postcss配置</h1><blockquote>
 <p>介绍</p>
 </blockquote>
-<p>  postcss在概念上主要是为了使新的css样式以及特性在更多种类的浏览器上得到兼容.</p>
+<p>  postcss 在概念上主要是为了使新的 css 样式以及特性在更多种类的浏览器上得到兼容.</p>
 <ul>
-<li>css新样式.</li>
+<li>css 新样式.</li>
 </ul>
-  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*经过postcss转译之前*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">  user-select: none;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*经过 postcss 转译之前*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">  user-select: none;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*经过postcss转译之后*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">    -webkit-user-select:none;</span><br><span class="line">    -moz-user-select:none;</span><br><span class="line">    -ms-user-select:none;</span><br><span class="line">    user-select:none </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*经过 postcss 转译之后*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">    -webkit-user-select:none;</span><br><span class="line">    -moz-user-select:none;</span><br><span class="line">    -ms-user-select:none;</span><br><span class="line">    user-select:none </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>css新特性.</li>
 </ul>
-  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*经过postcss转译之前*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#12345678</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*经过 postcss 转译之前*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#12345678</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*经过postcss转译之后*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="built_in">rgba</span>(<span class="number">18</span>,<span class="number">52</span>,<span class="number">86</span>,.<span class="number">471</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*经过 postcss 转译之后*/</span></span><br><span class="line"><span class="selector-class">.dom</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="built_in">rgba</span>(<span class="number">18</span>,<span class="number">52</span>,<span class="number">86</span>,.<span class="number">471</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>工具</p>
 </blockquote>
-<p>  现阶段postcss转译的工具使用率比较多的有两种: autoprefixer以及postcss-preset-env.</p>
+<p>  现阶段 postcss 转译的工具使用率比较多的有两种: autoprefixer 以及 postcss-preset-env.</p>
 <ul>
 <li><p>autoprefixer.</p>
-<p>autoprefixer是将css的新样式在更多种类的浏览器中兼容.</p>
+<p>autoprefixer 是将 css 的新样式在更多种类的浏览器中兼容.</p>
 <ul>
 <li><p>步骤.</p>
-<p>首先下载npm依赖包postcss-loader和autoprefixer.</p>
-<pre><code>npm install autoprefixer postcss-loader -D
+<p>首先下载 npm 依赖包 postcss-loader 和 autoprefixer.</p>
+<pre><code>npm install autoprefixer postcss-loader css-loader style-loader -D
 </code></pre>
-<p>之后创建postcss.config.js文件,配置使用插件.</p>
+<p>之后创建 postcss.config.js 文件,配置使用插件.</p>
 <pre><code>touch postcss.config.js
 </code></pre>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="built_in">require</span>(<span class="string">&#x27;autoprefixer&#x27;</span>)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>配置webpack构建打包postcss-loader.</p>
+<p>配置 webpack 构建打包 postcss-loader.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [&#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/.css$/</span>,</span><br><span class="line">      <span class="attr">use</span>: [&#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;style-loader&#x27;</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">importLoaders</span>: <span class="number">1</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span></span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]			</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>当然也可以直接不创建postcss.config.js文件,在webpack构建打包postcss-loader配置.</p>
+<p>当然也可以直接不创建 postcss.config.js 文件,在 webpack 构建打包 postcss-loader 配置.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [&#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/.css$/</span>,</span><br><span class="line">      <span class="attr">use</span>: [&#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;style-loader&#x27;</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">importLoaders</span>: <span class="number">1</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">options</span>: &#123;</span><br><span class="line">          <span class="attr">postcssOptions</span>: &#123;</span><br><span class="line">            <span class="attr">plugins</span>: [</span><br><span class="line">              <span class="built_in">require</span>(<span class="string">&#x27;autoprefixer&#x27;</span>)</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]			</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>配置package.json -&gt; browserslist属性,也就是postcss这种扩展兼容操作要选择适用哪些种类浏览器的版本,这一部分我们会拿出来在后续部分细讲.</p>
+<p>配置 package.json -&gt; browserslist 属性,也就是 postcss 这种扩展兼容操作要选择适用哪些种类浏览器的版本,这一部分我们会拿出来在后续部分细讲.</p>
 </li>
 <li><p>缺点.</p>
-<p>只是对css的新样式在更多种类的浏览器上做兼容,新特性被排除在外,所以autoprefixer所做出的扩展兼容是不完整的.</p>
+<p>只是对 css 的新样式在更多种类的浏览器上做兼容,新特性被排除在外,所以 autoprefixer 所做出的扩展兼容是不完整的.</p>
 </li>
 </ul>
 </li>
 <li><p>postcss-preset-env.</p>
-<p>postcss-preset-env是将css的新样式以及新特性在更多种类的浏览器中兼容,内置autoprefixer,含有autoprefixer的功能.</p>
+<p>postcss-preset-env 是将 css 的新样式以及新特性在更多种类的浏览器中兼容,内置 autoprefixer,含有 autoprefixer 的功能.</p>
 <ul>
 <li><p>步骤.</p>
-<p>首先下载npm依赖包postcss-preset-env和postcss-loader.</p>
+<p>首先下载 npm 依赖包 postcss-preset-env 和 postcss-loader.</p>
 <pre><code>npm install postcss-preset-env postcss-loader -D
 </code></pre>
-<p>之后创建postcss.config.js文件,配置使用插件.</p>
+<p>之后创建 postcss.config.js 文件,配置使用插件.</p>
 <pre><code>touch postcss.config.js
 </code></pre>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="built_in">require</span>(<span class="string">&#x27;postcss-preset-env&#x27;</span>)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>配置webpack构建打包postcss-loader.</p>
+<p>配置 webpack 构建打包 postcss-loader.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [&#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/.css$/</span>,</span><br><span class="line">      <span class="attr">use</span>: [&#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;style-loader&#x27;</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">importLoaders</span>: <span class="number">1</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span></span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]			</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>当然也可以直接不创建postcss.config.js文件,在webpack构建打包postcss-loader配置.</p>
+<p>当然也可以直接不创建 postcss.config.js 文件,在 webpack 构建打包 postcss-loader 配置.</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [&#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/.css$/</span>,</span><br><span class="line">      <span class="attr">use</span>: [&#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;style-loader&#x27;</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">importLoaders</span>: <span class="number">1</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">options</span>: &#123;</span><br><span class="line">          <span class="attr">postcssOptions</span>: &#123;</span><br><span class="line">            <span class="attr">plugins</span>: [</span><br><span class="line">              <span class="built_in">require</span>(<span class="string">&#x27;postcss-preset-env&#x27;</span>)</span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]			</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>配置package.json -&gt; browserslist属性,也就是postcss这种扩展兼容操作要选择适用哪些种类浏览器的版本,这一部分我们会拿出来在后续部分细讲.</p>
+<p>配置 package.json -&gt; browserslist 属性,也就是 postcss 这种扩展兼容操作要选择适用哪些种类浏览器的版本,这一部分我们会拿出来在后续部分细讲.</p>
 </li>
 </ul>
 </li>
@@ -356,10 +356,10 @@
 <blockquote>
 <p>browserslist</p>
 </blockquote>
-<p>  postcss对css新样式以及新特性要选择适用哪些种类浏览器的版本所对应的属性.推荐在package.json文件里直接进行配置.</p>
+<p>  postcss 对 css 新样式以及新特性要选择适用哪些种类浏览器的版本所对应的属性.推荐在 package.json 文件里直接进行配置.</p>
 <ul>
 <li><p>默认配置.</p>
-<p>默认配置[“defaults”]实际上的含义是[“&gt; 2%”,”last 2 versions”,”not dead”],是这三种筛选适用浏览器版本的方式的并集,这三种方式具体的含义在下一部分会具体介绍.</p>
+<p>默认配置 [“defaults”] 实际上的含义是 [“&gt; 2%”,”last 2 versions”,”not dead”],是这三种筛选适用浏览器版本的方式的并集,这三种方式具体的含义在下一部分会具体介绍.</p>
 </li>
 </ul>
   <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;browserslist&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;defaults&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
@@ -371,12 +371,12 @@
 <li>[“last n versions”]: 选择所有种类的浏览器的最近n个版本.</li>
 <li>[“not dead”]: 选择官方并没有舍弃删除掉的所有种类的浏览器版本.</li>
 </ul>
-<p>所以[“defaults”]的含义就是选择用户比例大于2%的、官方并没有舍弃删除掉的、所有种类的浏览器的最近2个版本的并集.</p>
+<p>所以 [“defaults”] 的含义就是选择用户比例大于2%的、官方并没有舍弃删除掉的、所有种类的浏览器的最近2个版本的并集.</p>
 </li>
 <li><p>其他配置.</p>
 <ul>
 <li>[“&gt; 2% and last 2 versions and not dead”]: and表示”且”也就是交集,此🌰的含义为选择用户比例大于2%的、官方并没有舍弃删除掉的、所有种类的浏览器的最近2个版本的交集.</li>
-<li>[“&gt; 2% or last 2 versions or not dead”]: 除了”,”之外,”or”也可以表示交集.跟[“defaults”]的含义相同.</li>
+<li>[“&gt; 2% or last 2 versions or not dead”]: 除了”,”之外,”or”也可以表示交集.跟 [“defaults”] 的含义相同.</li>
 <li>[“not &gt; 2%”]: “not”代表”非”也就是非集,此🌰的含义为选择用户比例小于等于2%的所有种类的浏览器的版本.</li>
 </ul>
 </li>
