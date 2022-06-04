@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/</loc>
+        
+        <lastmod>2022-06-04T15:07:41.523Z</lastmod>
+        
+        <date>1653238104000</date>
+        <title>think of JsModule | WTW's Frontend</title>
+        
+        <desc>模块导入导出的历史 JsModule 的演化经历 下面这张图可以清晰的看出,javascript module 演化的历史,由最初的 commonjs 到最终方案 esm,而现在正处于 umd -&gt; esm 阶段. commonjs commonjs 的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.</desc>
+    </url>
+    
+    <url>
         <loc>https://white-than-wood.github.io/2022/05/14/hexo%E6%90%AD%E5%BB%BAnext%E5%8D%9A%E5%AE%A2/</loc>
         
         <lastmod>2022-06-04T15:01:40.944Z</lastmod>
@@ -31,7 +42,7 @@
         <date>1652564405000</date>
         <title>think of git | WTW's Frontend</title>
         
-        <desc>git命令 git remote add origin &#103;&#105;&#x74;&#64;&#103;&#x69;&#116;&#x68;&#x75;&#98;&#x2e;&#99;&#111;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远程</desc>
+        <desc>git命令 git remote add origin &#x67;&#105;&#x74;&#64;&#103;&#x69;&#x74;&#x68;&#x75;&#98;&#x2e;&#99;&#x6f;&#109;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远程</desc>
     </url>
     
     <url>
@@ -120,17 +131,6 @@
         <title>think of webpack | WTW's Frontend</title>
         
         <desc>webpack配置output 问题1 近期在配置webpack时,发现output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’}打包构建导出的模块无法实行TreeShaking. 介绍 在配置webpack的输出output时,都会遇到输出模块的配置,也就是webpack 4中的libraryType以及webpa</desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/</loc>
-        
-        <lastmod>2022-05-29T07:30:25.578Z</lastmod>
-        
-        <date>1653238104000</date>
-        <title>think of JsModule | WTW's Frontend</title>
-        
-        <desc>模块导入导出的历史 JsModule的演化经历 下面这张图可以清晰的看出,javascript module演化的历史,由最初的commonjs到最终方案esm,而现在正处于umd -&gt; esm阶段. commonjs commonjs的特性就是其导入不是在编译器编译时执行的,而是在代码执行时才实行的.其特性导致了两个特点: 动态导入和赋值复制.</desc>
     </url>
     
 </urlset>
