@@ -5,7 +5,7 @@ tags: [webpack,javascript module]
 categories: webpack
 ---
 
-# webpack配置
+# webpack 配置
 
 ## output
 

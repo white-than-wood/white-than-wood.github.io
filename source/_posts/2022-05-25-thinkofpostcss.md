@@ -5,7 +5,7 @@ tags: [postcss, webpack]
 categories: postcss
 ---
 
-# postcss配置
+# postcss 配置
 
 > 介绍
 
