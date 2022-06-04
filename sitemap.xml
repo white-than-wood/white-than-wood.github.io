@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://white-than-wood.github.io/2022/05/23/thinkofwebpack/</loc>
+        
+        <lastmod>2022-06-04T15:11:31.734Z</lastmod>
+        
+        <date>1653237961000</date>
+        <title>think of webpack | WTW's Frontend</title>
+        
+        <desc>webpack配置output 问题1 近期在配置 webpack 时,发现 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’} 打包构建导出的模块无法实行 TreeShaking. 介绍 在配置 webpack 的输出 output 时,都会遇到输出模块的配置,也就是 webpack4 中的 library</desc>
+    </url>
+    
+    <url>
         <loc>https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/</loc>
         
         <lastmod>2022-06-04T15:07:41.523Z</lastmod>
@@ -42,7 +53,7 @@
         <date>1652564405000</date>
         <title>think of git | WTW's Frontend</title>
         
-        <desc>git命令 git remote add origin &#x67;&#105;&#x74;&#64;&#103;&#x69;&#x74;&#x68;&#x75;&#98;&#x2e;&#99;&#x6f;&#109;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远程</desc>
+        <desc>git命令 git remote add origin &#x67;&#x69;&#x74;&#x40;&#x67;&#105;&#x74;&#104;&#117;&#x62;&#46;&#x63;&#x6f;&#109;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定</desc>
     </url>
     
     <url>
@@ -120,17 +131,6 @@
         <title>think of typescript | WTW's Frontend</title>
         
         <desc>typescript配置{“module”: “umd”} 问题1 近期在配置typescript配合webpack构建打包项目时发现,tsconfig.json里配置模块导入导出模式为{“module”:”umd”},webpack使用ts-loader来处理,导入导出的模块模式同样使用{libraryTarget: ‘umd’} or output -&gt; library: {type: </desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/23/thinkofwebpack/</loc>
-        
-        <lastmod>2022-05-29T07:30:25.579Z</lastmod>
-        
-        <date>1653237961000</date>
-        <title>think of webpack | WTW's Frontend</title>
-        
-        <desc>webpack配置output 问题1 近期在配置webpack时,发现output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’}打包构建导出的模块无法实行TreeShaking. 介绍 在配置webpack的输出output时,都会遇到输出模块的配置,也就是webpack 4中的libraryType以及webpa</desc>
     </url>
     
 </urlset>
