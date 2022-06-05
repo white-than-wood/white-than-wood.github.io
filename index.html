@@ -656,7 +656,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-04 23:27:51" itemprop="dateModified" datetime="2022-06-04T23:27:51+08:00">2022-06-04</time>
+      <time title="修改时间：2022-06-05 16:19:21" itemprop="dateModified" datetime="2022-06-05T16:19:21+08:00">2022-06-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -681,11 +681,30 @@
           <h1 id="webpack-配置"><a href="#webpack-配置" class="headerlink" title="webpack 配置"></a>webpack 配置</h1><h2 id="output"><a href="#output" class="headerlink" title="output"></a>output</h2><blockquote>
 <p>问题1</p>
 </blockquote>
-<p>   近期在配置 webpack 时,发现 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’} 打包构建导出的模块无法实行 TreeShaking.</p>
-<blockquote>
-<p>介绍</p>
-</blockquote>
-<p>   在配置 webpack 的输出 output 时,都会遇到输出模块的配置,也就是 webpack4 中的 libraryType 以及 webpack5 中的 libraryType(未删但新特性不更新) and library: {type: ‘xxx’},首先解释一下这几个属性的含义,libraryType 指的是每个 chunk 模块以怎样的模块形式构建打包输出,而 library: {type: ‘xxx’} 在webpack5 中属于对 libraryType 的复写,跟 libraryType 是一个含义.</p>
+<p>   近期在配置 webpack 时,发现 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’} 打包构建导出的模块无法实行 TreeShaking.为什么?</p>
+<ul>
+<li><p>介绍.</p>
+<p>在配置 webpack 的输出 output 时,都会遇到输出模块的配置,也就是 webpack4 中的 libraryType 以及 webpack5 中的 libraryType(未删但新特性不更新) and library: {type: ‘xxx’},首先解释一下这几个属性的含义,libraryType 指的是每个 chunk 模块以怎样的模块形式构建打包输出,而 library: {type: ‘xxx’} 在webpack5 中属于对 libraryType 的复写,跟 libraryType 是一个含义.</p>
+<ul>
+<li><p>libraryType 的值枚举.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="comment">//值枚举</span></span><br><span class="line">  <span class="comment">//&#x27;commonjs&#x27; | &#x27;commonjs2&#x27; | &#x27;amd&#x27; | &#x27;umd&#x27; | &#x27;this&#x27; | &#x27;var&#x27; | &#x27;global&#x27; | &#x27;module&#x27;</span></span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">libraryType</span>: <span class="string">&#x27;commonjs&#x27;</span> </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>libraryType 中包含模块导入导出的值枚举.</p>
+<p>‘commonjs’ | ‘commonjs2’ | ‘amd’ | ‘umd’ | ‘module’ 这五个值枚举代表了模块导入导出历史的发展轨迹,由最初的 commonjs 到最终方案 esm,关于它们的含义以及对比,这里把它放在了<a href="https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E5%8E%86%E5%8F%B2">think of JsModule#模块导入导出的历史</a>中,这部分非常重要,是为后续下文的理解做铺垫.</p>
+</li>
+<li><p>TreeShaking.</p>
+<p>TreeShaking 最初是 <a target="_blank" rel="noopener" href="https://rollupjs.org/guide/en/">RollUp</a> 团队推出的一个方案,以 esm 模块导入导出模式的静态分析为依赖基础,在编译时对项目代码进行瘦身,将无用、空引入的代码模块不构建进打出的包中,减少代码体积,减少项目冗余,提高项目运行速度的模式.</p>
+</li>
+<li><p>import umd.</p>
+<p>对于 umd 的 esm import 导入,在 commonjs、NodeJS 环境下都可以实现,但是必须注意 <a href="https://white-than-wood.github.io/2022/05/23/thinkofjsmodule/#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA%E7%9A%84%E5%8E%86%E5%8F%B2">esm(ecmascript module)</a> NodeJS ESM部分.</p>
+</li>
+</ul>
+</li>
+<li><p>结论.</p>
+<p>由于上述 umd 所兼容的所有模块导入导出模式不能实现静态分析,包括 import 配合 module.exports (使用 esm import 导入 commonjs2 值枚举导出的模块),而 TreeShaking 又是以 esm 模块导入导出模式的静态分析为依赖基础的,所以 umd 模块导入导出模式不能实行 TreeShaking.</p>
+</li>
+</ul>
+<h2 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/05/23/thinkofwebpack/#more" rel="contents">
@@ -879,9 +898,9 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h1><blockquote>
-<p>git remote add origin <a href="mailto:&#103;&#105;&#116;&#x40;&#103;&#105;&#116;&#104;&#x75;&#x62;&#x2e;&#x63;&#111;&#109;">&#103;&#105;&#116;&#x40;&#103;&#105;&#116;&#104;&#x75;&#x62;&#x2e;&#x63;&#111;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
+<p>git remote add origin <a href="mailto:&#103;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#46;&#x63;&#111;&#109;">&#103;&#105;&#116;&#64;&#103;&#x69;&#116;&#104;&#117;&#98;&#46;&#x63;&#111;&#109;</a>:white-than-wood&#x2F;white-than-wood.github.io.git</p>
 </blockquote>
-<p>   从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的 git 项目时,势必要与远程 git 库建立联系(远程 git 库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在本地建立一个句柄简称与远程链接 <a href="mailto:&#x67;&#105;&#x74;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#x62;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#x74;&#x40;&#x67;&#105;&#116;&#x68;&#117;&#x62;&#x2e;&#x63;&#x6f;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git 进行关联,实行通信,不需要再去 copy 使用 github 远程库上面的链接.</p>
+<p>   从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远程句柄的简称.简单来说本地与远程交流的一个简化链接,当在本地建立起一个已经初始化的 git 项目时,势必要与远程 git 库建立联系(远程 git 库本来也是为了保存代码、保证多人开发时代码的同步以及简化其流程性而存在的),那么此命令就是为了在本地建立一个句柄简称与远程链接 <a href="mailto:&#x67;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#x67;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#104;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a>:white-than-wood&#x2F;white-than-wood.github.io.git 进行关联,实行通信,不需要再去 copy 使用 github 远程库上面的链接.</p>
 <blockquote>
 <p>git push –set-upstream origin master</p>
 </blockquote>
