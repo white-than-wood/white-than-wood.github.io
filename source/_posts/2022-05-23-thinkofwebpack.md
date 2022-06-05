@@ -55,7 +55,7 @@ categories: webpack
   
   - 介绍.
 
-    在 webpack5 中使用 webpack --display-modules --display-reasons 会报错.
+    在 webpack5 中执行 webpack --display-modules --display-reasons 会报错.
   
         [webpack-cli] Error: Unknown option '--display-modules'
         [webpack-cli] Run 'webpack --help' to see available commands and options
@@ -63,4 +63,24 @@ categories: webpack
   - 原因.
 
     webpack5 对日志方面进行了规整,当然输出所有的模块以及输出所有的模块信息的原因也不例外,--display-modules、--display-reasons 迁移到了 <a href='https://webpack.js.org/configuration/stats/'>stats</a> 日志配置中,请查看 stats.modules、status.reasons.
+
+## module
+
+### css-loader
+
+> 问题1
   
+  css-loader 使用参数minimize进行样式表压缩处理,webpack 报错,为什么?
+
+  - 介绍.
+
+    在 webpack css-loader 中参数使用 minimize 进行样式表压缩处理会报错.
+
+        Module build failed (from ./node_modules/css-loader/dist/cjs.js):
+        ValidationError: Invalid options object. CSS Loader has been initialized using an options object that does not match the API schema.
+        - options has an unknown property 'minimize'. These properties are valid:
+          object { url?, import?, modules?, sourceMap?, importLoaders?, esModule?, exportType? }
+
+  - 原因.
+
+    在 webpack 3.0 以及 css 1.0 以后,style-loader 不再支持参数 minimize 样式表压缩处理.
