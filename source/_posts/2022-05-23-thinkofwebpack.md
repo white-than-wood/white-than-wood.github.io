@@ -84,3 +84,13 @@ categories: webpack
   - 原因.
 
     在 webpack 3.0 以及 css 1.0 以后,style-loader 不再支持参数 minimize 样式表压缩处理.
+
+# webpack-dev-server 配置
+
+> 原理
+
+  webpack-dev-server 主要是运用了 websocket 长链接以及 webpack --watch 监听. webpack-dev-server 会将 websocket client 端注册至远程客户端中,当 --watch 监听到项目内容发生变化时,webpack 就会重新实行构建打包,websocket server 端通过长链接会告知 websocket client 端从而实行远程客户端页面的强制刷新.
+  
+  - hot.
+  
+    hot 是 webpack-dev-server 配置中的属性,意为是否开启模块热更新.实际上就是指当通过长链接会告知 websocket client 端从而实行远程客户端页面的强制刷新时,这时候不实行整个页面的全局刷新,而是实行发生局部改动模块的热替换,从而实现局部刷新.
