@@ -66,6 +66,12 @@ categories: webpack
 
 ## module
 
+### enforce
+
+> 介绍
+
+  module.rules 中的 enforce 属性可以设定 loader 装载转换的顺序,默认配置为 'pre',也就是从右向左的顺序装载转换执行.如果想要设定转换时的顺序,可以配置为 'post',这样会按照从左向右的顺序装载转换执行.
+
 ### css-loader
 
 > 问题1
@@ -134,3 +140,23 @@ categories: webpack
   - 进度
 
     据 issues <a href='https://github.com/webpack/webpack-dev-server/issues/1400'>Re-use current tab instead of open a new one</a>, 现阶段只能做到在 mac 平台上面做到打开并复用浏览器同一个标签页,而 facebook 的 create-react-app 框架也是一样 <a href='https://github.com/facebook/create-react-app/blob/25184c4e91ebabd16fe1cde3d8630830e4a36a01/packages/react-dev-utils/openBrowser.js#L65-L86'>create-react-app -> openBrowser.js</a>,目前还没有任何新的方案做到跨平台打开并复用浏览器同一个标签页.
+
+## resolve
+
+### mainFields
+
+> 介绍
+
+  根据 target 的不同,配置解析导入模块的字段也就不同. 默认配置解析导入模块的字段为: ['browser', 'module', 'main'],按照从左向右的顺序配置解析.
+
+### modules
+
+> 介绍
+
+  通常解析导入模块时会直接通过 modules 默认配置 ['node_modules'],但如果想要直接通过个人所写的业务组件库解析导入模块,可以自定义 modules 配置,例如: [path.join(__dirname, 'src', 'components'), 'node_modules'],这样会优先解析导入个人所写的业务组件库,实行解析导入模块.
+
+### descriptionFiles
+
+> 介绍
+
+  用于描述项目依赖的 JSON 文件,也可以自定义,默认配置为['package.json'],建议不要随意修改.
