@@ -105,7 +105,7 @@ categories: webpack
 
   - 介绍.
 
-    在 webpack5 中配置 devServer contentBase 会报错.
+    在 webpack5 中配置 devServer contentBase 会报错. contentBase 意为配置 DevServer 服务的根目录,一般情况下 contentBase 为项目根目录.
 
         [webpack-cli] Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
         - options has an unknown property 'contentBase'. These properties are valid:
