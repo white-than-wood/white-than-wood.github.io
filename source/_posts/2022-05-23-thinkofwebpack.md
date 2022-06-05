@@ -114,3 +114,23 @@ categories: webpack
   - 原因.
 
     据 issues <a href='https://github.com/webpack/webpack-dev-server/issues/2958#issuecomment-757141969'>Multiple bugs in one (config-yargs is needed and invalid configuration object errors) </a>,contentBase 属性已经在 webpack5 中更名为 static.
+
+### open
+
+> 介绍
+
+  open 属性配置源于<a href='https://www.npmjs.com/package/open'>open 依赖库</a>,跨平台,可打开URL和可执行文件. 当在开发环境使用webpack-dev-server时,配置使用 open 属性,运行则可自动打开浏览器标签页展示配置的页面.
+
+> 问题1
+
+  open 属性配置可打开并复用浏览器同一个标签页吗?
+
+  - 介绍
+
+    每次在开发环境执行 webpack-dev-server 命令,自动打开一个新的浏览器标签页,原来的标签页还在,但是并没有复用.
+
+        webpack-dev-server --config=./webpack.config.js --color
+
+  - 进度
+
+    据 issues <a href='https://github.com/webpack/webpack-dev-server/issues/1400'>Re-use current tab instead of open a new one</a>, 现阶段只能做到在 mac 平台上面做到打开并复用浏览器同一个标签页,而 facebook 的 create-react-app 框架也是一样 <a href='https://github.com/facebook/create-react-app/blob/25184c4e91ebabd16fe1cde3d8630830e4a36a01/packages/react-dev-utils/openBrowser.js#L65-L86'>create-react-app -> openBrowser.js</a>,目前还没有任何新的方案做到跨平台打开并复用浏览器同一个标签页.
