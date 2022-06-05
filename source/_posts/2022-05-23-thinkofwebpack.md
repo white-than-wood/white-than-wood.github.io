@@ -94,3 +94,23 @@ categories: webpack
   - hot.
   
     hot 是 webpack-dev-server 配置中的属性,意为是否开启模块热更新.实际上就是指当通过长链接会告知 websocket client 端从而实行远程客户端页面的强制刷新时,这时候不实行整个页面的全局刷新,而是实行发生局部改动模块的热替换,从而实现局部刷新.
+
+## devServer
+
+### contentBase
+
+> 问题1
+
+  webpack5 中 devServer 的属性 contentBase 被删掉了吗?
+
+  - 介绍.
+
+    在 webpack5 中配置 devServer contentBase 会报错.
+
+        [webpack-cli] Invalid options object. Dev Server has been initialized using an options object that does not match the API schema.
+        - options has an unknown property 'contentBase'. These properties are valid:
+          object { allowedHosts?, bonjour?, client?, compress?, devMiddleware?, headers?, historyApiFallback?, host?, hot?, http2?, https?, ipc?, liveReload?, magicHtml?, onAfterSetupMiddleware?, onBeforeSetupMiddleware?, onListening?, open?, port?, proxy?, server?, setupExitSignals?, setupMiddlewares?, static?, watchFiles?, webSocketServer? }
+
+  - 原因.
+
+    据 issues <a href='https://github.com/webpack/webpack-dev-server/issues/2958#issuecomment-757141969'>Multiple bugs in one (config-yargs is needed and invalid configuration object errors) </a>,contentBase 属性已经在 webpack5 中更名为 static.
