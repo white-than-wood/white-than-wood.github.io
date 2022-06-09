@@ -46,3 +46,36 @@ categories: typescript
 
     通过两套 "umd" 配置可以看出,没有标准 "umd" 条件中的第三种处理,允许导出到 window.namesapace = export; 因此,当大量开发人员需要同时支持所有这三个时,当前的 typescript {"module":"umd"} 模块导入导出机制是非常糟糕的,webpack也是基于 typescript {"module":"umd"} 产生的这种问题,对 typescript {"module":"umd"} 模块导入导出模式是不支持的,所以会出现只识别 typescript {"module":"commonjs"},不识别 typescript {"module":"umd"} 的奇事发生.
 
+## {"baseUrl": "./", "path": {"@": "src/module"}}
+
+> 问题1
+
+  近期在配置 webpack 时,发现为了省略前缀通过 webpack resolve 配置解析 "alias",竟然对 "typescript" 没有任何用处.
+
+  ```javascript
+    const path = require('path');
+    module.exports = {
+	  //...
+      resolve: {
+        alias: {
+          "@": path.resolve(__dirname, "src", "module")	
+        }
+      }
+      //...
+    };
+  ```
+
+  后来通过查阅发现,必须配置 tsconfig.json 中省略前缀才可生效.
+
+  ```json
+    {
+      "compilerOptions": {
+        "baseUrl": "./",
+        "path": {
+          "@": "src/module"
+        }
+      }
+    }
+  ```
+
+  
