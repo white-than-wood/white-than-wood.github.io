@@ -29,10 +29,10 @@
 <meta property="og:description" content="webpack 配置output 问题1     近期在配置 webpack 时,发现 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’} 打包构建导出的模块无法实行 TreeShaking.为什么?  介绍. 在配置 webpack 的输出 output 时,都会遇到输出模块的配置,也就是 webpack4">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-22T16:46:01.000Z">
-<meta property="article:modified_time" content="2022-06-05T21:43:36.208Z">
+<meta property="article:modified_time" content="2022-06-16T16:36:57.536Z">
 <meta property="article:author" content="WTW(比木白)">
-<meta property="article:tag" content="webpack">
 <meta property="article:tag" content="javascript module">
+<meta property="article:tag" content="webpack">
 <meta name="twitter:card" content="summary">
 
 
@@ -169,12 +169,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -260,7 +260,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-06 05:43:36" itemprop="dateModified" datetime="2022-06-06T05:43:36+08:00">2022-06-06</time>
+      <time title="修改时间：2022-06-17 00:36:57" itemprop="dateModified" datetime="2022-06-17T00:36:57+08:00">2022-06-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -321,6 +321,19 @@
 </li>
 <li><p>原因.</p>
 <p>webpack5 对日志方面进行了规整,当然输出所有的模块以及输出所有的模块信息的原因也不例外,–display-modules、–display-reasons 迁移到了 <a target="_blank" rel="noopener" href='https://webpack.js.org/configuration/stats/'>stats</a> 日志配置中,请查看 stats.modules、status.reasons.</p>
+</li>
+</ul>
+<blockquote>
+<p>问题2</p>
+</blockquote>
+<p>  在 package.json 中的 scripts 属性直接写 shell 脚本,为什么可以在命令行中直接执行而无需任何的目录前缀?</p>
+<ul>
+<li><p>介绍.</p>
+<p>一般在使用 npm 的项目中,直接使用 node_modules&#x2F;.bin 目录中的可执行文件即可运行 shell 脚本(bash 命令),那既然是这样,在 package.json 这个描述外部依赖的 json 文件中,直接 scripts 属性写 shell 脚本,接着 npm run &lt;scripts属性&gt; 就可以直接运行可执行文件而无需通过 .bin 目录呢?</p>
+</li>
+<li><p>原因.</p>
+<p>实际上在运行 npm run &lt;scripts属性&gt; 时,npm 会新建一个 shell 脚本,并把所对应的命令直接添加到 shell 脚本中执行,且将 node_modules&#x2F;.bin 的子目录临时添加到 $PATH 全局变量中,执行完之后再恢复原状,故无需通过添加目录前缀直接执行.</p>
+<p>PS: node_modules&#x2F;.bin 目录中的可执行文件都是通过软链的方式连接依赖项目中的可执行文件的.</p>
 </li>
 </ul>
 <h2 id="module"><a href="#module" class="headerlink" title="module"></a>module</h2><h3 id="enforce"><a href="#enforce" class="headerlink" title="enforce"></a>enforce</h3><blockquote>
@@ -408,8 +421,8 @@ ValidationError: Invalid options object. CSS Loader has been initialized using a
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/webpack/" rel="tag"># webpack</a>
               <a href="/tags/javascript-module/" rel="tag"># javascript module</a>
+              <a href="/tags/webpack/" rel="tag"># webpack</a>
           </div>
 
         

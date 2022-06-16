@@ -2,14 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://white-than-wood.github.io/2022/05/23/thinkofwebpack/</loc>
+        
+        <lastmod>2022-06-16T16:36:57.536Z</lastmod>
+        
+        <date>1653237961000</date>
+        <title>think of webpack | WTW's Frontend</title>
+        
+        <desc>webpack 配置output 问题1 近期在配置 webpack 时,发现 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’} 打包构建导出的模块无法实行 TreeShaking.为什么? 介绍. 在配置 webpack 的输出 output 时,都会遇到输出模块的配置,也就是 webpack4 中的 l</desc>
+    </url>
+    
+    <url>
         <loc>https://white-than-wood.github.io/2022/06/12/%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91%E9%9A%BE%E7%82%B9/</loc>
         
-        <lastmod>2022-06-11T18:43:33.577Z</lastmod>
+        <lastmod>2022-06-11T18:54:00.803Z</lastmod>
         
         <date>1654973013000</date>
         <title>日常开发难点 | WTW's Frontend</title>
         
-        <desc></desc>
+        <desc>列表项上下键选中触发 scrollIntoView behavior: ‘smooth’ 抖动问题</desc>
     </url>
     
     <url>
@@ -43,17 +54,6 @@
         <title>think of postcss | WTW's Frontend</title>
         
         <desc>postcss 配置 介绍 postcss 在概念上主要是为了使新的 css 样式以及特性在更多种类的浏览器上得到兼容. css 新样式. 1234/*经过 postcss 转译之前*/.dom &#123; user-select: none; &#125; 1234567/*经过 postcss 转译之后*/.dom &#123; -webkit-user-select:none; -moz-</desc>
-    </url>
-    
-    <url>
-        <loc>https://white-than-wood.github.io/2022/05/23/thinkofwebpack/</loc>
-        
-        <lastmod>2022-06-05T21:43:36.208Z</lastmod>
-        
-        <date>1653237961000</date>
-        <title>think of webpack | WTW's Frontend</title>
-        
-        <desc>webpack 配置output 问题1 近期在配置 webpack 时,发现 output -&gt; libraryType: ‘umd’ or output -&gt; library: {type: ‘umd’} 打包构建导出的模块无法实行 TreeShaking.为什么? 介绍. 在配置 webpack 的输出 output 时,都会遇到输出模块的配置,也就是 webpack4 中的 l</desc>
     </url>
     
     <url>
@@ -108,7 +108,7 @@
         <date>1652564405000</date>
         <title>think of git | WTW's Frontend</title>
         
-        <desc>git命令 git remote add origin &#103;&#105;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#x2e;&#99;&#111;&#x6d;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远</desc>
+        <desc>git命令 git remote add origin &#103;&#105;&#116;&#x40;&#103;&#x69;&#x74;&#x68;&#117;&#98;&#46;&#x63;&#111;&#109;:white-than-wood&#x2F;white-than-wood.github.io.git 从官方对于 git remote 的定义来看,意思是列出本地拥有的每个指定远</desc>
     </url>
     
     <url>
