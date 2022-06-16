@@ -70,7 +70,7 @@ categories: webpack
 
   - 介绍.
 
-    一般在使用 npm 的项目中,直接使用 node_modules/.bin 目录中的可执行文件即可运行 shell 脚本(bash 命令),那既然是这样,在 package.json 这个描述外部依赖的 json 文件中,直接 scripts 属性写 shell 脚本,接着 npm run \<scripts属性\> 就可以直接运行可执行文件而无需通过 .bin 目录呢?
+    一般在使用 npm 的项目中,直接使用 node_modules/.bin 目录中的可执行文件即可运行 shell 脚本(bash 命令),那既然是这样,在 package.json 这个描述外部依赖的 json 文件中,为什么直接 scripts 属性写 shell 脚本,接着 npm run \<scripts属性\> 就可以直接运行可执行文件而无需通过 .bin 目录呢?
 
   - 原因.
 
