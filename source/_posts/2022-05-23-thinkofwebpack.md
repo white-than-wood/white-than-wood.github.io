@@ -64,6 +64,20 @@ categories: webpack
 
     webpack5 对日志方面进行了规整,当然输出所有的模块以及输出所有的模块信息的原因也不例外,--display-modules、--display-reasons 迁移到了 <a href='https://webpack.js.org/configuration/stats/'>stats</a> 日志配置中,请查看 stats.modules、status.reasons.
 
+> 问题2
+
+  在 package.json 中的 scripts 属性直接写 shell 脚本,为什么可以在命令行中直接执行而无需任何的目录前缀?
+
+  - 介绍.
+
+    一般在使用 npm 的项目中,直接使用 node_modules/.bin 目录中的可执行文件即可运行 shell 脚本(bash 命令),那既然是这样,在 package.json 这个描述外部依赖的 json 文件中,直接 scripts 属性写 shell 脚本,接着 npm run \<scripts属性\> 就可以直接运行可执行文件而无需通过 .bin 目录呢?
+
+  - 原因.
+
+    实际上在运行 npm run \<scripts属性\> 时,npm 会新建一个 shell 脚本,并把所对应的命令直接添加到 shell 脚本中执行,且将 node_modules/.bin 的子目录临时添加到 $PATH 全局变量中,执行完之后再恢复原状,故无需通过添加目录前缀直接执行.
+
+    PS: node_modules/.bin 目录中的可执行文件都是通过软链的方式连接依赖项目中的可执行文件的.
+
 ## module
 
 ### enforce
