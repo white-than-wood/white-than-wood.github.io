@@ -139,6 +139,200 @@ categories: webpack
 
     在 webpack 3.0 以及 css 1.0 以后,style-loader 不再支持参数 minimize 样式表压缩处理.
 
+### raw-loader
+
+> 问题1
+
+  在配置移动端分辨率适配时,采用的是手淘移动端适配策略: px2rem-loader (px 转换为 rem 转换器) + 内联( raw-loader )lib-flexible(动态计算元节点绝对像素值工具),期间发现网上大多数文章描述 raw-loader 内联资源不能下载使用最新版本,最新版本有问题,必须使用 raw-loader 0.5.1 版本,那按照正常思路来想,下载使用最新版本应该是更好的,有新的版本不使用,为什么还要使用旧版本呢?
+
+   - 介绍.
+
+     使用最新版本 raw-loader,导出的结果变为了 [object Module],但如果使用 raw-loader 0.5.1 版本内联资源是正常的.
+
+     ```html
+     <!-- 最新版本 raw-loader 构建打包前 -->
+     <!DOCTYPE html>
+     <html lang="zh-CN">
+     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scalable=1.0, minimum-scalable=1.0">
+        <title>webpack</title>
+        <script type="text/javascript"><%= require('!!raw-loader!babel-loader!../node_modules/lib-flexible/flexible') %></script>
+      </head>
+      <body>
+      <div id="root">
+    
+      </div>
+      </body>
+      </html>
+     ```
+
+     ```html
+     <!-- 最新版本 raw-loader 构建打包后 -->
+     <!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scalable=1,minimum-scalable=1"><title>webpack</title><script>[object Module]</script><link href="./css/index.07954305.css" rel="stylesheet"></head><body><div id="root"></div><script defer="defer" src="./js/index.9dbc4867b93d15abf8a6.js"></script></body></html>
+     ```
+
+   - 原因.
+
+     看了最新版本 raw-loader 的源码,它会默认将资源以 ESM 模式导出,故此在内联转化为字符串时,导出的结果变为了 [object Module].
+
+   - 改进.
+
+     raw-loader 参数 esModule 是用于配置资源是否以 ESM 模式导出,只要在内联转化资源时将参数 esModule 置为false,就可以正常的内联 lib-flexible 工具资源.
+
+     ```html
+     <!-- 最新版本 raw-loader 构建打包前 -->
+     <!DOCTYPE html>
+     <html lang="zh-CN">
+     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scalable=1.0, minimum-scalable=1.0">
+        <title>webpack</title>
+        <script type="text/javascript"><%= require('!!raw-loader?esModule=false!babel-loader!../node_modules/lib-flexible/flexible') %></script>
+      </head>
+      <body>
+      <div id="root">
+    
+      </div>
+      </body>
+      </html>
+     ```
+
+     ```html
+     <!-- 最新版本 raw-loader 构建打包后 -->
+     <!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scalable=1,minimum-scalable=1"><title>webpack</title><script>;
+        (function (win, lib) {
+        var doc = win.document;
+        var docEl = doc.documentElement;
+        var metaEl = doc.querySelector('meta[name="viewport"]');
+        var flexibleEl = doc.querySelector('meta[name="flexible"]');
+        var dpr = 0;
+        var scale = 0;
+        var tid;
+        var flexible = lib.flexible || (lib.flexible = {});
+        
+        if (metaEl) {
+        console.warn('将根据已有的meta标签来设置缩放比例');
+        var match = metaEl.getAttribute('content').match(/initial\-scale=([\d\.]+)/);
+        
+            if (match) {
+              scale = parseFloat(match[1]);
+              dpr = parseInt(1 / scale);
+            }
+        } else if (flexibleEl) {
+        var content = flexibleEl.getAttribute('content');
+        
+            if (content) {
+              var initialDpr = content.match(/initial\-dpr=([\d\.]+)/);
+              var maximumDpr = content.match(/maximum\-dpr=([\d\.]+)/);
+        
+              if (initialDpr) {
+                dpr = parseFloat(initialDpr[1]);
+                scale = parseFloat((1 / dpr).toFixed(2));
+              }
+        
+              if (maximumDpr) {
+                dpr = parseFloat(maximumDpr[1]);
+                scale = parseFloat((1 / dpr).toFixed(2));
+              }
+            }
+        }
+        
+        if (!dpr && !scale) {
+        var isAndroid = win.navigator.appVersion.match(/android/gi);
+        var isIPhone = win.navigator.appVersion.match(/iphone/gi);
+        var devicePixelRatio = win.devicePixelRatio;
+        
+            if (isIPhone) {
+              // iOS下，对于2和3的屏，用2倍的方案，其余的用1倍方案
+              if (devicePixelRatio >= 3 && (!dpr || dpr >= 3)) {
+                dpr = 3;
+              } else if (devicePixelRatio >= 2 && (!dpr || dpr >= 2)) {
+                dpr = 2;
+              } else {
+                dpr = 1;
+              }
+            } else {
+              // 其他设备下，仍旧使用1倍的方案
+              dpr = 1;
+            }
+        
+            scale = 1 / dpr;
+        }
+        
+        docEl.setAttribute('data-dpr', dpr);
+        
+        if (!metaEl) {
+        metaEl = doc.createElement('meta');
+        metaEl.setAttribute('name', 'viewport');
+        metaEl.setAttribute('content', 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+        
+            if (docEl.firstElementChild) {
+              docEl.firstElementChild.appendChild(metaEl);
+            } else {
+              var wrap = doc.createElement('div');
+              wrap.appendChild(metaEl);
+              doc.write(wrap.innerHTML);
+            }
+        }
+        
+        function refreshRem() {
+        var width = docEl.getBoundingClientRect().width;
+        
+            if (width / dpr > 540) {
+              width = 540 * dpr;
+            }
+        
+            var rem = width / 10;
+            docEl.style.fontSize = rem + 'px';
+            flexible.rem = win.rem = rem;
+        }
+        
+        win.addEventListener('resize', function () {
+        clearTimeout(tid);
+        tid = setTimeout(refreshRem, 300);
+        }, false);
+        win.addEventListener('pageshow', function (e) {
+        if (e.persisted) {
+        clearTimeout(tid);
+        tid = setTimeout(refreshRem, 300);
+        }
+        }, false);
+        
+        if (doc.readyState === 'complete') {
+        doc.body.style.fontSize = 12 * dpr + 'px';
+        } else {
+        doc.addEventListener('DOMContentLoaded', function (e) {
+        doc.body.style.fontSize = 12 * dpr + 'px';
+        }, false);
+        }
+        
+        refreshRem();
+        flexible.dpr = win.dpr = dpr;
+        flexible.refreshRem = refreshRem;
+        
+        flexible.rem2px = function (d) {
+        var val = parseFloat(d) * this.rem;
+        
+            if (typeof d === 'string' && d.match(/rem$/)) {
+              val += 'px';
+            }
+        
+            return val;
+        };
+        
+        flexible.px2rem = function (d) {
+        var val = parseFloat(d) / this.rem;
+        
+            if (typeof d === 'string' && d.match(/px$/)) {
+              val += 'rem';
+            }
+        
+            return val;
+        };
+        })(window, window['lib'] || (window['lib'] = {}));</script><link href="./css/index.07954305.css" rel="stylesheet"></head><body><div id="root"></div><script defer="defer" src="./js/index.9dbc4867b93d15abf8a6.js"></script></body></html>
+     ```
+
 # webpack-dev-server 配置
 
 > 原理
